@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Elite Produce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://eliteproduce.mx/wp-content/uploads/2022/03/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="manifest" href="./manifest.json">
+  <script src="./controladores/funciones.js"></script>
+  <script src="./controladores/session.js"></script>
+ 
+</head>
+
+<body class="layout-top-nav" style="background-color:white;">
+
+  <div id="app">
+    <div>
+
+        <div class="wrapper">
+            <nav
+              class="main-header navbar navbar-expand-md navbar-light navbar-white"
+            >
+              <div class="container">
+                <a href="#" class="navbar-brand">
+                  <img
+                    :src="logo"
+                    alt="intelagro"
+                    class="brand-image img-circle elevation-3"
+                    style="opacity: 0.8"
+                  />
+                  <span class="info-box-text text-warning">Intelagro</span>
+                </a>
+              </div>
+            </nav>
+      
+            <div class="content-wrapper" style="min-height: 552px">
+              <div class="content-header">
+                <div class="container"></div>
+              </div>
+      
+              <div class="content">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-12">
+
+                      <div class="row" v-if="modulos.Aplicaciones">
+                        <div class="col-12">
+                          <div class="info-box" v-on:click="Aplicaciones()">
+                            <span class="info-box-icon bg-success"
+                              ><i style="color: white;" class="fad fa-box-open"></i
+                            ></span>
+      
+                            <div class="info-box-content">
+                              <span class="info-box-text text-warning">Aplicaciones</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+      
+                      <div class="row" >
+                        <div class="col-12">
+                          <div class="info-box" v-on:click="salir()">
+                            <span class="info-box-icon bg-warning " 
+                              ><i style="color: white;" class="fa fa-sign-out"></i
+                            ></span>
+      
+                            <div class="info-box-content">
+                              <span class="info-box-text text-warning"
+                                >Cerrar Session</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <footer class="main-footer">
+            <div class="float-right"><b>Version</b> {{ version }}</div>
+            <strong>Copyright &copy; 2020-2022 </strong> All rights reserved.
+          </footer>
+      
+    </div>
+
+  </div>
+
+
+  
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    
+    <script src="./controladores/funciones.js"></script>
+    <script src="./controladores/session.js"></script>
+    <script src="./controladores/modulos.js" ></script>
+    
+</body>
+
+</html>

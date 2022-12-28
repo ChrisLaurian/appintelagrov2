@@ -1,0 +1,12 @@
+{
+    "name": "Elite Produce",
+    "short_name": "eliteproduce",
+    "start_url": "https://eliteproduce.intelagro.net/index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [{
+      "src": "./img/flowers.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }]
+  }
