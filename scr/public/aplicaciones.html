@@ -7,12 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Intelagro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="manifest" href="./manifest.json">
@@ -23,17 +22,17 @@
             font-family: digital;
             src: url("https://intelagro.net/intelagro/adminlite/dists/fonts/seven.ttf");
         }
-
+        
         .digital {
             font-family: digital;
             color: red;
             font-size: 300%;
         }
-
+        
         .btn-warning {
             color: white;
         }
-
+        
         .row {
             margin-top: 2%;
             margin-bottom: 2%;
@@ -47,7 +46,7 @@
         <div>
             <div class="wrapper">
 
-                
+
 
                 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                     <ul class="navbar-nav">
@@ -79,8 +78,7 @@
 
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <a href="#" class="brand-link">
-                        <img :src="logo" alt="intelagro" class="brand-image img-circle elevation-3 " data-widget="pushmenu"
-                            style="opacity: 0.8" />
+                        <img :src="logo" alt="intelagro" class="brand-image img-circle elevation-3 " data-widget="pushmenu" style="opacity: 0.8" />
                         <span class="info-box-text text-success">Elite Produce</span>
                     </a>
 
@@ -92,8 +90,7 @@
                         </div>
 
                         <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                                data-accordion="false">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                 <li class="nav-header">{{modulo}}</li>
 
                                 <li class="nav-item">
@@ -112,7 +109,7 @@
                                     </a>
                                 </li>
 
-                            
+
 
                             </ul>
                         </nav>
@@ -142,16 +139,475 @@
 
                         <div class="card border border-warning">
                             <div class="card-body">
+                                <h3 class="mb-4">Información General</h3>
+                                <div class="row g-5">
 
-                           
+                                    <div class="col-12">
+                                        <label for="Fecha" class="form-label ml-2">Fecha</label>
+                                        <div class="col-12">
+                                            <input v-model="registro.maestro.fecha" class="mb-4" type="date" id="start" name="trip-start" min="2022-01-01" max="2023-12-31" ref="inputField">
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una fecha correcta</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="Rancho" class="form-label ml-2">Rancho</label>
+                                        <div class="col-12">
+                                            <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                <option
+                                                    v-for="(item,index) in unidades"
+                                                    :key="index"
+                                                    v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id"
+                                                >
+                                                    {{ item.UP }}
+                                                </option>
+                                                </select>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una rancho correcto</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="Actividad" class="form-label ml-2">Actividad</label>
+                                        <div class="col-12">
+                                            <select name="actividad" v-model="registro.maestro.actividad" id="actividad" class="form-control form-control-sm mb-3" required>
+                                                <option
+                                                    v-for="(item,index) in actividades"
+                                                    :key="index"
+                                                    v-bind:value="item.cat_actividades_id"
+                                                >
+                                                {{ item.actividad}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una actividad correcta</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="MetodoApp" class="form-label ml-2">Metodo de aplicacion</label>
+                                        <div class="col-12">
+                                            <select name="MetodoApp" v-model="registro.maestro.metodoAplicacion" id="MetodoApp" class="form-control form-control-sm mb-3" required>
+                                                <option
+                                                    v-for="(item,index) in metodosAplicaciones"
+                                                    :key="index"
+                                                    v-bind:value="item.cat_control_aplicaciones_campo_metodo_de_aplicacion_id"
+                                                >
+                                                {{ item.descripcion_metodo_de_aplicacion}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona un metodo de aplicacion correcta</div>
+                                    </div>
+                                </div>
+                                <!-- Aqui acaba la informacion general -->
+
+
+
 
                             </div>
+                        </div>
+                        <div class="card border border-warning">
+                            <div class="card-body">
+                                <h3 class="mb-4">Control</h3>
+                                <div class="row g-5">
+
+                                    <div class="col-12">
+                                        <label for="Boquilla" class="form-label ml-2">Boquilla</label>
+                                        <div class="col-12">
+                                            <select v-model="registro.maestro.boquilla" name="Boquilla" id="Boquilla" class="form-control form-control-sm mb-3" required>
+                                                <option
+                                                v-for="(item,index) in boquillas"
+                                                :key="index"
+                                                v-bind:value="item.cat_control_aplicaciones_campo_boquillas_id"
+                                            >
+                                            {{ item.descripcion_boquilla}}
+                                            </option>
+                                                </select>
+
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una boquilla correcta</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="Gasto" class="form-label ml-2">Gasto</label>
+                                        <div class="col-12">
+                                            <input v-model="registro.maestro.gasto" type="number" placeholder="Ej.30" name="Gasto" id="Gasto" class="form-control form-control-sm mb-3">
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona un gasto correcto</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="TipoControl" class="form-label ml-2">Tipo de control</label>
+                                        <div class="col-12">
+                                            <select v-model="registro.maestro.tipo_control" name="TipoControl" id="TipoControl" class="form-control form-control-sm mb-3">
+                                                <option
+                                                v-for="(item,index) in tipoControl"
+                                                :key="index"
+                                                v-bind:value="item.cat_control_aplicaciones_campo_tipo_de_control_id"
+                                            >
+                                            {{ item.descripcion_tipo_de_control}}
+                                            </option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona un tipo de control correcto</div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- aqui termina el card de control -->
+
+                        <div class="card border border-warning">
+                            <div class="card-body">
+                                <h3 class="mb-4">Modos de trabajo</h3>
+                                <div class="row g-5">
+
+                                    <div class="col-12">
+                                        <label for="UnidadMedida" class="form-label ml-2">Unidad de medida</label>
+                                        <div class="col-12 mb-4 form-check">
+                                            <input v-model="registro.maestro.unidadMedidaTipo" class="form-check-input" type="radio" id="contactChoice1" name="contact1" value="tambo" />
+                                            <label class="form-check-label col-6" for="contactChoice1">Tambo</label>
+
+                                            <input class="form-check-input" type="radio" id="contactChoice2" name="contact1" value="parihuela" />
+                                            <label class=" form-check-label col-6" for="contactChoice2">Parihuela</label>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="UnidadMedida2" class="form-label ml-2">Unidad de medida</label>
+                                        <div class="col-12 mb-4 form-check">
+                                            <input v-model="registro.maestro.unidadMedidaCantidad" class="form-check-input" type="radio" id="contactChoice3" name="contact2" value="individual" />
+                                            <label class="form-check-label col-6" for="contactChoice3">Individual</label>
+
+                                            <input class="form-check-input" type="radio" id="contactChoice4" name="contact2" value="grupal" />
+                                            <label class="form-check-label col-6" for="contactChoice4">Grupal</label>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="Parihuela" class="form-label ml-2">Parihuelas(Grupal)</label>
+                                        <div class="col-12">
+                                            <input v-model="registro.maestro.parihuelasGrupal" type="number" placeholder="Ej.30" name="Gasto" id="Gasto" class="col-12 mb-4">
+                                        </div>
+                                        <div class="invalid-feedback">Por favor coloca un numero correcto</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- aqui termina el card de los modos de trabajo -->
+
+
+                        <div class="card border border-warning">
+                            <div class="card-body">
+                                <h3 class="mb-4">Trabajadores</h3>
+                                <div class="row g-5">
+                                    <div class="col-12 mb-3">
+                                        <label for="NombreTrabajador" class="form-label text-center">Nombre</label>
+                                        <div class="col-12">
+                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar trabajador" type="submit" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="col-10 mb-4" placeholder="Trabajador1" type="Trabajador 1" id="trabajador">
+                                        <input class="col-1" type="button" value="Borrar" type="submit">
+                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input class="col-10 mb-4" placeholder="Trabajador2" type="Trabajador 2" id="trabajador">
+                                        <input class="col-1" type="button" value="Borrar" type="submit">
+                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="col-10 mb-4" placeholder="Trabajador3" type="Trabajador 3" id="trabajador">
+                                        <input class="col-1" type="button" value="Borrar" type="submit">
+                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border border-warning">
+                            <div class="card-body">
+                                <h3 class="mb-4">Productos</h3>
+                                <div class="row g-5">
+                                    <div class="col-12">
+                                        <label for="Receta" class="form-label ml-2">Receta</label>
+                                        <div class="col-12">
+                                            <select name="Receta" id="Receta" class=" form-select form-select-lg col-12 mb-3" required>
+                                                <option value="" disabled selected>Buscar receta</option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
+                                    </div>
+                                    <div class="col-12 ml-2">
+                                        <a style="text-decoration: none;" href="#">Nueva Receta+</a>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="Productos" class="form-label ml-2">Productos</label>
+                                        <div class="col-12">
+                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Buscar productos" type="submit" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="col-10 mb-4" placeholder="Nombre del producto" type="Trabajador 1" id="nombreproducto">
+                                        <input class="col-1" type="button" value="Borrar" type="submit">
+                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="col-10 mb-4" placeholder="Nombre del producto 2" type="Trabajador 1" id="nombreproducto2">
+                                        <input class="col-1" type="button" value="Borrar" type="submit">
+                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border border-warning">
+                            <div class="card-body">
+                                <h3 class="mb-4">Resumen</h3>
+                                <div class="row g-5">
+                                    <table class="col-12">
+                                        <tr>
+                                            <td>Producto</td>
+                                            <td>Cantidad</td>
+                                            <td>Unidad</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Texto</td>
+                                            <td>Texto</td>
+                                            <td>Texto</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Texto</td>
+                                            <td>Texto</td>
+                                            <td>Texto</td>
+                                        </tr>
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border border-warning">
+
+                            <input class="btn btn-success" @click="enviar(1)" class="col-12" type="button" value="Guardar" type="submit">
+
                         </div>
 
 
                     </section>
+                    <section class="content" v-if="aside.registros">
+                        <div class="card border border-warning">
+                            <div class="card-body well modal-header">
+                                <!--modal-header-->
+                                <h1 class="text-center well">Trabajadores</h1>
 
-                  
+                            </div>
+                            <div class="card-body">
+                                <label for="trabModal" class="form-label ml-2">Trabajadores</label>
+                                <div class="col-12">
+
+                                    <input @input="ocultarSelect" class="col-12" placeholder="Ej. Juan" type="text" id="filtro" name="filtro" required>
+                                    <select style="display:none" v-model="trabajador.trabajadores" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreTrabajador" size="1" @click="pasarSelectAInput" required>
+                                        <option
+                                        v-for="(item,index) in trabajadores"
+                                        :key="index"
+                                        v-bind:value="item.cat_trabajadores_altas_id"
+                                        
+                                    >
+                                        {{ item.nombre }}
+                                    </option>
+                                    <option>
+                                        <h1>{{FiltrarPorTrabajador()}}</h1>
+                                    </option>
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
+
+                                <div class="col-12">
+                                    <label for="" class="col-3">Lote</label>
+                                    <label for="" class="col-3">Inicio</label>
+                                    <label for="" class="col-3">Final</label>
+                                    <!-- <label for="" class="col-3"></label> -->
+                                </div>
+                                <div class="col-12">
+                                    <select v-model="trabajador.lote" class="form-select form-select-lg col-4" name="" id="nombreproducto" required>
+                                        <option
+                                        v-for="(item,index) in lotes"
+                                        :key="index"
+                                        v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id"
+                                    >
+                                        {{ item.lote }}
+                                    </option>
+                                    </select>
+                                    <input v-model="trabajador.inicioLote" class="col-3 ml-3" placeholder="Ej. 1" type="number" id="inicioLote">
+                                    <input v-model="trabajador.finLote" class="col-3 ml-3" placeholder="Ej. 15" type="number" id="finLote">
+                                    <input class="ml-3 col-1 btn btn-success btn-sm" @click="enviar(2)" type="button" value="+" type="submit">
+                                </div>
+
+                                <div class="col-12">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="(item, index) in registro.trabajadores" :key="index">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    Lote: {{ nombreLote(item.lote)}}
+                                                </div>
+                                                <div class="col-3">
+                                                    Inicio: {{ item.inicioLote }}
+                                                </div>
+                                                <div class="col-3">
+                                                    Fin: {{ item.finLote}}
+                                                </div>
+                                                <div class="col-1">
+                                                    <center>
+                                                        <button v-on:click="borrarLote(index)" type="button" class="btn btn-danger btn-sm">
+                                                  <i class="fal fa-trash"></i>
+                                                </button>
+                                                    </center>
+                                                </div>
+                                                <div class="col-1">
+                                                    <center>
+                                                        <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                  <i class="fal fa-edit"></i>
+                                                </button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div>
+                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="content" v-if="aside.registros">
+                        <div class="card border border-warning">
+                            <div class="card-body well modal-header">
+                                <!--modal-header-->
+                                <h1 class="text-center well">Nueva Receta</h1>
+
+                            </div>
+                            <div class="card-body">
+                                <label for="nombreReceta" class="form-label ml-2">Nombre</label>
+                                <div class="col-12">
+                                    <input v-model="registro.maestro.nombreReceta" class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
+                                </div>
+                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
+
+                                <label for="Alcance" class="form-label ml-2">Alcance</label>
+                                <div class="col-12">
+                                    <select name="Alcance" id="trabModal" v-model="registro.maestro.alcance" class=" form-select form-select-lg col-12 mb-3" required>
+                                            <option
+                                                v-for="(item,index) in alcances"
+                                        :key="index"
+                                        v-bind:value="item.cat_control_aplicaciones_alcance_mu_id"
+                                    >
+                                        {{ item.descripcion_alcance }}
+                                            </option>
+                                    </select>
+                                </div>
+                                <label for="Productos" class="form-label ml-2">Productos</label>
+                                <div class="col-12">
+                                    <select name="Alcance" id="trabModal" v-model="registro.maestro.producto" class=" form-select form-select-lg col-12 mb-3" required>
+                                                <option
+                                                v-for="(item,index) in productos"
+                                        :key="index"
+                                        v-bind:value="item.cat_compras_productos_id"
+                                    >
+                                        {{ item.producto }}
+                                            </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <ul class="list-group list-unstyled list-group-horizontal flex-fill">
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{registro.maestro.nombreReceta}}</h4>
+                                        </li>
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{nombreAlcance(registro.maestro.alcance)}}</h4>
+                                        </li>
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{nombreProductos(registro.maestro.producto)}}</h4>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div>
+                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="content" v-if="aside.registros">
+                        <div class="card border border-warning">
+                            <div class="card-body well modal-header">
+                                <!--modal-header-->
+                                <h1 class="text-center well">Productos</h1>
+
+                            </div>
+                            <div class="card-body">
+                                <label for="nombreReceta" class="form-label ml-2">Producto</label>
+                                <div class="col-12">
+                                    <input class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
+
+                                </div>
+                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
+
+                                <label for="cantidadProducto" class="form-label col-6">Cantidad</label>
+                                <label for="Productos" class="form-label col-6">Unidad de medida</label>
+                                <div class="col-12">
+                                    <input v-model="registro.maestro.cantidadProducto" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="nombreReceta">
+
+                                    <select v-model="registro.maestro.medida" name="Alcance" id="trabModal" class=" form-select form-select-lg col-6 mb-3" required>
+                                        <option
+                                            
+                                            v-for="(item,index) in medidas"
+                                        :key="index"
+                                        v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id"
+                                    >
+                                        {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
+                                    </option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="list-group list-unstyled list-group-horizontal flex-fill">
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{nombreProductos(registro.maestro.producto)}}</h4>
+                                        </li>
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{registro.maestro.cantidadProducto}}</h4>
+                                        </li>
+                                        <li class="list-group-item flex-fill">
+                                            <h4>{{nombreUnidadMedida(registro.maestro.medida)}}</h4>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div>
+                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
 
                 </div>
 
@@ -168,7 +624,7 @@
 
             </div>
 
-         
+
 
         </div>
 
@@ -177,8 +633,7 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

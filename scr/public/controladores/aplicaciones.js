@@ -1,5 +1,5 @@
-
 var myCharacteristic;
+var TotalTrabajadores = [];
 
 const Toast = Swal.mixin({
     toast: true,
@@ -9,6 +9,7 @@ const Toast = Swal.mixin({
 });
 
 const { createApp } = Vue;
+
 
 createApp({
     name: "cosecha",
@@ -21,12 +22,58 @@ createApp({
             nombre: "",
             aside: {
                 registros: true,
-             
-            }
+
+            },
+            unidades: [],
+            actividades: [],
+            metodosAplicaciones: [],
+            boquillas: [],
+            tipoControl: [],
+            trabajadores: [],
+            lotes: [],
+            alcances: [],
+            productos: [],
+            medidas: [],
+
+            registro: {
+                maestro: {
+                    UUID: "",
+                    fecha: "",
+                    rancho: "",
+                    actividad: "",
+                    metodoAplicacion: "",
+                    boquilla: "",
+                    gasto: "",
+                    tipo_control: "",
+                    unidadMedidaTipo: "",
+                    unidadMedidaCantidad: "",
+                    parihuelasGrupal: "",
+                    alcance: "",
+                    producto: "",
+                    nombreReceta: "",
+                    cantidadProducto: "",
+                    medida: "",
+
+                },
+                trabajadores: [],
+                productos: [],
+            },
+            trabajador: {
+                UUID: "",
+                trabajadores: "",
+                lote: "",
+                inicioLote: "",
+                finLote: "",
+
+            },
+
+
+
 
 
         };
     },
+
     methods: {
         inicio() {
             location.href = host() + "/modulos.html";
@@ -74,16 +121,147 @@ createApp({
 
         },
         mountdata() {
-           
-           
+            this.unidades = JSON.parse(localStorage.getItem("cat_unidades"));
+            this.actividades = JSON.parse(localStorage.getItem("cat_actividades"));
+            this.metodosAplicaciones = JSON.parse(localStorage.getItem("cat_metodos"));
+            this.boquillas = JSON.parse(localStorage.getItem("cat_boquillas"));
+            this.tipoControl = JSON.parse(localStorage.getItem("cat_tipos"));
+            this.trabajadores = JSON.parse(localStorage.getItem("cat_trabajadores"));
+            this.lotes = JSON.parse(localStorage.getItem("cat_lotes"));
+            this.alcances = JSON.parse(localStorage.getItem("cat_alcance"));
+            this.productos = JSON.parse(localStorage.getItem("cat_productos"));
+            this.medidas = JSON.parse(localStorage.getItem("cat_medidas"));
+
+            this.registro.maestro.UUID = generateUUID();
+            this.trabajador.UUID = this.registro.maestro.UUID;
+
+
         },
-        enviar() {
-         
+        enviar(numero) {
+
+            switch (numero) {
+                case 1:
+                    {
+                        console.log(this.registro);
+                    }
+                    break;
+                case 2:
+                    {
+                        // creacionDeObjeto(totalTrabajadores);
+                        // const Enviartrabajadores = {
+                        //     trabajadores: this.trabajadores,
+                        //     lotes: this.lotes,
+                        //     inicioLote: this.inicioLote,
+                        //     finLote: this.finLote
+                        // }
+                        var DesactivarInput = document.getElementById("filtro");
+                        DesactivarInput.disabled = true;
+                        this.registro.trabajadores.push(this.trabajador);
+                        console.log(this.registro.trabajadores);
+                        this.trabajador = {
+                            UUID: this.registro.maestro.UUID,
+                            trabajadores: "",
+                            lote: "",
+                            inicioLote: "",
+                            finLote: "",
+
+                        };
+
+                    }
+                    break;
+            }
+
+            this.registro.maestro.UUID = generateUUID();
+            console.log(this.registro.trabajadores);
 
         },
         cancelar() {
-          
+
         },
+        borrarLote(index) {
+
+
+        },
+
+        nombreLote(id) {
+            var nLote = "";
+            this.lotes.forEach((element) => {
+                if (id == element.cat_holding_04_unidades_productivas_lotes_id) {
+                    nLote = element.lote;
+                }
+            });
+            return nLote;
+        },
+        nombreAlcance(id) {
+            var nAlcance = "";
+            this.alcances.forEach((element) => {
+                if (id == element.cat_control_aplicaciones_alcance_mu_id) {
+                    nAlcance = element.descripcion_alcance;
+                }
+            });
+            return nAlcance;
+        },
+        nombreProductos(id) {
+            var nProductos = "";
+            this.productos.forEach((element) => {
+                if (id == element.cat_compras_productos_id) {
+                    nProductos = element.producto;
+                }
+            });
+            return nProductos;
+        },
+        nombreUnidadMedida(id) {
+            var nMedidas = "";
+            this.medidas.forEach((element) => {
+                if (id == element.cat_compras_productos_unidad_de_medida_mu_id) {
+                    nMedidas = element.descripcion_cat_compras_productos_unidad_de_medida;
+                }
+            });
+            return nMedidas;
+        },
+
+        FiltrarPorTrabajador() {
+
+            $('#filtro').on("input", function() {
+                var count = 0;
+
+                $('#nombreTrabajador option').each(function() {
+                    if ($(this).text().indexOf($("#filtro").val()) == -1) {
+                        $(this).prop("selected", false);
+                        $(this).fadeOut();
+                    } else {
+                        $(this).prop("selected", false);
+                        $(this).fadeIn();
+                        count = count + 1;
+                        document.getElementById("nombreTrabajador").size = count;
+
+
+
+                    }
+
+                });
+            });
+        },
+
+        ocultarSelect() {
+            var dato = document.getElementById("filtro")
+
+            if (dato.value == "") {
+
+                document.getElementById("nombreTrabajador").style.display = "none";
+            } else { document.getElementById("nombreTrabajador").style.display = "initial"; }
+
+        },
+
+        pasarSelectAInput() {
+            var selectElement = document.getElementById("nombreTrabajador");
+            var selected = selectElement.options[selectElement.selectedIndex].text;
+            document.getElementById("filtro").value = selected;
+            document.getElementById("nombreTrabajador").style.display = "none";
+        },
+
+
+
         nombre_trabajador(id) {
             var n = "";
 
@@ -97,7 +275,7 @@ createApp({
         refresch_table() {
             if ($.fn.dataTable.isDataTable("#tablaRank")) {
                 $("#tablaRank").DataTable().destroy();
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $("#tablaRank").DataTable({
                         responsive: true,
                         autoWidth: true,
@@ -106,7 +284,7 @@ createApp({
                     });
                 });
             } else {
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $("#tablaRank").DataTable({
                         responsive: true,
                         autoWidth: true,
@@ -118,7 +296,7 @@ createApp({
         }
     },
     computed: {
-     
+
     },
     mounted() {
 
@@ -127,7 +305,7 @@ createApp({
 
 
     },
-    created() { },
+    created() {},
     components: {},
     props: [],
 }).mount('#app');

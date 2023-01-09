@@ -1,0 +1,35 @@
+<ul class="list-group">
+              <li
+                class="list-group-item"
+                v-for="(item, index) in maestro.productos"
+                :key="index"
+              >
+                <div class="row">
+                  <div class="col-6">
+                    {{ nombre_producto(item.cat_compras_productos_id) }}
+                  </div>
+                  <div class="col-3">
+                    <center>
+                      <button
+                        v-on:click="borraProducto(item)"
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                      >
+                        <i class="fal fa-trash"></i>
+                      </button>
+                    </center>
+                  </div>
+                  <div class="col-3">
+                    <center>
+                      <button
+                        v-on:click="editarProducto(item)"
+                        type="button"
+                        class="btn btn-warning btn-sm"
+                      >
+                        <i class="fal fa-edit"></i>
+                      </button>
+                    </center>
+                  </div>
+                </div>
+              </li>
+            </ul>
