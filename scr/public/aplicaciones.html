@@ -300,37 +300,50 @@
                         </div>
                         <!-- aqui termina el card de los modos de trabajo -->
 
-
+                        <!-- Seccion de trabajadores main -->
                         <div class="card border border-warning">
                             <div class="card-body">
                                 <h3 class="mb-4">Trabajadores</h3>
                                 <div class="row g-5">
+                                    <label for="NombreTrabajador" class="form-label text-center ml-2">Nombre</label>
+                                    <div class="col-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="(item, index) in trabajadoresCopia" :key="index">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        {{ nombre_trabajador(item.trabajadores) }}
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <center>
+                                                            <button v-on:click="borrarTrabajadores(item.trabajadores)" type="button" class="btn btn-danger btn-sm">
+                                                    <i class="fal fa-trash"></i>
+                                                    </button>
+                                                        </center>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <center>
+                                                            <button v-on:click="editarProducto(item)" type="button" class="btn btn-warning btn-sm">
+                                                    <i class="fal fa-edit"></i>
+                                                    </button>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <div class="col-12 mb-3">
-                                        <label for="NombreTrabajador" class="form-label text-center">Nombre</label>
-                                        <div class="col-12">
-                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar trabajador" type="submit" style="width: 100%">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <input class="col-10 mb-4" placeholder="Trabajador1" type="Trabajador 1" id="trabajador">
-                                        <input class="col-1" type="button" value="Borrar" type="submit">
-                                        <input class="col-1" type="button" value="Editar" type="submit">
-                                    </div>
 
-                                    <div class="col-12">
-                                        <input class="col-10 mb-4" placeholder="Trabajador2" type="Trabajador 2" id="trabajador">
-                                        <input class="col-1" type="button" value="Borrar" type="submit">
-                                        <input class="col-1" type="button" value="Editar" type="submit">
-                                    </div>
-                                    <div class="col-12">
-                                        <input class="col-10 mb-4" placeholder="Trabajador3" type="Trabajador 3" id="trabajador">
-                                        <input class="col-1" type="button" value="Borrar" type="submit">
-                                        <input class="col-1" type="button" value="Editar" type="submit">
+                                        <div class="col-12">
+                                            <input @click="menu('AgregarTrabajadores','Registros')" class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar trabajador" type="submit" style="width: 100%">
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+
+                        <!-- aqui termina la seccion de trabajadores main -->
+
                         <div class="card border border-warning">
                             <div class="card-body">
                                 <h3 class="mb-4">Productos</h3>
@@ -338,8 +351,18 @@
                                     <div class="col-12">
                                         <label for="Receta" class="form-label ml-2">Receta</label>
                                         <div class="col-12">
-                                            <select name="Receta" id="Receta" class=" form-select form-select-lg col-12 mb-3" required>
-                                                <option value="" disabled selected>Buscar receta</option>
+                                            <select name="Receta" id="Receta" v-model="registro.maestro.recetaProducto" class=" form-select form-select-lg col-12 mb-3" required>
+                                                <option
+                                        v-for="(item,index) in recetas"
+                                        :key="index"
+                                        v-bind:value="item.uuid_recetas_app"
+                                        
+                                    >
+                                        {{ item.descripcion_receta }}
+                                    </option>
+                                    <option>
+                                        <h1>{{FiltrarPorTrabajador()}}</h1>
+                                    </option>
                                             </select>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
@@ -347,21 +370,41 @@
                                     <div class="col-12 ml-2">
                                         <a style="text-decoration: none;" href="#">Nueva Receta+</a>
                                     </div>
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12">
                                         <label for="Productos" class="form-label ml-2">Productos</label>
+                                    </div>
+
+                                    <!-- <div class="col-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        {{ nombreProductos(item.producto)}}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="borrarProductos(index)" type="button" class="btn btn-danger btn-sm">
+                                                  <i class="fal fa-trash"></i>
+                                                </button>
+                                                        </center>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                  <i class="fal fa-edit"></i>
+                                                </button>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div> -->
+
+                                    <div class="col-12 mb-3">
+
                                         <div class="col-12">
-                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Buscar productos" type="submit" style="width: 100%">
+                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar producto +" type="submit" style="width: 100%">
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <input class="col-10 mb-4" placeholder="Nombre del producto" type="Trabajador 1" id="nombreproducto">
-                                        <input class="col-1" type="button" value="Borrar" type="submit">
-                                        <input class="col-1" type="button" value="Editar" type="submit">
-                                    </div>
-                                    <div class="col-12">
-                                        <input class="col-10 mb-4" placeholder="Nombre del producto 2" type="Trabajador 1" id="nombreproducto2">
-                                        <input class="col-1" type="button" value="Borrar" type="submit">
-                                        <input class="col-1" type="button" value="Editar" type="submit">
                                     </div>
 
 
@@ -404,11 +447,12 @@
 
 
                     </section>
-                    <section class="content" v-if="aside.registros">
+                    <section class="content" v-if="aside.AgregarTrabajadores">
                         <div class="card border border-warning">
                             <div class="card-body well modal-header">
                                 <!--modal-header-->
-                                <h1 class="text-center well">Trabajadores</h1>
+                                <h1 class="text-left well col-11">Trabajadores</h1>
+                                <i class="far fa-times text-right col-1 " v-on:click="menu('registros','Registros')"></i>
 
                             </div>
                             <div class="card-body">
@@ -416,7 +460,7 @@
                                 <div class="col-12">
 
                                     <input @input="ocultarSelect" class="col-12" placeholder="Ej. Juan" type="text" id="filtro" name="filtro" required>
-                                    <select style="display:none" v-model="trabajador.trabajadores" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreTrabajador" size="1" @click="pasarSelectAInput" required>
+                                    <select style="display:none" v-model="trabajador.trabajadores" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreTrabajador" size="0" @click="pasarSelectAInput" required>
                                         <option
                                         v-for="(item,index) in trabajadores"
                                         :key="index"
@@ -433,13 +477,20 @@
                                 <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
 
                                 <div class="col-12">
-                                    <label for="" class="col-3">Lote</label>
-                                    <label for="" class="col-3">Inicio</label>
-                                    <label for="" class="col-3">Final</label>
+                                    <label for="" class="col-4">Lote</label>
+                                    <label for="" class="col-3 ml-3">Inicio</label>
+                                    <label for="" class="col-3 ml-3">Final</label>
                                     <!-- <label for="" class="col-3"></label> -->
                                 </div>
                                 <div class="col-12">
-                                    <select v-model="trabajador.lote" class="form-select form-select-lg col-4" name="" id="nombreproducto" required>
+                                    <input @input="ocultarSelectLote" class="col-4" placeholder="Ej. Lote 1" type="text" id="nombreLoteInput" name="filtro" required>
+
+                                    <input v-model="trabajador.inicioLote" class="col-3" placeholder="Ej. 1" type="number" id="inicioLote">
+                                    <input v-model="trabajador.finLote" class="col-3" placeholder="Ej. 15" type="number" id="finLote">
+                                    <input class="col-2 btn btn-success btn-sm" @click="enviar(2)" type="button" value="+" type="submit">
+                                </div>
+                                <div class="col-12">
+                                    <select style="display:none" @click="pasarSelectAInputLote" v-model="trabajador.lote" class="form-select form-select-lg col-4" name="" id="nombreLote" required>
                                         <option
                                         v-for="(item,index) in lotes"
                                         :key="index"
@@ -447,10 +498,10 @@
                                     >
                                         {{ item.lote }}
                                     </option>
+                                    <option>
+                                        <h1>{{FiltrarPorLote()}}</h1>
+                                    </option>
                                     </select>
-                                    <input v-model="trabajador.inicioLote" class="col-3 ml-3" placeholder="Ej. 1" type="number" id="inicioLote">
-                                    <input v-model="trabajador.finLote" class="col-3 ml-3" placeholder="Ej. 15" type="number" id="finLote">
-                                    <input class="ml-3 col-1 btn btn-success btn-sm" @click="enviar(2)" type="button" value="+" type="submit">
                                 </div>
 
                                 <div class="col-12">
@@ -466,20 +517,20 @@
                                                 <div class="col-3">
                                                     Fin: {{ item.finLote}}
                                                 </div>
-                                                <div class="col-1">
+                                                <div class="col-2">
                                                     <center>
                                                         <button v-on:click="borrarLote(index)" type="button" class="btn btn-danger btn-sm">
                                                   <i class="fal fa-trash"></i>
                                                 </button>
                                                     </center>
                                                 </div>
-                                                <div class="col-1">
+                                                <!-- <div class="col-1">
                                                     <center>
                                                         <button v-on:click="" type="button" class="btn btn-warning btn-sm">
                                                   <i class="fal fa-edit"></i>
                                                 </button>
                                                     </center>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </li>
                                     </ul>
@@ -487,29 +538,31 @@
                                 </div>
 
                                 <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                    <input class="mt-4 btn btn-success col-12" @click="enviar(5)" type="button" value="Guardar" type="submit">
                                 </div>
 
                             </div>
                         </div>
                     </section>
-                    <section class="content" v-if="aside.registros">
+                    <section class="content" v-if="aside.NuevaReceta">
                         <div class="card border border-warning">
                             <div class="card-body well modal-header">
                                 <!--modal-header-->
-                                <h1 class="text-center well">Nueva Receta</h1>
+                                <h1 class="text-left well col-11">Nueva Receta</h1>
+                                <i class="far fa-times text-right col-1 " v-on:click="cancelar()"></i>
 
                             </div>
                             <div class="card-body">
                                 <label for="nombreReceta" class="form-label ml-2">Nombre</label>
                                 <div class="col-12">
-                                    <input v-model="registro.maestro.nombreReceta" class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
+                                    <input v-model="receta.nombreReceta" class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
+
                                 </div>
                                 <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
 
                                 <label for="Alcance" class="form-label ml-2">Alcance</label>
                                 <div class="col-12">
-                                    <select name="Alcance" id="trabModal" v-model="registro.maestro.alcance" class=" form-select form-select-lg col-12 mb-3" required>
+                                    <select name="Alcance" id="trabModal" v-model="receta.alcance" class=" form-select form-select-lg col-12 mb-3" required>
                                             <option
                                                 v-for="(item,index) in alcances"
                                         :key="index"
@@ -521,63 +574,74 @@
                                 </div>
                                 <label for="Productos" class="form-label ml-2">Productos</label>
                                 <div class="col-12">
-                                    <select name="Alcance" id="trabModal" v-model="registro.maestro.producto" class=" form-select form-select-lg col-12 mb-3" required>
-                                                <option
-                                                v-for="(item,index) in productos"
-                                        :key="index"
-                                        v-bind:value="item.cat_compras_productos_id"
-                                    >
-                                        {{ item.producto }}
-                                            </option>
-                                    </select>
-                                </div>
-
-                                <div class="col-12">
-                                    <ul class="list-group list-unstyled list-group-horizontal flex-fill">
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{registro.maestro.nombreReceta}}</h4>
-                                        </li>
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{nombreAlcance(registro.maestro.alcance)}}</h4>
-                                        </li>
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{nombreProductos(registro.maestro.producto)}}</h4>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    {{ nombreProductos(item.producto)}}
+                                                </div>
+                                                <div class="col-2">
+                                                    <center>
+                                                        <button v-on:click="borrarProductos(index)" type="button" class="btn btn-danger btn-sm">
+                                                  <i class="fal fa-trash"></i>
+                                                </button>
+                                                    </center>
+                                                </div>
+                                                <div class="col-2">
+                                                    <center>
+                                                        <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                  <i class="fal fa-edit"></i>
+                                                </button>
+                                                    </center>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
-
                                 </div>
-
                                 <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                    <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar producto +" type="submit" style="width: 100%">
+                                </div>
+                                <div>
+                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(4)" value="Guardar" type="submit">
                                 </div>
 
                             </div>
                         </div>
                     </section>
 
-                    <section class="content" v-if="aside.registros">
+                    <section class="content" v-if="aside.productosReceta">
                         <div class="card border border-warning">
                             <div class="card-body well modal-header">
                                 <!--modal-header-->
-                                <h1 class="text-center well">Productos</h1>
+                                <h1 class="text-left well col-11">Productos a Receta</h1>
+                                <i class="far fa-times text-right col-1 " v-on:click="cancelar()"></i>
 
                             </div>
                             <div class="card-body">
-                                <label for="nombreReceta" class="form-label ml-2">Producto</label>
+                                <label for="nombreproductos" class="form-label ml-2">Producto</label>
                                 <div class="col-12">
-                                    <input class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
-
+                                    <input @input="ocultrarSelectProductos" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInput">
+                                    <select style="display:none" v-model="producto.producto" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProducto" size="1" @click="pasarSelectAInputProductos" required>
+                                        <option
+                                        v-for="(item,index) in productos"
+                                        :key="index"
+                                        v-bind:value="item.cat_compras_productos_id"
+                                        
+                                    >
+                                        {{ item.producto }}
+                                    </option>
+                                    <option>
+                                        <h1>{{FiltrarPorProducto()}}</h1>
+                                    </option>
+                                    </select>
                                 </div>
-                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
-
                                 <label for="cantidadProducto" class="form-label col-6">Cantidad</label>
                                 <label for="Productos" class="form-label col-6">Unidad de medida</label>
                                 <div class="col-12">
-                                    <input v-model="registro.maestro.cantidadProducto" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="nombreReceta">
+                                    <input v-model="producto.cantidadProducto" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProducto">
 
-                                    <select v-model="registro.maestro.medida" name="Alcance" id="trabModal" class=" form-select form-select-lg col-6 mb-3" required>
+                                    <select v-model="producto.unidadMedidaTipo" name="Alcance" id="unidadMedida" class=" form-select form-select-lg col-6 mb-3" required>
                                         <option
-                                            
                                             v-for="(item,index) in medidas"
                                         :key="index"
                                         v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id"
@@ -586,23 +650,56 @@
                                     </option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <ul class="list-group list-unstyled list-group-horizontal flex-fill">
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{nombreProductos(registro.maestro.producto)}}</h4>
-                                        </li>
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{registro.maestro.cantidadProducto}}</h4>
-                                        </li>
-                                        <li class="list-group-item flex-fill">
-                                            <h4>{{nombreUnidadMedida(registro.maestro.medida)}}</h4>
-                                        </li>
-                                    </ul>
-
+                                <div>
+                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(3)" value="Guardar" type="submit">
                                 </div>
 
+                            </div>
+                        </div>
+                    </section>
+                    <section class="content" v-if="aside.ProductosExtra">
+                        <div class="card border border-warning">
+                            <div class="card-body well modal-header">
+                                <!--modal-header-->
+                                <h1 class="text-left well col-11">Productos Extra</h1>
+                                <i class="far fa-times text-right col-1 " v-on:click="cancelar()"></i>
+
+                            </div>
+                            <div class="card-body">
+                                <label for="nombreproductos" class="form-label ml-2">Producto</label>
+                                <div class="col-12">
+                                    <input @input="" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInputExtra">
+                                    <select style="display:none" v-model="" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="" required>
+                                        <option
+                                        v-for="(item,index) in productos"
+                                        :key="index"
+                                        v-bind:value="item.cat_compras_productos_id"
+                                        
+                                    >
+                                        {{ item.producto }}
+                                    </option>
+                                    <option>
+                                        <h1>{{FiltrarPorProducto()}}</h1>
+                                    </option>
+                                    </select>
+                                </div>
+                                <label for="cantidadProducto" class="form-label col-6">Cantidad</label>
+                                <label for="Productos" class="form-label col-6">Unidad de medida</label>
+                                <div class="col-12">
+                                    <input v-model="" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProductoExtra">
+
+                                    <select v-model="" name="Alcance" id="unidadMedidaExtra" class=" form-select form-select-lg col-6 mb-3" required>
+                                        <option
+                                            v-for="(item,index) in medidas"
+                                        :key="index"
+                                        v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id"
+                                    >
+                                        {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
+                                    </option>
+                                    </select>
+                                </div>
                                 <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" value="Guardar" type="submit">
+                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(3)" value="Guardar" type="submit">
                                 </div>
 
                             </div>

@@ -22,6 +22,10 @@ createApp({
             nombre: "",
             aside: {
                 registros: true,
+                ProductosExtra: false,
+                productosReceta: false,
+                NuevaReceta: false,
+                AgregarTrabajadores: false,
 
             },
             unidades: [],
@@ -34,6 +38,9 @@ createApp({
             alcances: [],
             productos: [],
             medidas: [],
+            recetas: [],
+            totaltrabajador: [],
+            trabajadoresCopia: [],
 
             registro: {
                 maestro: {
@@ -45,18 +52,13 @@ createApp({
                     boquilla: "",
                     gasto: "",
                     tipo_control: "",
-                    unidadMedidaTipo: "",
                     unidadMedidaCantidad: "",
                     parihuelasGrupal: "",
-                    alcance: "",
-                    producto: "",
-                    nombreReceta: "",
-                    cantidadProducto: "",
-                    medida: "",
-
+                    recetaProducto: "",
                 },
                 trabajadores: [],
                 productos: [],
+                recetas: [],
             },
             trabajador: {
                 UUID: "",
@@ -65,6 +67,18 @@ createApp({
                 inicioLote: "",
                 finLote: "",
 
+            },
+            producto: {
+                UUID: "",
+                producto: "",
+                cantidadProducto: "",
+                unidadMedidaTipo: "",
+            },
+            receta: {
+                // UUID: "",
+                nombreReceta: "",
+                alcance: "",
+                recetaProducto: [],
             },
 
 
@@ -115,7 +129,11 @@ createApp({
             };
             if (isMobile.any()) $('[data-widget="pushmenu"]').PushMenu("toggle");
             this.aside = {
-                registros: false
+                registros: false,
+                ProductosExtra: false,
+                productosReceta: false,
+                NuevaReceta: false,
+                AgregarTrabajadores: false,
             };
             this.aside[puntero] = true;
 
@@ -131,9 +149,12 @@ createApp({
             this.alcances = JSON.parse(localStorage.getItem("cat_alcance"));
             this.productos = JSON.parse(localStorage.getItem("cat_productos"));
             this.medidas = JSON.parse(localStorage.getItem("cat_medidas"));
+            this.recetas = JSON.parse(localStorage.getItem("cat_recetas"));
 
             this.registro.maestro.UUID = generateUUID();
             this.trabajador.UUID = this.registro.maestro.UUID;
+            this.producto.UUID = this.registro.maestro.UUID;
+
 
 
         },
@@ -147,40 +168,138 @@ createApp({
                     break;
                 case 2:
                     {
-                        // creacionDeObjeto(totalTrabajadores);
-                        // const Enviartrabajadores = {
-                        //     trabajadores: this.trabajadores,
-                        //     lotes: this.lotes,
-                        //     inicioLote: this.inicioLote,
-                        //     finLote: this.finLote
-                        // }
+                        if (document.getElementById("filtro").value == "") {
+                            alert("Ingresa un nombre");
+                            document.getElementById("filtro").focus();
+                            return 0;
+
+                        }
+                        if (document.getElementById("nombreLote").value == "") {
+                            alert("Selecciona un lote");
+                            document.getElementById("nombreLote").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("inicioLote").value == "" || document.getElementById("inicioLote").value <= 0) {
+                            alert("Falta ingresar un numero positivo en el inicio del lote");
+                            document.getElementById("inicioLote").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("finLote").value == "" || document.getElementById("finLote").value <= 0) {
+                            alert("Falta ingresar un numero positivo en el final del lote");
+                            document.getElementById("finLote").focus();
+                            return 0;
+                        }
                         var DesactivarInput = document.getElementById("filtro");
                         DesactivarInput.disabled = true;
+
                         this.registro.trabajadores.push(this.trabajador);
+                        this.trabajadoresCopia.push(this.trabajador);
                         console.log(this.registro.trabajadores);
                         this.trabajador = {
                             UUID: this.registro.maestro.UUID,
-                            trabajadores: "",
+                            trabajadores: this.trabajador.trabajadores,
                             lote: "",
                             inicioLote: "",
                             finLote: "",
-
                         };
+                        document.getElementById("nombreLoteInput").value = "";
+                    }
+                    break;
+                case 3:
+                    {
+                        if (document.getElementById("nombreProductoInput").value == "") {
+                            alert("Falta ingresar un producto");
+                            document.getElementById("nombreProductoInput").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("cantidadProducto").value == "" || document.getElementById("cantidadProducto").value <= 0) {
+                            alert("Falta ingresar una cantidad positiva");
+                            document.getElementById("cantidadProducto").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("unidadMedida").value == "") {
+                            alert("Falta ingresar una unidad de medida");
+                            document.getElementById("unidadMedida").focus();
+                            return 0;
+                        }
+
+                        this.registro.productos.push(this.producto);
+                        this.receta.recetaProducto.push(this.producto);
+                        console.log(this.registro.productos);
+
+
+                        this.producto = {
+                            UUID: this.registro.maestro.UUID,
+                            producto: "",
+                            cantidadProducto: "",
+                            unidadMedidaTipo: "",
+                        };
+                        document.getElementById("nombreProductoInput").value = "";
+                    }
+                    break;
+                case 4:
+                    {
+                        this.registro.recetas.push(this.receta);
+                        console.log(this.registro.recetas);
+                        this.receta = {
+                            nombreReceta: "",
+                            alcance: "",
+                            recetaProducto: [],
+                        };
+                    }
+                    break;
+                case 5:
+                    {
+                        // this.registro.trabajadores.push(this.totaltrabajador);
+                        this.trabajadoresCopia.push(this.totaltrabajador);
+                        // this.arregloSinDuplicarse = this.trabajadoresCopia.filter((item, index) => {
+                        //     return this.trabajadoresCopia.indexOf(item) === index;
+                        // });
+                        if (this.registro.trabajadores.lenght === 0) {
+                            alert("Falta ingresar datos");
+                            return 0;
+                        }
+                        console.log(this.trabajadoresCopia);
+                        var hash = {};
+                        this.trabajadoresCopia = this.trabajadoresCopia.filter(function(current) {
+                            var exists = !hash[current.id];
+                            hash[current.id] = true;
+                            return exists;
+                        });
+
 
                     }
                     break;
             }
 
-            this.registro.maestro.UUID = generateUUID();
-            console.log(this.registro.trabajadores);
+            // this.registro.maestro.UUID = generateUUID();
+            // console.log(this.registro.trabajadores);
 
         },
         cancelar() {
-
+            console.log("se canceló todo");
         },
         borrarLote(index) {
+            this.registro.trabajadores.splice(index, 1);
+            console.log(this.registro.trabajadores);
 
+        },
+        borrarProductos(index) {
+            this.registro.productos.splice(index, 1);
+            console.log(this.registro.productos);
+        },
+        borrarTrabajadores(value) {
+            // this.registro.trabajadores.splice(value, 1);
 
+            var arr = this.registro.trabajadores;
+            this.registro.trabajadores = arr.filter(
+                (e) => e.trabajadores !== value
+            );
+            var arr1 = this.trabajadoresCopia;
+            this.trabajadoresCopia = arr1.filter(
+                (e) => e.trabajadores !== value
+            );
+            console.log(this.registro.trabajadores);
         },
 
         nombreLote(id) {
@@ -222,7 +341,7 @@ createApp({
 
         FiltrarPorTrabajador() {
 
-            $('#filtro').on("input", function() {
+            $("#filtro").on("input", function() {
                 var count = 0;
 
                 $('#nombreTrabajador option').each(function() {
@@ -234,13 +353,60 @@ createApp({
                         $(this).fadeIn();
                         count = count + 1;
                         document.getElementById("nombreTrabajador").size = count;
-
-
-
                     }
 
                 });
             });
+        },
+        FiltrarPorLote() {
+            $('#nombreLoteInput').on("input", function() {
+                var count = 0;
+
+                $('#nombreLote option').each(function() {
+                    if ($(this).text().indexOf($("#nombreLoteInput").val()) == -1) {
+                        $(this).prop("selected", false);
+                        $(this).fadeOut();
+                    } else {
+                        $(this).prop("selected", false);
+                        $(this).fadeIn();
+                        count = count + 1;
+                        document.getElementById("nombreLote").size = count;
+                    }
+                });
+            });
+        },
+
+        FiltrarPorProducto() {
+            $('#nombreProductoInput').on("input", function() {
+                var count = 0;
+
+                $('#nombreProducto option').each(function() {
+                    if ($(this).text().indexOf($("#nombreProductoInput").val()) == -1) {
+                        $(this).prop("selected", false);
+                        $(this).fadeOut();
+                    } else {
+                        $(this).prop("selected", false);
+                        $(this).fadeIn();
+                        count = count + 1;
+                        document.getElementById("nombreProducto").size = count;
+                    }
+                });
+            });
+            // $('#nombreProductoReceta').on("input", function() {
+            //     var count = 0;
+
+            //     $('#nombreProducto option').each(function() {
+            //         if ($(this).text().indexOf($("#nombreProductoReceta").val()) == -1) {
+            //             $(this).prop("selected", false);
+            //             $(this).fadeOut();
+            //         } else {
+            //             $(this).prop("selected", false);
+            //             $(this).fadeIn();
+            //             count = count + 1;
+            //             document.getElementById("productosReceta").size = count;
+            //         }
+            //     });
+            // });
         },
 
         ocultarSelect() {
@@ -252,12 +418,49 @@ createApp({
             } else { document.getElementById("nombreTrabajador").style.display = "initial"; }
 
         },
+        ocultarSelectLote() {
+            var dato = document.getElementById("nombreLoteInput")
+            if (dato.value == "") {
+                document.getElementById("nombreLote").style.display = "none";
+            } else { document.getElementById("nombreLote").style.display = "initial"; }
+
+        },
+        ocultrarSelectProductos() {
+            var dato = document.getElementById("nombreProductoInput")
+            if (dato.value == "") {
+                document.getElementById("nombreProducto").style.display = "none";
+            } else { document.getElementById("nombreProducto").style.display = "initial"; }
+
+            // var datoReceta = document.getElementById("nombreProductoReceta")
+            // if (datoReceta.value == "") {
+            //     document.getElementById("productosReceta").style.display = "none";
+            // } else { document.getElementById("productosReceta").style.display = "initial"; }
+        },
 
         pasarSelectAInput() {
             var selectElement = document.getElementById("nombreTrabajador");
             var selected = selectElement.options[selectElement.selectedIndex].text;
             document.getElementById("filtro").value = selected;
             document.getElementById("nombreTrabajador").style.display = "none";
+        },
+        pasarSelectAInputLote() {
+            var selectElement = document.getElementById("nombreLote");
+            var selected = selectElement.options[selectElement.selectedIndex].text;
+            document.getElementById("nombreLoteInput").value = selected;
+            document.getElementById("nombreLote").style.display = "none";
+        },
+        pasarSelectAInputProductos() {
+            var selectElement = document.getElementById("nombreProducto");
+            var selected = selectElement.options[selectElement.selectedIndex].text;
+            document.getElementById("nombreProductoInput").value = selected;
+            document.getElementById("nombreProducto").style.display = "none";
+
+            // var selectedElementReceta = document.getElementById("productosReceta");
+            // var selectedReceta = selectedElementReceta.options[selectedElementReceta.selectedIndex].text;
+            // document.getElementById("nombreProductoReceta").value = selectedReceta;
+            // document.getElementById("productosReceta").style.display = "none";
+
+
         },
 
 
