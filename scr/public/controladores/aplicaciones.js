@@ -414,6 +414,24 @@ createApp({
             //     });
             // });
         },
+        FiltrarPorActividad() {
+            $("#inputActividad").on("input", function() {
+                var count = 0;
+
+                $('#selectActividad option').each(function() {
+                    if ($(this).text().indexOf($("#inputActividad").val()) == -1) {
+                        $(this).prop("selected", false);
+                        $(this).fadeOut();
+                    } else {
+                        $(this).prop("selected", false);
+                        $(this).fadeIn();
+                        count = count + 1;
+                        document.getElementById("selectActividad").size = count;
+                    }
+
+                });
+            });
+        },
 
         ocultarSelect() {
             var dato = document.getElementById("filtro")
@@ -442,6 +460,23 @@ createApp({
             //     document.getElementById("productosReceta").style.display = "none";
             // } else { document.getElementById("productosReceta").style.display = "initial"; }
         },
+        ocultarSelectActividades() {
+            var dato = document.getElementById("inputActividad")
+
+            if (dato.value == "") {
+
+                document.getElementById("selectActividad").style.display = "none";
+            } else { document.getElementById("selectActividad").style.display = "initial"; }
+        },
+        ocultarParihuela(mostrar) {
+            if (mostrar) {
+                document.getElementById("GastoLabel").style.display = "initial";
+                document.getElementById("GastoInput").style.display = "initial";
+            } else {
+                document.getElementById("GastoLabel").style.display = "none";
+                document.getElementById("GastoInput").style.display = "none";
+            }
+        },
 
         pasarSelectAInput() {
             var selectElement = document.getElementById("nombreTrabajador");
@@ -468,7 +503,12 @@ createApp({
 
 
         },
-
+        pasarSelectAInputActividades() {
+            var selectElement = document.getElementById("selectActividad");
+            var selected = selectElement.options[selectElement.selectedIndex].text;
+            document.getElementById("inputActividad").value = selected;
+            document.getElementById("selectActividad").style.display = "none";
+        },
 
 
         nombre_trabajador(id) {

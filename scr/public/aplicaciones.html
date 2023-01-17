@@ -169,7 +169,8 @@
                                     <div class="col-12">
                                         <label for="Actividad" class="form-label ml-2">Actividad</label>
                                         <div class="col-12">
-                                            <select name="actividad" v-model="registro.maestro.actividad" id="actividad" class="form-control form-control-sm mb-3" required>
+                                            <input @input="ocultarSelectActividades" type="text" class="col-12" placeholder="Ej. Tutoreo" type="text" id="inputActividad" name="actividad" required>
+                                            <select style="display:none" name="actividad" v-model="registro.maestro.actividad" id="selectActividad" @click="pasarSelectAInputActividades" size="1" class="form-select form-select-lg col-12 mb-3" required>
                                                 <option
                                                     v-for="(item,index) in actividades"
                                                     :key="index"
@@ -177,6 +178,7 @@
                                                 >
                                                 {{ item.actividad}}
                                                 </option>
+                                                <option><h1>{{FiltrarPorActividad()}}</h1></option>
                                             </select>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una actividad correcta</div>
@@ -277,19 +279,19 @@
                                     <div class="col-12">
                                         <label for="UnidadMedida2" class="form-label ml-2">Unidad de medida</label>
                                         <div class="col-12 mb-4 form-check">
-                                            <input v-model="registro.maestro.unidadMedidaCantidad" class="form-check-input" type="radio" id="contactChoice3" name="contact2" value="individual" />
+                                            <input @click="ocultarParihuela(false)" v-model="registro.maestro.unidadMedidaCantidad" class="form-check-input" type="radio" id="contactChoice3" name="contact2" value="individual" />
                                             <label class="form-check-label col-6" for="contactChoice3">Individual</label>
 
-                                            <input class="form-check-input" type="radio" id="contactChoice4" name="contact2" value="grupal" />
+                                            <input @click="ocultarParihuela(true)" class="form-check-input" type="radio" id="contactChoice4" name="contact2" value="grupal" />
                                             <label class="form-check-label col-6" for="contactChoice4">Grupal</label>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="Parihuela" class="form-label ml-2">Parihuelas(Grupal)</label>
+                                        <label for="Parihuela" style="display:none" id="GastoLabel" class="form-label ml-2">Parihuelas(Grupal)</label>
                                         <div class="col-12">
-                                            <input v-model="registro.maestro.parihuelasGrupal" type="number" placeholder="Ej.30" name="Gasto" id="Gasto" class="col-12 mb-4">
+                                            <input style="display:none" v-model="registro.maestro.parihuelasGrupal" type="number" placeholder="Ej.30" name="Gasto" id="GastoInput" class="col-12 mb-4">
                                         </div>
                                         <div class="invalid-feedback">Por favor coloca un numero correcto</div>
                                     </div>
