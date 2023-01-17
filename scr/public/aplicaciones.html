@@ -368,7 +368,7 @@
                                         <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
                                     </div>
                                     <div class="col-12 ml-2">
-                                        <a style="text-decoration: none;" href="#">Nueva Receta+</a>
+                                        <a style="text-decoration: none;" @click="menu('NuevaReceta','Registros')" href="#">Nueva Receta+</a>
                                     </div>
                                     <div class="col-12">
                                         <label for="Productos" class="form-label ml-2">Productos</label>
@@ -459,7 +459,7 @@
                                 <label for="trabModal" class="form-label ml-2">Trabajadores</label>
                                 <div class="col-12">
 
-                                    <input @input="ocultarSelect" class="col-12" placeholder="Ej. Juan" type="text" id="filtro" name="filtro" required>
+                                    <input @click="FiltrarPorTrabajador()" @input="ocultarSelect" class="col-12" placeholder="Ej. Juan" type="text" id="filtro" name="filtro" required>
                                     <select style="display:none" v-model="trabajador.trabajadores" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreTrabajador" size="0" @click="pasarSelectAInput" required>
                                         <option
                                         v-for="(item,index) in trabajadores"
@@ -549,7 +549,7 @@
                             <div class="card-body well modal-header">
                                 <!--modal-header-->
                                 <h1 class="text-left well col-11">Nueva Receta</h1>
-                                <i class="far fa-times text-right col-1 " v-on:click="cancelar()"></i>
+                                <i class="far fa-times text-right col-1 " @click="menu('registros','Registros')"></i>
 
                             </div>
                             <div class="card-body">
@@ -599,7 +599,7 @@
                                     </ul>
                                 </div>
                                 <div>
-                                    <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar producto +" type="submit" style="width: 100%">
+                                    <input class="btn btn-success" class="col-12 mb-3" type="button" @click="menu('productosReceta','Registros')" value="Agregar producto +" type="submit" style="width: 100%">
                                 </div>
                                 <div>
                                     <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(4)" value="Guardar" type="submit">
@@ -614,13 +614,13 @@
                             <div class="card-body well modal-header">
                                 <!--modal-header-->
                                 <h1 class="text-left well col-11">Productos a Receta</h1>
-                                <i class="far fa-times text-right col-1 " v-on:click="cancelar()"></i>
+                                <i class="far fa-times text-right col-1 " @click="menu('NuevaReceta','Registros')"></i>
 
                             </div>
                             <div class="card-body">
                                 <label for="nombreproductos" class="form-label ml-2">Producto</label>
                                 <div class="col-12">
-                                    <input @input="ocultrarSelectProductos" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInput">
+                                    <input @click="FiltrarPorProducto()" @input="ocultrarSelectProductos" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInput">
                                     <select style="display:none" v-model="producto.producto" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProducto" size="1" @click="pasarSelectAInputProductos" required>
                                         <option
                                         v-for="(item,index) in productos"

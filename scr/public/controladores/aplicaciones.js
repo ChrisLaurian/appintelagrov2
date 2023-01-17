@@ -239,6 +239,10 @@ createApp({
                     break;
                 case 4:
                     {
+                        if (this.registro.productos.length === 0) {
+                            alert("Falta ingresar datos");
+                            return 0;
+                        }
                         this.registro.recetas.push(this.receta);
                         console.log(this.registro.recetas);
                         this.receta = {
@@ -246,6 +250,7 @@ createApp({
                             alcance: "",
                             recetaProducto: [],
                         };
+                        this.menu('registros', 'Registros');
                     }
                     break;
                 case 5:
@@ -255,7 +260,7 @@ createApp({
                         // this.arregloSinDuplicarse = this.trabajadoresCopia.filter((item, index) => {
                         //     return this.trabajadoresCopia.indexOf(item) === index;
                         // });
-                        if (this.registro.trabajadores.lenght === 0) {
+                        if (this.registro.trabajadores.length === 0) {
                             alert("Falta ingresar datos");
                             return 0;
                         }
@@ -266,6 +271,7 @@ createApp({
                             hash[current.id] = true;
                             return exists;
                         });
+                        this.menu('registros', 'Registros');
 
 
                     }
