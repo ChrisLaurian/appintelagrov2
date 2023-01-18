@@ -51,7 +51,7 @@ createApp({
                     metodoAplicacion: "",
                     boquilla: "",
                     gasto: "",
-                    tipo_control: "",
+                    tipo_control: [],
                     unidadMedidaCantidad: "",
                     parihuelasGrupal: "",
                     recetaProducto: "",
@@ -282,6 +282,30 @@ createApp({
             // console.log(this.registro.trabajadores);
 
         },
+        AgregarTipoControl() {
+            var input = document.getElementById("inputTipoControl");
+            var lista = document.getElementById("SelectTipoControl");
+
+            if ((lista.value != "") && (lista.value != "reset")) {
+                this.registro.maestro.tipo_control.push(lista.value);
+                lista.options[lista.selectedIndex].setAttribute("disabled", "disabled");
+                var selected = lista.options[lista.selectedIndex].text;
+                input.value += (selected + ", ");
+            }
+
+
+            if (lista.value == "Borrar Todo") {
+                input.value = "";
+                for (i = 0; i < lista.options.length; i++) {
+                    lista.options[i].removeAttribute("disabled");
+                }
+                this.registro.maestro.tipo_control = [];
+
+            }
+
+
+
+        },
         cancelar() {
             console.log("se canceló todo");
         },
@@ -508,6 +532,11 @@ createApp({
             var selected = selectElement.options[selectElement.selectedIndex].text;
             document.getElementById("inputActividad").value = selected;
             document.getElementById("selectActividad").style.display = "none";
+        },
+        pasarSelectAInputTipoControl() {
+            var selectElement = document.getElementById("SelectTipoControl");
+            var selected = selectElement.options[selectElement.selectedIndex].text;
+            document.getElementById("inputTipoControl").value = selected;
         },
 
 

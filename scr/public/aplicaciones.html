@@ -240,13 +240,17 @@
                                     <div class="col-12">
                                         <label for="TipoControl" class="form-label ml-2">Tipo de control</label>
                                         <div class="col-12">
-                                            <select v-model="registro.maestro.tipo_control" name="TipoControl" id="TipoControl" class="form-control form-control-sm mb-3">
+                                            <input readonly="readonly" type="text" class="col-12" id="inputTipoControl">
+                                            <select name="TipoControl" id="SelectTipoControl" @change="AgregarTipoControl()" class="form-control form-control-sm mb-3">
                                                 <option
                                                 v-for="(item,index) in tipoControl"
                                                 :key="index"
                                                 v-bind:value="item.cat_control_aplicaciones_campo_tipo_de_control_id"
                                             >
                                             {{ item.descripcion_tipo_de_control}}
+                                            </option>
+                                            <option>
+                                                <h1 value="reset">Borrar Todo</h1>
                                             </option>
                                             </select>
                                         </div>
