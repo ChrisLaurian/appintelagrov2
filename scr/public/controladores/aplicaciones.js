@@ -422,21 +422,23 @@ createApp({
                     }
                 });
             });
-            // $('#nombreProductoReceta').on("input", function() {
-            //     var count = 0;
+        },
+        FiltrarPorProductoExtra() {
+            $('#nombreProductoInputExtra').on("input", function() {
+                var count = 0;
 
-            //     $('#nombreProducto option').each(function() {
-            //         if ($(this).text().indexOf($("#nombreProductoReceta").val()) == -1) {
-            //             $(this).prop("selected", false);
-            //             $(this).fadeOut();
-            //         } else {
-            //             $(this).prop("selected", false);
-            //             $(this).fadeIn();
-            //             count = count + 1;
-            //             document.getElementById("productosReceta").size = count;
-            //         }
-            //     });
-            // });
+                $('#nombreProductoExtra option').each(function() {
+                    if ($(this).text().indexOf($("#nombreProductoInputExtra").val()) == -1) {
+                        $(this).prop("selected", false);
+                        $(this).fadeOut();
+                    } else {
+                        $(this).prop("selected", false);
+                        $(this).fadeIn();
+                        count = count + 1;
+                        document.getElementById("nombreProductoExtra").size = count;
+                    }
+                });
+            });
         },
         FiltrarPorActividad() {
             $("#inputActividad").on("input", function() {
@@ -478,11 +480,12 @@ createApp({
             if (dato.value == "") {
                 document.getElementById("nombreProducto").style.display = "none";
             } else { document.getElementById("nombreProducto").style.display = "initial"; }
-
-            // var datoReceta = document.getElementById("nombreProductoReceta")
-            // if (datoReceta.value == "") {
-            //     document.getElementById("productosReceta").style.display = "none";
-            // } else { document.getElementById("productosReceta").style.display = "initial"; }
+        },
+        ocultarSelectProductosExtra() {
+            var datoReceta = document.getElementById("nombreProductoInputExtra")
+            if (datoReceta.value == "") {
+                document.getElementById("nombreProductoExtra").style.display = "none";
+            } else { document.getElementById("nombreProductoExtra").style.display = "initial"; }
         },
         ocultarSelectActividades() {
             var dato = document.getElementById("inputActividad")
@@ -519,13 +522,12 @@ createApp({
             var selected = selectElement.options[selectElement.selectedIndex].text;
             document.getElementById("nombreProductoInput").value = selected;
             document.getElementById("nombreProducto").style.display = "none";
-
-            // var selectedElementReceta = document.getElementById("productosReceta");
-            // var selectedReceta = selectedElementReceta.options[selectedElementReceta.selectedIndex].text;
-            // document.getElementById("nombreProductoReceta").value = selectedReceta;
-            // document.getElementById("productosReceta").style.display = "none";
-
-
+        },
+        pasarSelectAInputProductosExtra() {
+            var selectedElementReceta = document.getElementById("nombreProductoExtra");
+            var selectedReceta = selectedElementReceta.options[selectedElementReceta.selectedIndex].text;
+            document.getElementById("nombreProductoInputExtra").value = selectedReceta;
+            document.getElementById("nombreProductoExtra").style.display = "none";
         },
         pasarSelectAInputActividades() {
             var selectElement = document.getElementById("selectActividad");

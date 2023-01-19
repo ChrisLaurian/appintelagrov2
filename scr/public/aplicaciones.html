@@ -674,8 +674,8 @@
                             <div class="card-body">
                                 <label for="nombreproductos" class="form-label ml-2">Producto</label>
                                 <div class="col-12">
-                                    <input @input="" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInputExtra">
-                                    <select style="display:none" v-model="" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="" required>
+                                    <input @input="ocultarSelectProductosExtra" @click="FiltrarPorProductoExtra()" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInputExtra">
+                                    <select style="display:none" v-model="" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="pasarSelectAInputProductosExtra" required>
                                         <option
                                         v-for="(item,index) in productos"
                                         :key="index"
@@ -685,7 +685,7 @@
                                         {{ item.producto }}
                                     </option>
                                     <option>
-                                        <h1>{{FiltrarPorProducto()}}</h1>
+                                        <h1>{{FiltrarPorProductoExtra()}}</h1>
                                     </option>
                                     </select>
                                 </div>
