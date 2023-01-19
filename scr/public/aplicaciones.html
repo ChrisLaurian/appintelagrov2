@@ -366,9 +366,6 @@
                                     >
                                         {{ item.descripcion_receta }}
                                     </option>
-                                    <option>
-                                        <h1>{{FiltrarPorTrabajador()}}</h1>
-                                    </option>
                                             </select>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
@@ -675,7 +672,7 @@
                                 <label for="nombreproductos" class="form-label ml-2">Producto</label>
                                 <div class="col-12">
                                     <input @input="ocultarSelectProductosExtra" @click="FiltrarPorProductoExtra()" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInputExtra">
-                                    <select style="display:none" v-model="" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="pasarSelectAInputProductosExtra" required>
+                                    <select style="display:none" v-model="productoExtras.productoExtra" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="pasarSelectAInputProductosExtra" required>
                                         <option
                                         v-for="(item,index) in productos"
                                         :key="index"
@@ -689,12 +686,12 @@
                                     </option>
                                     </select>
                                 </div>
-                                <label for="cantidadProducto" class="form-label col-6">Cantidad</label>
-                                <label for="Productos" class="form-label col-6">Unidad de medida</label>
+                                <label for="cantidadProductoextra" class="form-label col-6">Cantidad</label>
+                                <label for="Productosextra" class="form-label col-6">Unidad de medida</label>
                                 <div class="col-12">
-                                    <input v-model="" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProductoExtra">
+                                    <input v-model="productoExtras.cantidadProductoExtra" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProductoExtra">
 
-                                    <select v-model="" name="Alcance" id="unidadMedidaExtra" class=" form-select form-select-lg col-6 mb-3" required>
+                                    <select v-model="productoExtras.unidadMedidaTipoExtra" name="Alcance" id="unidadMedidaExtra" class=" form-select form-select-lg col-6 mb-3" required>
                                         <option
                                             v-for="(item,index) in medidas"
                                         :key="index"
@@ -705,7 +702,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" @click="" value="Guardar" type="submit">
+                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(6)" value="Guardar" type="submit">
                                 </div>
 
                             </div>

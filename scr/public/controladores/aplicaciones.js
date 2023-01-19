@@ -55,6 +55,7 @@ createApp({
                     unidadMedidaCantidad: "",
                     parihuelasGrupal: "",
                     recetaProducto: "",
+                    productosExtraReceta: [],
                 },
                 trabajadores: [],
                 productos: [],
@@ -73,6 +74,12 @@ createApp({
                 producto: "",
                 cantidadProducto: "",
                 unidadMedidaTipo: "",
+            },
+            productoExtras: {
+                UUID: "",
+                productoExtra: "",
+                cantidadProductoExtra: "",
+                unidadMedidaTipoExtra: "",
             },
             receta: {
                 // UUID: "",
@@ -154,6 +161,7 @@ createApp({
             this.registro.maestro.UUID = generateUUID();
             this.trabajador.UUID = this.registro.maestro.UUID;
             this.producto.UUID = this.registro.maestro.UUID;
+            this.productoExtras.UUID = this.registro.maestro.UUID;
 
 
 
@@ -272,8 +280,37 @@ createApp({
                             return exists;
                         });
                         this.menu('registros', 'Registros');
+                    }
+                    break;
+                case 6:
+                    {
+                        if (document.getElementById("nombreProductoInputExtra").value == "") {
+                            alert("Falta ingresar un producto");
+                            document.getElementById("nombreProductoInputExtra").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("cantidadProductoExtra").value == "" || document.getElementById("cantidadProductoExtra").value <= 0) {
+                            alert("Falta ingresar una cantidad positiva");
+                            document.getElementById("cantidadProductoExtra").focus();
+                            return 0;
+                        }
+                        if (document.getElementById("unidadMedidaExtra").value == "") {
+                            alert("Falta ingresar una unidad de medida");
+                            document.getElementById("unidadMedidaExtra").focus();
+                            return 0;
+                        }
+
+                        this.registro.maestro.productosExtraReceta.push(this.productoExtras);
+                        console.log(this.registro.maestro.productosExtraReceta);
 
 
+                        this.productoExtras = {
+                            UUID: this.registro.maestro.UUID,
+                            productoExtra: "",
+                            cantidadProductoExtra: "",
+                            unidadMedidaTipoExtra: "",
+                        };
+                        document.getElementById("nombreProductoInputExtra").value = "";
                     }
                     break;
             }
