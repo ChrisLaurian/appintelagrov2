@@ -355,6 +355,10 @@ createApp({
             this.registro.productos.splice(index, 1);
             console.log(this.registro.productos);
         },
+        borrarProductosExtra(index) {
+            this.registro.maestro.productosExtraReceta.splice(index, 1);
+            console.log(this.registro.maestro.productosExtraReceta);
+        },
         borrarTrabajadores(value) {
             // this.registro.trabajadores.splice(value, 1);
 

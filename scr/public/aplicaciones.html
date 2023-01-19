@@ -169,7 +169,7 @@
                                     <div class="col-12">
                                         <label for="Actividad" class="form-label ml-2">Actividad</label>
                                         <div class="col-12">
-                                            <input @input="ocultarSelectActividades" type="text" class="col-12" placeholder="Ej. Tutoreo" type="text" id="inputActividad" name="actividad" required>
+                                            <input @click="FiltrarPorActividad()" @input="ocultarSelectActividades" type="text" class="col-12" placeholder="Ej. Tutoreo" type="text" id="inputActividad" name="actividad" required>
                                             <select style="display:none" name="actividad" v-model="registro.maestro.actividad" id="selectActividad" @click="pasarSelectAInputActividades" size="1" class="form-select form-select-lg col-12 mb-3" required>
                                                 <option
                                                     v-for="(item,index) in actividades"
@@ -274,7 +274,7 @@
                                             <input v-model="registro.maestro.unidadMedidaTipo" class="form-check-input" type="radio" id="contactChoice1" name="contact1" value="tambo" />
                                             <label class="form-check-label col-6" for="contactChoice1">Tambo</label>
 
-                                            <input class="form-check-input" type="radio" id="contactChoice2" name="contact1" value="parihuela" />
+                                            <input v-model="registro.maestro.unidadMedidaTipo" class="form-check-input" type="radio" id="contactChoice2" name="contact1" value="parihuela" />
                                             <label class=" form-check-label col-6" for="contactChoice2">Parihuela</label>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
@@ -286,7 +286,7 @@
                                             <input @click="ocultarParihuela(false)" v-model="registro.maestro.unidadMedidaCantidad" class="form-check-input" type="radio" id="contactChoice3" name="contact2" value="individual" />
                                             <label class="form-check-label col-6" for="contactChoice3">Individual</label>
 
-                                            <input @click="ocultarParihuela(true)" class="form-check-input" type="radio" id="contactChoice4" name="contact2" value="grupal" />
+                                            <input @click="ocultarParihuela(true)" class="form-check-input" v-model="registro.maestro.unidadMedidaCantidad" type="radio" id="contactChoice4" name="contact2" value="grupal" />
                                             <label class="form-check-label col-6" for="contactChoice4">Grupal</label>
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
@@ -377,31 +377,31 @@
                                         <label for="Productos" class="form-label ml-2">Productos</label>
                                     </div>
 
-                                    <!-- <div class="col-12">
+                                    <div class="col-12">
                                         <ul class="list-group">
-                                            <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                            <li class="list-group-item" v-for="(item, index) in registro.maestro.productosExtraReceta" :key="index">
                                                 <div class="row">
-                                                    <div class="col-8">
-                                                        {{ nombreProductos(item.producto)}}
+                                                    <div class="col-10">
+                                                        {{ nombreProductos(item.productoExtra)}}
                                                     </div>
                                                     <div class="col-2">
                                                         <center>
-                                                            <button v-on:click="borrarProductos(index)" type="button" class="btn btn-danger btn-sm">
+                                                            <button v-on:click="borrarProductosExtra(index)" type="button" class="btn btn-danger btn-sm">
                                                   <i class="fal fa-trash"></i>
                                                 </button>
                                                         </center>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <!-- <div class="col-2">
                                                         <center>
                                                             <button v-on:click="" type="button" class="btn btn-warning btn-sm">
                                                   <i class="fal fa-edit"></i>
                                                 </button>
                                                         </center>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div> -->
+                                    </div>
 
                                     <div class="col-12 mb-3">
 
@@ -580,20 +580,13 @@
                                     <ul class="list-group">
                                         <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
                                             <div class="row">
-                                                <div class="col-8">
+                                                <div class="col-10">
                                                     {{ nombreProductos(item.producto)}}
                                                 </div>
                                                 <div class="col-2">
                                                     <center>
                                                         <button v-on:click="borrarProductos(index)" type="button" class="btn btn-danger btn-sm">
                                                   <i class="fal fa-trash"></i>
-                                                </button>
-                                                    </center>
-                                                </div>
-                                                <div class="col-2">
-                                                    <center>
-                                                        <button v-on:click="" type="button" class="btn btn-warning btn-sm">
-                                                  <i class="fal fa-edit"></i>
                                                 </button>
                                                     </center>
                                                 </div>
