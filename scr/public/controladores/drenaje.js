@@ -44,6 +44,7 @@ createApp({
                     riegos: 0,
                     minutosRiego: 0,
                     m3SinFertilizante: 0,
+                    m3ConFertilizante: 0,
 
                 },
             },

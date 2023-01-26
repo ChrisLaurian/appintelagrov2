@@ -211,7 +211,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="Rancho">Rancho</label>
-                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control-sm">
+                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
                                                     <option v-for="(item,index) in unidades" :key="index"
                                                         v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
                                                         ">
@@ -222,7 +222,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="Lote">Lote</label>
-                                                <select id="Lote" v-model="registro.maestro.lote" class="form-control form-control-sm">
+                                                <select id="Lote" v-model="registro.maestro.lote" class="form-control form-control">
                                                     <option v-for="(item,index) in lotes" :key="index"
                                                         v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id
                                                         ">
@@ -233,7 +233,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="Periodo">Periodo</label>
-                                                <select id="Periodo" v-model="registro.maestro.periodo" class="form-control form-control-sm">
+                                                <select id="Periodo" v-model="registro.maestro.periodo" class="form-control form-control">
                                                     <option value="1">Periodo</option>
                                                 </select>
 
@@ -282,6 +282,11 @@
                                                 <label for="M3 sin fertilizante">M3 sin fertilizante</label>
                                                 <input type="number" v-model="registro.maestro.m3SinFertilizante" class="form-control" id="M3 sin fertilizante">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="M3 con fertilizante">M3 con fertilizante</label>
+                                                <input type="number" v-model="registro.maestro.m3ConFertilizante" class="form-control" id="M3 sin fertilizante">
+                                            </div>
+
                                         </form>
 
 
@@ -292,20 +297,16 @@
                             </div>
                         </div>
 
-                        <div class="card border border-success">
-                            <div class="card-body">
-                                <div class="row" style="margin-top: 33px;">
-                                    <div class="col-6">
-                                        <center>
-                                            <button type="submit" class="btn btn-light btn-lg">Cancelar</button>
-                                        </center>
-                                    </div>
-                                    <div class="col-6">
-                                        <center>
-                                            <button type="submit" v-on:click="enviar" class="btn btn-success btn-lg">Enviar</button>
-                                        </center>
-                                    </div>
-                                </div>
+                        <div class="row mb-3" style="margin-top: 33px;">
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" class="btn btn-block btn-outline-secondary btn-lg">Cancelar</button>
+                                </center>
+                            </div>
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" v-on:click="enviar" class="btn btn-block btn-success btn-lg">Enviar</button>
+                                </center>
                             </div>
                         </div>
 
