@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="manifest" href="./manifest.json">
+
 
 
     <style type="text/css">
@@ -36,6 +36,61 @@
         .row {
             margin-top: 2%;
             margin-bottom: 2%;
+        }
+        
+        .card-body.card-mnu-2 {
+            padding-bottom: 6px;
+            padding-top: 6px;
+        }
+        
+        .card.card-mnu-1 {
+            margin-bottom: 32px;
+        }
+        
+        ul.pro {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        
+        ul.pre {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        
+        row.row-enviar {
+            margin-bottom: 32px;
+        }
+        
+        .btn-marg {
+            margin-top: 30px;
+        }
+        
+        .content-input {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 5px 0 5px 60px;
+            /* Damos un padding de 60px para posicionar el elemento <i> en este espacio*/
+            display: block;
+        }
+        
+        .content-input input+i {
+            background: #f0f0f0;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        /* Estas reglas se aplicarán a todos los i despues de un input de tipo radio*/
+        
+        .content-input input[type=radio]+i {
+            height: 30px;
+            width: 30px;
+            border-radius: 100%;
+            left: 15px;
         }
     </style>
 </head>
@@ -79,7 +134,7 @@
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <a href="#" class="brand-link">
                         <img :src="logo" alt="intelagro" class="brand-image img-circle elevation-3 " data-widget="pushmenu" style="opacity: 0.8" />
-                        <span class="info-box-text text-success">Elite Produce</span>
+                        <span class="info-box-text text-success">Intelagro</span>
                     </a>
 
                     <div class="sidebar">
@@ -117,113 +172,132 @@
                 </aside>
 
                 <div class="content-wrapper">
+
                     <section class="content-header">
                         <div class="container-fluid">
-                            <div class="row mb-2">
+                            <center>
+                                <h5>
+                                    Aplicaciones
+                                </h5>
+                            </center>
+                            <div class="card border border-success card-mnu-1">
 
-                                <div class="col-sm-6">
-                                    <ol class="breadcrumb float-sm-right">
-                                        <li class="breadcrumb-item">
-                                            <a href="#">Intelagro</a>
-                                        </li>
-                                        <li class="breadcrumb-item active">{{ titulo }}</li>
-                                    </ol>
+                                <div class="card-body card-mnu-2">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <center>
+                                                <div @click=" menu('registros', 'Registros');">
+                                                    <i class="fas fa-plus-circle text-success"></i>
+                                                    <div class="text-success">Crear</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div class="col-4">
+                                            <center>
+                                                <div>
+                                                    <i class="fas fa-check-circle text-success" @click="menus('estatus')"></i>
+                                                    <div class="text-success">Registros</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div class="col-4">
+                                            <center>
+                                                <div>
+                                                    <i class="fas fa-arrow-circle-up text-success" @click="abrir_modal_pendientes()"></i>
+                                                    <span class="badge badge-success">{{ num_pendientes }}</span>
+                                                    <div class="text-success">Pendientes</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-
-
                     <section class="content" v-if="aside.registros">
 
-                        <div class="card border border-warning">
+                        <div class="card border border-success">
                             <div class="card-body">
-                                <h3 class="mb-4">Información General</h3>
-                                <div class="row g-5">
+                                <form onsubmit="event.preventDefault();" role="form">
+                                    <h5 class="mb-4">Información General</h5>
+                                    <div class="row g-5">
 
-                                    <div class="col-12">
-                                        <label for="Fecha" class="form-label ml-2">Fecha</label>
                                         <div class="col-12">
-                                            <input v-model="registro.maestro.fecha" class="mb-4" type="date" id="start" name="trip-start" min="2022-01-01" max="2023-12-31" ref="inputField">
+                                            <label for="Fecha" class="form-label ml-2">Fecha</label>
+                                            <div class="col-12">
+                                                <input v-model="registro.maestro.fecha" class="mb-4 form-control" type="date" id="start" name="trip-start" min="2022-01-01" max="2023-12-31" ref="inputField">
+                                            </div>
+                                            <div class="invalid-feedback">Por favor selecciona una fecha correcta</div>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona una fecha correcta</div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <label for="Rancho" class="form-label ml-2">Rancho</label>
                                         <div class="col-12">
-                                            <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
-                                                <option
-                                                    v-for="(item,index) in unidades"
-                                                    :key="index"
-                                                    v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id"
-                                                >
-                                                    {{ item.UP }}
-                                                </option>
+                                            <label for="Rancho" class="form-label ml-2">Rancho</label>
+                                            <div class="col-12">
+                                                <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                    <option v-for="(item,index) in unidades" :key="index"
+                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id">
+                                                        {{ item.UP }}
+                                                    </option>
                                                 </select>
+                                            </div>
+                                            <div class="invalid-feedback">Por favor selecciona una rancho correcto</div>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona una rancho correcto</div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <label for="Actividad" class="form-label ml-2">Actividad</label>
                                         <div class="col-12">
-                                            <input @click="FiltrarPorActividad()" @input="ocultarSelectActividades" type="text" class="col-12" placeholder="Ej. Tutoreo" type="text" id="inputActividad" name="actividad" required>
-                                            <select style="display:none" name="actividad" v-model="registro.maestro.actividad" id="selectActividad" @click="pasarSelectAInputActividades" size="1" class="form-select form-select-lg col-12 mb-3" required>
-                                                <option
-                                                    v-for="(item,index) in actividades"
-                                                    :key="index"
-                                                    v-bind:value="item.cat_actividades_id"
-                                                >
-                                                {{ item.actividad}}
-                                                </option>
-                                                <option><h1>{{FiltrarPorActividad()}}</h1></option>
-                                            </select>
+                                            <label for="Actividad" class="form-label ml-2">Actividad</label>
+                                            <div class="col-12">
+                                                <input @click="FiltrarPorActividad()" @input="ocultarSelectActividades" type="text" class="col-12 form-control" placeholder="Ej. Tutoreo" type="text" id="inputActividad" name="actividad" required>
+                                                <select style="display:none" name="actividad" v-model="registro.maestro.actividad" id="selectActividad" @click="pasarSelectAInputActividades" size="1" class="form-select form-select-lg col-12 mb-3" required>
+                                                    <option v-for="(item,index) in actividades" :key="index"
+                                                        v-bind:value="item.cat_actividades_id">
+                                                        {{ item.actividad}}
+                                                    </option>
+                                                    <option>
+                                                        <h1>{{FiltrarPorActividad()}}</h1>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="invalid-feedback">Por favor selecciona una actividad correcta
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona una actividad correcta</div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <label for="MetodoApp" class="form-label ml-2">Metodo de aplicacion</label>
                                         <div class="col-12">
-                                            <select name="MetodoApp" v-model="registro.maestro.metodoAplicacion" id="MetodoApp" class="form-control form-control-sm mb-3" required>
-                                                <option
-                                                    v-for="(item,index) in metodosAplicaciones"
-                                                    :key="index"
-                                                    v-bind:value="item.cat_control_aplicaciones_campo_metodo_de_aplicacion_id"
-                                                >
-                                                {{ item.descripcion_metodo_de_aplicacion}}
-                                                </option>
-                                            </select>
+                                            <label for="MetodoApp" class="form-label ml-2">Metodo de aplicacion</label>
+                                            <div class="col-12">
+                                                <select name="MetodoApp" v-model="registro.maestro.metodoAplicacion" id="MetodoApp" class="form-control form-control-sm mb-3" required>
+                                                    <option v-for="(item,index) in metodosAplicaciones" :key="index"
+                                                        v-bind:value="item.cat_control_aplicaciones_campo_metodo_de_aplicacion_id">
+                                                        {{ item.descripcion_metodo_de_aplicacion}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="invalid-feedback">Por favor selecciona un metodo de aplicacion correcta
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona un metodo de aplicacion correcta</div>
                                     </div>
-                                </div>
-                                <!-- Aqui acaba la informacion general -->
+                                    <!-- Aqui acaba la informacion general -->
 
 
-
+                                </form>
 
                             </div>
                         </div>
-                        <div class="card border border-warning">
+
+                        <div class="card border border-success">
                             <div class="card-body">
-                                <h3 class="mb-4">Control</h3>
+                                <h5 class="mb-4">Control</h5>
                                 <div class="row g-5">
 
                                     <div class="col-12">
                                         <label for="Boquilla" class="form-label ml-2">Boquilla</label>
                                         <div class="col-12">
                                             <select v-model="registro.maestro.boquilla" name="Boquilla" id="Boquilla" class="form-control form-control-sm mb-3" required>
-                                                <option
-                                                v-for="(item,index) in boquillas"
-                                                :key="index"
-                                                v-bind:value="item.cat_control_aplicaciones_campo_boquillas_id"
-                                            >
-                                            {{ item.descripcion_boquilla}}
-                                            </option>
-                                                </select>
+                                                <option v-for="(item,index) in boquillas" :key="index"
+                                                    v-bind:value="item.cat_control_aplicaciones_campo_boquillas_id">
+                                                    {{ item.descripcion_boquilla}}
+                                                </option>
+                                            </select>
 
                                         </div>
                                         <div class="invalid-feedback">Por favor selecciona una boquilla correcta</div>
@@ -242,19 +316,17 @@
                                         <div class="col-12">
                                             <input readonly="readonly" type="text" class="col-12" id="inputTipoControl">
                                             <select name="TipoControl" id="SelectTipoControl" @change="AgregarTipoControl()" class="form-control form-control-sm mb-3">
-                                                <option
-                                                v-for="(item,index) in tipoControl"
-                                                :key="index"
-                                                v-bind:value="item.cat_control_aplicaciones_campo_tipo_de_control_id"
-                                            >
-                                            {{ item.descripcion_tipo_de_control}}
-                                            </option>
-                                            <option>
-                                                <h1 value="reset">Borrar Todo</h1>
-                                            </option>
+                                                <option v-for="(item,index) in tipoControl" :key="index"
+                                                    v-bind:value="item.cat_control_aplicaciones_campo_tipo_de_control_id">
+                                                    {{ item.descripcion_tipo_de_control}}
+                                                </option>
+                                                <option>
+                                                    <h1 value="reset">Borrar Todo</h1>
+                                                </option>
                                             </select>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona un tipo de control correcto</div>
+                                        <div class="invalid-feedback">Por favor selecciona un tipo de control correcto
+                                        </div>
                                     </div>
 
 
@@ -263,9 +335,9 @@
                         </div>
                         <!-- aqui termina el card de control -->
 
-                        <div class="card border border-warning">
+                        <div class="card border border-success">
                             <div class="card-body">
-                                <h3 class="mb-4">Modos de trabajo</h3>
+                                <h5 class="mb-4">Modos de trabajo</h5>
                                 <div class="row g-5">
 
                                     <div class="col-12">
@@ -277,7 +349,8 @@
                                             <input v-model="registro.maestro.unidadMedidaTipo" class="form-check-input" type="radio" id="contactChoice2" name="contact1" value="parihuela" />
                                             <label class=" form-check-label col-6" for="contactChoice2">Parihuela</label>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
+                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
@@ -289,7 +362,8 @@
                                             <input @click="ocultarParihuela(true)" class="form-check-input" v-model="registro.maestro.unidadMedidaCantidad" type="radio" id="contactChoice4" name="contact2" value="grupal" />
                                             <label class="form-check-label col-6" for="contactChoice4">Grupal</label>
                                         </div>
-                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta</div>
+                                        <div class="invalid-feedback">Por favor selecciona una unidad de medida correcta
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
@@ -307,400 +381,544 @@
                         <!-- aqui termina el card de los modos de trabajo -->
 
                         <!-- Seccion de trabajadores main -->
-                        <div class="card border border-warning">
+                        <div class="card border border-success">
                             <div class="card-body">
-                                <h3 class="mb-4">Trabajadores</h3>
-                                <div class="row g-5">
-                                    <label for="NombreTrabajador" class="form-label text-center ml-2">Nombre</label>
+                                <div class="row">
                                     <div class="col-12">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" v-for="(item, index) in trabajadoresCopia" :key="index">
-                                                <div class="row">
-                                                    <div class="col-10">
-                                                        {{ nombre_trabajador(item.trabajadores) }}
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <center>
-                                                            <button v-on:click="borrarTrabajadores(item.trabajadores)" type="button" class="btn btn-danger btn-sm">
-                                                    <i class="fal fa-trash"></i>
-                                                    </button>
-                                                        </center>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <center>
-                                                            <button v-on:click="editarProducto(item)" type="button" class="btn btn-warning btn-sm">
-                                                    <i class="fal fa-edit"></i>
-                                                    </button>
-                                                        </center>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-12 mb-3">
-
-                                        <div class="col-12">
-                                            <input @click="menu('AgregarTrabajadores','Registros')" class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar trabajador" type="submit" style="width: 100%">
-                                        </div>
+                                        <center>
+                                            <h5>Trabajadores</h5>
+                                        </center>
                                     </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in registro.lista_trabajadores" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{ item.nombre}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="borrar_trabajador_registro(item)" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fal fa-trash"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="editar_trabajador_registro(item)" type="button" class="btn btn-warning btn-sm">
+                                                                    <i class="fal fa-edit"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="menu('AgregarTrabajadores','Registros')" type="button" class="btn btn-success btn-sm btn-block">
+                                            Agregar Trabajador
+                                            <i class="fal fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
 
                         <!-- aqui termina la seccion de trabajadores main -->
 
-                        <div class="card border border-warning">
+                        <div class="card border border-success">
                             <div class="card-body">
-                                <h3 class="mb-4">Productos</h3>
-                                <div class="row g-5">
+                                <div class="row">
                                     <div class="col-12">
-                                        <label for="Receta" class="form-label ml-2">Receta</label>
-                                        <div class="col-12">
-                                            <select name="Receta" id="Receta" v-model="registro.maestro.recetaProducto" class=" form-select form-select-lg col-12 mb-3" required>
-                                                <option
-                                        v-for="(item,index) in recetas"
-                                        :key="index"
-                                        v-bind:value="item.uuid_recetas_app"
-                                        
-                                    >
-                                        {{ item.descripcion_receta }}
-                                    </option>
-                                            </select>
-                                        </div>
-                                        <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
-                                    </div>
-                                    <div class="col-12 ml-2">
-                                        <a style="text-decoration: none;" @click="menu('NuevaReceta','Registros')" href="#">Nueva Receta+</a>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="Productos" class="form-label ml-2">Productos</label>
+                                        <center>
+                                            <h5>Productos</h5>
+                                        </center>
                                     </div>
 
+                                </div>
+
+                                <div class="row">
                                     <div class="col-12">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" v-for="(item, index) in registro.maestro.productosExtraReceta" :key="index">
+                                        <form onsubmit="event.preventDefault();" role="form">
+
+                                            <label for="basic-url">Recetas</label>
+
+                                            <select @change="seleccionar_receta()" id="sel_ranch" v-model="receta" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                    item, index
+                                                  ) in recetas" :key="index" v-bind:value="item">
+                                                    {{ item.descripcion_receta }}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-12">
+                                        <div v-on:click="nueva_receta()">
+                                            <u style="color: blue;"> Nueva receta +</u>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreProductos(item.cat_compras_productos_id)}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="borrar_producto(item,index)" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fal fa-trash"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="editar_producto(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                    <i class="fal fa-edit"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <button v-on:click="menu('AgregarProductos','Registros')" type="button" class="btn btn-success btn-sm btn-block">
+                                            Agregar Producto
+                                            <i class="fal fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- aqui termina la seccion de productos main -->
+
+                        <div class="card border border-success">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5>
+                                            Resumen
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table id="tablaresumen" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>producto</th>
+                                                    <th>cantidad</th>
+                                                    <th>medida</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(item, index) in registro.productos" :key="index">
+                                                    <td>{{ nombreProductos(item.cat_compras_productos_id) }}</td>
+                                                    <td>{{ item.cantidad}}</td>
+                                                    <td>{{nombreUnidadMedida( item.cat_compras_productos_unidad_de_medida_mu_id)}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- aqui termina la seccion de resumen main -->
+
+                        <div class="card border border-success">
+
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-6">
+                                        <center>
+                                            <button type="button" class="btn  btn-light btn-lg">
+                                                Cancelar
+
+                                            </button>
+                                        </center>
+                                    </div>
+                                    <div class="col-6">
+                                        <center>
+                                            <button @click="guardar_registro()" type="button" class="btn btn-success btn-lg">
+                                                Guardar
+
+                                            </button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <section class="content" v-if="aside.AgregarTrabajadores">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Trabajadores</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_trabajadores()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="solicitante">Nombre</label>
+                                                <input type="text" class="form-control form-control-sm" placeholder="" v-model="nombre_trabajador" id="n_t" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_trabajadores" :key="index"
+                                                            class="list-group-item"
+                                                            @click="seleccionar_trabajdor(item)">
+                                                            {{ item.nombre}}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-4">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="solicitante">Lote</label>
+                                                <input type="text" class="form-control form-control-sm" placeholder="" v-model="nombre_lote" id="n_t" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_lotes" :key="index"
+                                                            class="list-group-item" @click="seleccionar_lote(item)">
+                                                            {{ item.lote }}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-3">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Inicio</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="trabajador.inicio" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+                                    <div class="col-3">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Fin</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="trabajador.fin" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="agregar_trabajador_lista()" type="button" class="btn btn-success btn-sm btn-marg">
+
+                                                <i class="fal fa-plus"></i>
+                                            </button>
+                                        </center>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in this.registro.trabajadores" :key="index">
                                                 <div class="row">
-                                                    <div class="col-10">
-                                                        {{ nombreProductos(item.productoExtra)}}
+                                                    <div class="col-8">
+                                                        {{item.nombre}}-{{item.lote}}-{{item.inicio}}-{{item.fin}}
                                                     </div>
                                                     <div class="col-2">
                                                         <center>
-                                                            <button v-on:click="borrarProductosExtra(index)" type="button" class="btn btn-danger btn-sm">
-                                                  <i class="fal fa-trash"></i>
-                                                </button>
+                                                            <button v-on:click="borrar_trabajador_lista(index)" type="button" class="btn btn-danger btn-sm">
+                                                                <i class="fal fa-trash"></i>
+                                                            </button>
                                                         </center>
                                                     </div>
-                                                    <!-- <div class="col-2">
+                                                    <div class="col-2">
                                                         <center>
-                                                            <button v-on:click="" type="button" class="btn btn-warning btn-sm">
-                                                  <i class="fal fa-edit"></i>
-                                                </button>
+                                                            <button v-on:click="editar_trabajador_lista(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                <i class="fal fa-edit"></i>
+                                                            </button>
                                                         </center>
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
+                                </div>
 
-                                    <div class="col-12 mb-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="guardar_trabajadores()" type="button" class="btn btn-success btn-sm btn-block">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </div>
 
-                                        <div class="col-12">
-                                            <input class="btn btn-success" class="col-12 mb-3" type="button" value="Agregar producto +" @click="menu('ProductosExtra','Registros')" type="submit" style="width: 100%">
-                                        </div>
+                            </div>
+
+
+                        </div>
+                    </section>
+
+                    <section class="content" v-if="aside.AgregarProductos">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Productos</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_productos()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="solicitante">Producto</label>
+                                                <input type="text" class="form-control form-control-sm" placeholder="" v-model="nombre_producto" id="n_t" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_productos" :key="index"
+                                                            class="list-group-item" @click="seleccionar_producto(item)">
+                                                            {{ item.producto}}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Cantidad</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="producto.cantidad" id="n_t" autocomplete="off" />
+                                        </form>
                                     </div>
 
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="basic-url">Medida</label>
 
+                                            <select id="sel_ranch" v-model="producto.cat_compras_productos_unidad_de_medida_mu_id" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                    item, index
+                                                  ) in medidas" :key="index" v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id
+                                                  ">
+                                                    {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card border border-warning">
-                            <div class="card-body">
-                                <h3 class="mb-4">Resumen</h3>
-                                <div class="row g-5">
-                                    <table class="col-12">
-                                        <tr>
-                                            <td>Producto</td>
-                                            <td>Cantidad</td>
-                                            <td>Unidad</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Texto</td>
-                                            <td>Texto</td>
-                                            <td>Texto</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Texto</td>
-                                            <td>Texto</td>
-                                            <td>Texto</td>
-                                        </tr>
-                                    </table>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card border border-warning">
-
-                            <input class="btn btn-success" @click="enviar(1)" class="col-12" type="button" value="Guardar" type="submit">
-
-                        </div>
-
-
-                    </section>
-                    <section class="content" v-if="aside.AgregarTrabajadores">
-                        <div class="card border border-warning">
-                            <div class="card-body well modal-header">
-                                <!--modal-header-->
-                                <h1 class="text-left well col-11">Trabajadores</h1>
-                                <i class="far fa-times text-right col-1 " v-on:click="menu('registros','Registros')"></i>
-
-                            </div>
-                            <div class="card-body">
-                                <label for="trabModal" class="form-label ml-2">Trabajadores</label>
-                                <div class="col-12">
-
-                                    <input @click="FiltrarPorTrabajador()" @input="ocultarSelect" class="col-12" placeholder="Ej. Juan" type="text" id="filtro" name="filtro" required>
-                                    <select style="display:none" v-model="trabajador.trabajadores" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreTrabajador" size="0" @click="pasarSelectAInput" required>
-                                        <option
-                                        v-for="(item,index) in trabajadores"
-                                        :key="index"
-                                        v-bind:value="item.cat_trabajadores_altas_id"
-                                        
-                                    >
-                                        {{ item.nombre }}
-                                    </option>
-                                    <option>
-                                        <h1>{{FiltrarPorTrabajador()}}</h1>
-                                    </option>
-                                    </select>
-                                </div>
-                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
-
-                                <div class="col-12">
-                                    <label for="" class="col-4">Lote</label>
-                                    <label for="" class="col-3 ml-3">Inicio</label>
-                                    <label for="" class="col-3 ml-3">Final</label>
-                                    <!-- <label for="" class="col-3"></label> -->
-                                </div>
-                                <div class="col-12">
-                                    <input @input="ocultarSelectLote" class="col-4" placeholder="Ej. Lote 1" type="text" id="nombreLoteInput" name="filtro" required>
-
-                                    <input v-model="trabajador.inicioLote" class="col-3" placeholder="Ej. 1" type="number" id="inicioLote">
-                                    <input v-model="trabajador.finLote" class="col-3" placeholder="Ej. 15" type="number" id="finLote">
-                                    <input class="col-2 btn btn-success btn-sm" @click="enviar(2)" type="button" value="+" type="submit">
-                                </div>
-                                <div class="col-12">
-                                    <select style="display:none" @click="pasarSelectAInputLote" v-model="trabajador.lote" class="form-select form-select-lg col-4" name="" id="nombreLote" required>
-                                        <option
-                                        v-for="(item,index) in lotes"
-                                        :key="index"
-                                        v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id"
-                                    >
-                                        {{ item.lote }}
-                                    </option>
-                                    <option>
-                                        <h1>{{FiltrarPorLote()}}</h1>
-                                    </option>
-                                    </select>
-                                </div>
-
-                                <div class="col-12">
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="(item, index) in registro.trabajadores" :key="index">
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    Lote: {{ nombreLote(item.lote)}}
-                                                </div>
-                                                <div class="col-3">
-                                                    Inicio: {{ item.inicioLote }}
-                                                </div>
-                                                <div class="col-3">
-                                                    Fin: {{ item.finLote}}
-                                                </div>
-                                                <div class="col-2">
-                                                    <center>
-                                                        <button v-on:click="borrarLote(index)" type="button" class="btn btn-danger btn-sm">
-                                                  <i class="fal fa-trash"></i>
-                                                </button>
-                                                    </center>
-                                                </div>
-                                                <!-- <div class="col-1">
-                                                    <center>
-                                                        <button v-on:click="" type="button" class="btn btn-warning btn-sm">
-                                                  <i class="fal fa-edit"></i>
-                                                </button>
-                                                    </center>
-                                                </div> -->
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                </div>
-
-                                <div>
-                                    <input class="mt-4 btn btn-success col-12" @click="enviar(5)" type="button" value="Guardar" type="submit">
+                                <div class="row " style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <button v-on:click="agregar_producto()" type="button" class="btn btn-success btn-sm btn-block">
+                                            Agregar Producto
+                                        </button>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </section>
+
                     <section class="content" v-if="aside.NuevaReceta">
-                        <div class="card border border-warning">
-                            <div class="card-body well modal-header">
-                                <!--modal-header-->
-                                <h1 class="text-left well col-11">Nueva Receta</h1>
-                                <i class="far fa-times text-right col-1 " @click="menu('registros','Registros')"></i>
-
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nueva Receta</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_receta()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="card-body">
-                                <label for="nombreReceta" class="form-label ml-2">Nombre</label>
-                                <div class="col-12">
-                                    <input v-model="receta.nombreReceta" class="col-12 mb-3" placeholder="Ej. Texto" type="text" id="nombreReceta">
 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="" v-model="registro_receta.nombre" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="invalid-feedback">Por favor selecciona una receta correcta</div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="basic-url">Medida</label>
 
-                                <label for="Alcance" class="form-label ml-2">Alcance</label>
-                                <div class="col-12">
-                                    <select name="Alcance" id="trabModal" v-model="receta.alcance" class=" form-select form-select-lg col-12 mb-3" required>
-                                            <option
-                                                v-for="(item,index) in alcances"
-                                        :key="index"
-                                        v-bind:value="item.cat_control_aplicaciones_alcance_mu_id"
-                                    >
-                                        {{ item.descripcion_alcance }}
-                                            </option>
-                                    </select>
+                                            <select id="sel_ranch" v-model="registro_receta.cat_control_aplicaciones_alcance_mu_id" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                    item, index
+                                                  ) in alcances" :key="index" v-bind:value="item.cat_control_aplicaciones_alcance_mu_id
+                                                  ">
+                                                    {{ item.descripcion_alcance}}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
                                 </div>
-                                <label for="Productos" class="form-label ml-2">Productos</label>
-                                <div class="col-12">
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                    {{ nombreProductos(item.producto)}}
-                                                </div>
-                                                <div class="col-2">
-                                                    <center>
-                                                        <button v-on:click="borrarProductos(index)" type="button" class="btn btn-danger btn-sm">
-                                                  <i class="fal fa-trash"></i>
-                                                </button>
-                                                    </center>
-                                                </div>
+
+                                <div class="row">
+                                    <div class="col-10">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="solicitante">Producto</label>
+                                                <input type="text" class="form-control form-control-sm" placeholder="" v-model="nombre_producto" id="n_t" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_productos" :key="index"
+                                                            class="list-group-item"
+                                                            @click="seleccionar_producto_receta(item)">
+                                                            {{ item.producto}}
+                                                        </li>
+                                                    </ul>
+                                                </span>
                                             </div>
-                                        </li>
-                                    </ul>
+                                        </form>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="agregar_producto_receta()" type="button" style="margin-top: 33px;" class="btn btn-success btn-sm ">
+                                                <i class="fal fa-plus"></i>
+                                            </button>
+                                        </center>
+
+
+                                    </div>
                                 </div>
-                                <div>
-                                    <input class="btn btn-success" class="col-12 mb-3" type="button" @click="menu('productosReceta','Registros')" value="Agregar producto +" type="submit" style="width: 100%">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Cantidad</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="producto.cantidad" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="basic-url">Medida</label>
+
+                                            <select id="sel_ranch" v-model="producto.cat_compras_productos_unidad_de_medida_mu_id" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                        item, index
+                                                      ) in medidas" :key="index" v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id
+                                                      ">
+                                                    {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(4)" value="Guardar" type="submit">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in registro_receta.productos" :key="index">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        {{nombreProductos(item.cat_compras_productos_id)}}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="borrar_producto_receta(item,index)" type="button" class="btn btn-danger btn-sm">
+                                                                <i class="fal fa-trash"></i>
+                                                            </button>
+                                                        </center>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="editar_producto_receta(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                <i class="fal fa-edit"></i>
+                                                            </button>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="enviar_receta()" type="button" class="btn btn-success btn-sm btn-block">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </div>
+
 
                             </div>
                         </div>
                     </section>
 
-                    <section class="content" v-if="aside.productosReceta">
-                        <div class="card border border-warning">
-                            <div class="card-body well modal-header">
-                                <!--modal-header-->
-                                <h1 class="text-left well col-11">Productos a Receta</h1>
-                                <i class="far fa-times text-right col-1 " @click="menu('NuevaReceta','Registros')"></i>
+                    <section class="content" v-if="aside.pendientes">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Pendientes</h5>
 
                             </div>
                             <div class="card-body">
-                                <label for="nombreproductos" class="form-label ml-2">Producto</label>
-                                <div class="col-12">
-                                    <input @click="FiltrarPorProducto()" @input="ocultrarSelectProductos" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInput">
-                                    <select style="display:none" v-model="producto.producto" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProducto" size="1" @click="pasarSelectAInputProductos" required>
-                                        <option
-                                        v-for="(item,index) in productos"
-                                        :key="index"
-                                        v-bind:value="item.cat_compras_productos_id"
-                                        
-                                    >
-                                        {{ item.producto }}
-                                    </option>
-                                    <option>
-                                        <h1>{{FiltrarPorProducto()}}</h1>
-                                    </option>
-                                    </select>
-                                </div>
-                                <label for="cantidadProducto" class="form-label col-6">Cantidad</label>
-                                <label for="Productos" class="form-label col-6">Unidad de medida</label>
-                                <div class="col-12">
-                                    <input v-model="producto.cantidadProducto" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProducto">
 
-                                    <select v-model="producto.unidadMedidaTipo" name="Alcance" id="unidadMedida" class=" form-select form-select-lg col-6 mb-3" required>
-                                        <option
-                                            v-for="(item,index) in medidas"
-                                        :key="index"
-                                        v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id"
-                                    >
-                                        {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
-                                    </option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in registros_pendientes" :key="index">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        Aplicacion: {{item.maestro.fecha}}
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(3)" value="Guardar" type="submit">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="enviar_registros_server()" type="button" style="margin-top: 33px;" class="btn btn-success btn-sm btn-block ">
+                                           Enviar Datos
+                                        </button>
+                                    </div>
                                 </div>
+
 
                             </div>
                         </div>
                     </section>
-                    <section class="content" v-if="aside.ProductosExtra">
-                        <div class="card border border-warning">
-                            <div class="card-body well modal-header">
-                                <!--modal-header-->
-                                <h1 class="text-left well col-11">Productos Extra</h1>
-                                <i class="far fa-times text-right col-1 " @click="menu('registros','Registros')"></i>
 
-                            </div>
-                            <div class="card-body">
-                                <label for="nombreproductos" class="form-label ml-2">Producto</label>
-                                <div class="col-12">
-                                    <input @input="ocultarSelectProductosExtra" @click="FiltrarPorProductoExtra()" class="col-12" placeholder="Ej. Texto" type="text" id="nombreProductoInputExtra">
-                                    <select style="display:none" v-model="productoExtras.productoExtra" class="form-select form-select-lg col-12 mb-2" name="trabajdor" id="nombreProductoExtra" size="1" @click="pasarSelectAInputProductosExtra" required>
-                                        <option
-                                        v-for="(item,index) in productos"
-                                        :key="index"
-                                        v-bind:value="item.cat_compras_productos_id"
-                                        
-                                    >
-                                        {{ item.producto }}
-                                    </option>
-                                    <option>
-                                        <h1>{{FiltrarPorProductoExtra()}}</h1>
-                                    </option>
-                                    </select>
-                                </div>
-                                <label for="cantidadProductoextra" class="form-label col-6">Cantidad</label>
-                                <label for="Productosextra" class="form-label col-6">Unidad de medida</label>
-                                <div class="col-12">
-                                    <input v-model="productoExtras.cantidadProductoExtra" class="col-6 mb-3" placeholder="Ej. 1" type="number" id="cantidadProductoExtra">
-
-                                    <select v-model="productoExtras.unidadMedidaTipoExtra" name="Alcance" id="unidadMedidaExtra" class=" form-select form-select-lg col-6 mb-3" required>
-                                        <option
-                                            v-for="(item,index) in medidas"
-                                        :key="index"
-                                        v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id"
-                                    >
-                                        {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
-                                    </option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input class="mt-4 btn btn-success col-12" type="button" @click="enviar(6)" value="Guardar" type="submit">
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
 
                 </div>
 

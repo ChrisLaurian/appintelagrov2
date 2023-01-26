@@ -26,6 +26,8 @@ createApp({
           "user": this.usuario,
           "pass": this.pass,
         };
+
+        console.log(logindata);
         fetch("https://back.intelagro.net/login", {
 
           method: "POST",

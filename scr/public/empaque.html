@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Elite Produce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://eliteproduce.mx/wp-content/uploads/2022/03/favicon.png" sizes="32x32">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="manifest" href="./manifest.json">
+
+
+    <style type="text/css">
+        @font-face {
+            font-family: digital;
+            src: url("https://intelagro.net/intelagro/adminlite/dists/fonts/seven.ttf");
+        }
+
+        .digital {
+            font-family: digital;
+            color: red;
+            font-size: 300%;
+        }
+
+        .btn-warning {
+            color: white;
+        }
+
+        .row {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+    </style>
+</head>
+
+<body class="layout-top-nav" style="background-color:white;">
+
+    <div id="app">
+        <div>
+            <div class="wrapper">
+
+                
+
+                <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
+                        </li>
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="#" class="nav-link">Elite Produce</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right navbar links -->
+
+                    <ul class="navbar-nav ml-auto">
+
+
+                        <li class="nav-item dropdown" @click="logout()">
+                            <a class="nav-link" data-toggle="dropdown" href="#">
+                                <i class="fa fa-sign-out"> Salir</i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                <span class="dropdown-item dropdown-header">Cerrar sesion</span>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </nav>
+
+                <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                    <a href="#" class="brand-link">
+                        <img :src="logo" alt="intelagro" class="brand-image img-circle elevation-3 " data-widget="pushmenu"
+                            style="opacity: 0.8" />
+                        <span class="info-box-text text-warning">Elite Produce</span>
+                    </a>
+
+                    <div class="sidebar">
+                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                            <div class="info">
+                                <a href="#" class="d-block">{{ nombre }}</a>
+                            </div>
+                        </div>
+
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                data-accordion="false">
+                                <li class="nav-header">{{modulo}}</li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="inicio()">
+                                        <i class="nav-icon fas fa-home text-warning"></i>
+                                        <p class="text">Inicio</p>
+                                    </a>
+                                </li>
+
+
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('empaque', 'Empaque')">
+                                        <i class="nav-icon fas fa-box-open text-warning"></i>
+                                        <p class="text">Empaque</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('registros', 'Registros')">
+                                        <i class="nav-icon fas fa-file text-warning"></i>
+                                        <p class="text">Registros</p>
+                                    </a>
+                                </li>
+
+
+
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+
+                <div class="content-wrapper">
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item">
+                                            <a href="#">Elite Produce</a>
+                                        </li>
+                                        <li class="breadcrumb-item active">{{ titulo }}</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+                    <section class="content" v-if="aside.empaque">
+
+                        <div class="card border border-warning">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="info-box">
+                                            <div class="info-box-content">
+                                                <center>
+                                                    <span class="info-box-number digital"> {{ registro.peso }}</span>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <center>
+                                            <button v-on:click="onStartButtonClick()" type="button"
+                                                class="btn btn-warning ">
+                                                <i class="fad fa-weight"></i>
+                                            </button>
+                                        </center>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="card border border-warning">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <center>
+                                            <label for="trabajador"><b>{{registro.nombre}}</b></label>
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <center>
+                                                <label for="trabajador"><b>trabajador</b></label>
+                                            </center>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder=""
+                                                    v-model="registro.cat_trabajadores_altas_id" id="trabajador"
+                                                    autocomplete="off" />
+                                            </div>
+
+                                            <center>
+                                                <label for="tag"> <b>tag</b></label>
+                                            </center>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder=""
+                                                    v-model="registro.tag" id="tag" autocomplete="off" />
+                                            </div>
+
+
+
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <center>
+                                            <button v-on:click="cancelar()" type="button" class="btn btn-danger ">
+                                                <i class="fad fa-ban"></i>
+                                            </button>
+                                        </center>
+                                    </div>
+                                    <div class="col-6">
+                                        <center>
+                                            <button v-on:click="enviar()" type="button" class="btn btn-warning ">
+                                                <i class="fad fa-cloud-upload"></i>
+                                            </button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="content" v-if="aside.registros">
+                        <div class="card border border-warning">
+                            <div class="card-body">
+
+                                <table id="tablaRank" class="table table-bordered table-striped">
+                                    <thead>
+                                      <tr>
+                                       
+                                        <th>Trabajador</th>
+                                        <th>Peso</th>
+                                        <th>Caja</th>
+                                     
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr v-for="(item, index) in table_data" :key="index">
+                                        
+                                        <td> {{nombre_trabajador(item.cat_trabajdores_altas_id)}}</td>
+                                        <td>{{ item.peso}} Kg</td>
+                                        <td>
+                                          <center>
+                                            {{ item.tag }}
+                                          </center>
+                                        </td>
+                                        
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <footer class="main-footer">
+                    <div class="float-right ">
+                        <b>Version</b> {{version}}
+                    </div>
+                    <strong>Copyright &copy; 2020-2022 </strong> All rights reserved.
+                </footer>
+
+
+
+                <aside class="control-sidebar control-sidebar-dark"></aside>
+
+            </div>
+
+            {{buscarTrabajadorCodigo}}
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="./controladores/funciones.js"></script>
+    <script src="./controladores/session.js"></script>
+    <script src="./controladores/empaque.js"></script>
+
+</body>
+
+</html>

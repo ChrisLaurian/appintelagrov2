@@ -14,6 +14,8 @@ const Toast = Swal.mixin({
         logo: "",
         modulos: {
           Aplicaciones: true,
+          Plantilla:true,
+          Drenaje:true
          
          
         },
@@ -29,8 +31,14 @@ const Toast = Swal.mixin({
       Aplicaciones() {
         location.href = host()+"/aplicaciones.html";
       },
+      Plantilla() {
+        location.href = host()+"/plantilla.html";
+      },
       Trabajadores() {
         location.href = host()+"/trabajadores.html";
+      },
+      Drenaje() {
+        location.href = host()+"/drenaje.html";
       },
       salir() {
         salir();
