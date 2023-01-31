@@ -3,52 +3,61 @@ const Toast = Swal.mixin({
     position: "top-end",
     showConfirmButton: false,
     timer: 3000,
-  });
+});
 
-  const { createApp } = Vue
+const { createApp } = Vue
 
-  createApp({
+createApp({
     name: "modulos",
     data() {
-      return {
-        logo: "",
-        modulos: {
-          Aplicaciones: true,
-          Plantilla:true,
-          Drenaje:true
-         
-         
-        },
-        version: "",
-      
-      };
+        return {
+            logo: "",
+            modulos: {
+                Aplicaciones: true,
+                Plantilla: true,
+                Drenaje: true,
+                Plagas: true,
+                Phcena: true,
+
+
+
+            },
+            version: "",
+
+        };
     },
     methods: {
-      router: function (puntero) {
-        this.modulos[puntero] = true;
-       
-      },
-      Aplicaciones() {
-        location.href = host()+"/aplicaciones.html";
-      },
-      Plantilla() {
-        location.href = host()+"/plantilla.html";
-      },
-      Trabajadores() {
-        location.href = host()+"/trabajadores.html";
-      },
-      Drenaje() {
-        location.href = host()+"/drenaje.html";
-      },
-      salir() {
-        salir();
-      }
+        router: function(puntero) {
+            this.modulos[puntero] = true;
+
+        },
+        Aplicaciones() {
+            location.href = host() + "/aplicaciones.html";
+        },
+        Plantilla() {
+            location.href = host() + "/plantilla.html";
+        },
+        Trabajadores() {
+            location.href = host() + "/trabajadores.html";
+        },
+        Drenaje() {
+            location.href = host() + "/drenaje.html";
+        },
+        Plagas() {
+            location.href = host() + "/plagasEnfermedades.html";
+        },
+        Phcena() {
+            location.href = host() + "/phcena.html";
+        },
+        salir() {
+            salir();
+        }
     },
     computed: {},
     mounted() {
 
         this.version = version();
-     /* if (localStorage.getItem("modulos")) {
+        /* if (localStorage.getItem("modulos")) {
         var modulos = JSON.parse(localStorage.getItem("modulos"));
   
         modulos.forEach((element) => {
@@ -57,11 +66,11 @@ const Toast = Swal.mixin({
         });
       }
       */
-      
-  
-  
+
+
+
     },
     created() {},
-    components: { },
+    components: {},
     props: [],
 }).mount('#app');
