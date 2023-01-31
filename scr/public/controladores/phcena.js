@@ -25,7 +25,7 @@ createApp({
 
             unidades: [],
             lotes: [],
-            plagas: [],
+
 
             registro: {
                 maestro: {
@@ -33,16 +33,10 @@ createApp({
                     fecha: "",
                     rancho: "",
                     lote: "",
-                    tunel: 0,
                     surco: 0,
-                    conteo: 0,
-                    plagas: "",
-                    areaInvasion: "",
-                    severidadDano: "",
-                    zonadanada: "",
-                    aplicaciones: "",
-                    observaciones: "",
-
+                    ph: 0,
+                    ce: 0,
+                    na: 0,
                 },
             },
 
@@ -98,7 +92,6 @@ createApp({
         mountdata() {
             this.unidades = JSON.parse(localStorage.getItem("cat_unidades"));
             this.lotes = JSON.parse(localStorage.getItem("cat_lotes"));
-            this.plagas = JSON.parse(localStorage.getItem("cat_plagas"));
 
             this.registro.maestro.UUID = generateUUID();
 

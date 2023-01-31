@@ -153,7 +153,7 @@
                         <div class="container-fluid">
                             <center>
                                 <h5>
-                                    PLAGAS Y ENFERMEDADES
+                                    PH CE NA
                                 </h5>
                             </center>
                             <div class="card border border-success card-mnu-1">
@@ -198,7 +198,7 @@
 
                             <div class="card-header">
                                 <h5>
-                                    Plagas y enfermedades
+                                    PH CE NA
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -232,55 +232,23 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="Tunel">Tunel</label>
-                                                <input type="number" v-model="registro.maestro.tunel" class="form-control" id="tunel">
-
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="surco">Surco</label>
                                                 <input type="number" v-model="registro.maestro.surco" class="form-control" id="surco">
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="plagas">Plagas</label>
-                                                <select id="plagas" v-model="registro.maestro.plagas" class="form-control form-control">
-                                                    <option v-for="(item,index) in plagas" :key="index"
-                                                        v-bind:value="item.cat_control_plagas_y_enfermedades_id
-                                                        ">
-                                                        {{ item.descripcion }}
-                                                    </option>
-                                                </select>
+                                                <label for="ph">PH</label>
+                                                <input type="number" v-model="registro.maestro.ph" class="form-control" id="ph">
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="conteo">Conteo</label>
-                                                <input type="number" v-model="registro.maestro.conteo" class="form-control" id="conteo">
+                                                <label for="ce">CE</label>
+                                                <input type="number" v-model="registro.maestro.ce" class="form-control" id="ce">
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="areaInvasion">Área de invasión</label>
-                                                <input type="text" v-model="registro.maestro.areaInvasion" class="form-control" id="areaInvasion">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="severidadDano">Severidad de daño</label>
-                                                <input type="text" v-model="registro.maestro.severidadDano" class="form-control" id="severidadDano">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="zonadanada">Zona dañada</label>
-                                                <input type="text" v-model="registro.maestro.zonadanada" class="form-control" id="zonadanada">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="aplicaciones">Aplicaciones</label>
-                                                <input type="text" v-model="registro.maestro.aplicaciones" class="form-control" id="aplicaciones">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="observaciones">Observaciones</label>
-                                                <input type="text" v-model="registro.maestro.observaciones" class="form-control" id="observaciones">
-
+                                                <label for="na">NA</label>
+                                                <input type="number" v-model="registro.maestro.na" class="form-control" id="na">
                                             </div>
 
                                         </form>
