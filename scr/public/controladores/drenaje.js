@@ -22,6 +22,7 @@ createApp({
             nombre: "",
             aside: {
                 registros: true,
+                pendientes: false,
 
             },
 
@@ -111,6 +112,25 @@ createApp({
         enviar() {
             console.log(this.registro.maestro);
         },
+
+        abrir_modal_pendientes() {
+
+
+            // this.registros_pendientes=JSON.parse(localStorage.getItem("regs_aplicaciones"));
+
+            this.menu('pendientes', 'Registros');
+
+        },
+
+        nombreRancho(nombre) {
+            var nRancho = "";
+            this.unidades.forEach((element) => {
+                if (nombre == element.cat_holding_03_empresas_unidades_productivas_id) {
+                    nRancho = element.UP;
+                }
+            });
+            return nRancho;
+        }
     },
     computed: {
 

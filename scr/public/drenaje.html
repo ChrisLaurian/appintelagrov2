@@ -309,12 +309,135 @@
                                 </center>
                             </div>
                         </div>
-
-
-
                     </section>
+                    <!-- Aqui termina el formulario de crear  -->
 
 
+
+                    <!-- Esta seccion debe irse al aside de registros -->
+                    <section class="content" v-if="aside.registro">
+                        <div class="card border border-success">
+
+                            <div class="card-header">
+                                <h5>
+                                    Registros
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Rancho">Rancho</label>
+                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
+                                                    <option v-for="(item,index) in unidades" :key="index"
+                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
+                                                        ">
+                                                        {{ item.UP }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card border border-success">
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in unidades" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreRancho(item.cat_holding_03_empresas_unidades_productivas_id)}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                            <i class="fal fa-edit"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- aqui termina el section de registros  -->
+
+
+
+                    <!-- inicio del section de pendientes  -->
+                    <section class="content" v-if="aside.pendientes">
+                        <div class="card border border-success">
+
+                            <div class="card-header">
+                                <h5>
+                                    Registros sin enviar
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in unidades" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreRancho(item.cat_holding_03_empresas_unidades_productivas_id)}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                            <i class="fal fa-edit"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" style="margin-top: 33px;">
+                            <div class="col-12">
+                                <center>
+                                    <button type="submit" v-on:click="" class="btn btn-block btn-success btn-lg">Enviar registros</button>
+                                </center>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- fin del section de pendientes  -->
 
 
                 </div>
