@@ -18,6 +18,7 @@ createApp({
                 Drenaje: true,
                 Plagas: true,
                 Phcena: true,
+                Finanzas: true,
 
 
 
@@ -48,6 +49,9 @@ createApp({
         },
         Phcena() {
             location.href = host() + "/phcena.html";
+        },
+        Finanzas() {
+            location.href = host() + "/finanzas.html";
         },
         salir() {
             salir();
