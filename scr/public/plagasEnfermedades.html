@@ -258,18 +258,21 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="areaInvasion">Área de invasión</label>
-                                                <input type="text" v-model="registro.maestro.areaInvasion" class="form-control" id="areaInvasion">
-
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="severidadDano">Severidad de daño</label>
-                                                <input type="text" v-model="registro.maestro.severidadDano" class="form-control" id="severidadDano">
+                                                <select id="severidadDano" v-model="registro.maestro.severidadDano" class="form-control form-control">
+                                                    <option value="">
+                                                        
+                                                    </option>
+                                                </select>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="zonadanada">Zona dañada</label>
-                                                <input type="text" v-model="registro.maestro.zonadanada" class="form-control" id="zonadanada">
+                                                <select id="zonadanada" v-model="registro.maestro.zonadanada" class="form-control form-control">
+                                                    <option value="">
+                                                        
+                                                    </option>
+                                                </select>
 
                                             </div>
                                             <div class="form-group">

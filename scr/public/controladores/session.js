@@ -11,7 +11,7 @@ async function inicio(nombre, cat_usuarios_licencias_id, token, usuario, vigente
     localStorage.setItem('ses_vigente', vigente);
     localStorage.setItem("modulos", JSON.stringify(modulos));
     localStorage.setItem('cat_usuarios_licencias_id', cat_usuarios_licencias_id);
-    location.href = host()+"/modulos.html";
+    location.href = host() + "/modulos.html";
 
 
 }
@@ -136,7 +136,8 @@ function mountCatalogos(catalogos) {
         localStorage.setItem("cat_incidencias", JSON.stringify(catalogos.incidencias));
         localStorage.setItem("cat_actIE", JSON.stringify(catalogos.actIE));
         localStorage.setItem("cat_tags", JSON.stringify(catalogos.tags));
-
+        localStorage.setItem("cat_dano", JSON.stringify(catalogos.dano));
+        localStorage.setItem("cat_zona", JSON.stringify(catalogos.zona));
 
         resolve("ready");
 
@@ -223,7 +224,5 @@ function validar_salida() {
 
 function host() {
     return "http://localhost:3333"
-   // return "https://eliteproduce.intelagro.net"
+        // return "https://eliteproduce.intelagro.net"
 }
-
-

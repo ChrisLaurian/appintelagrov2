@@ -26,6 +26,8 @@ createApp({
             unidades: [],
             lotes: [],
             plagas: [],
+            danios: [],
+            danioZona: [],
 
             registro: {
                 maestro: {
