@@ -153,7 +153,7 @@
                         <div class="container-fluid">
                             <center>
                                 <h5>
-                                    Drenaje
+                                    FINANZAS
                                 </h5>
                             </center>
                             <div class="card border border-success card-mnu-1">
@@ -164,7 +164,7 @@
                                             <center>
                                                 <div @click=" menu('registros', 'Registros');">
                                                     <i class="fas fa-plus-circle text-success"></i>
-                                                    <div class="text-success">Crear</div>
+                                                    <div class="text-success">Nuevo gasto</div>
                                                 </div>
                                             </center>
                                         </div>
@@ -172,7 +172,7 @@
                                             <center>
                                                 <div>
                                                     <i class="fas fa-check-circle text-success" @click="menus('estatus')"></i>
-                                                    <div class="text-success">Registros</div>
+                                                    <div class="text-success">Movimientos</div>
                                                 </div>
                                             </center>
                                         </div>
@@ -198,7 +198,7 @@
 
                             <div class="card-header">
                                 <h5>
-                                    Drenaje
+                                    Finanzas
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -206,85 +206,58 @@
                                     <div class="col-12">
                                         <form>
                                             <div class="form-group">
-                                                <label for="Fecha">Fecha</label>
+                                                <label for="Fecha">Fecha *</label>
                                                 <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
                                             </div>
                                             <div class="form-group">
-                                                <label for="Rancho">Rancho</label>
-                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
-                                                    <option v-for="(item,index) in unidades" :key="index"
-                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
-                                                        ">
-                                                        {{ item.UP }}
-                                                    </option>
+                                                <label for="Caja">Caja *</label>
+                                                <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
                                                 </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="Lote">Lote</label>
-                                                <select id="Lote" v-model="registro.maestro.lote" class="form-control form-control">
-                                                    <option v-for="(item,index) in lotes" :key="index"
-                                                        v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id
-                                                        ">
-                                                        {{ item.lote }}
-                                                    </option>
+                                                <label for="Importe">Importe *</label>
+                                                <input type="number" v-model="registro.maestro.importe" class="form-control" id="Importe">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Movimiento">Movimiento *</label>
+                                                <select id="Movimiento" v-model="registro.maestro.movimiento" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
                                                 </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="Periodo">Periodo</label>
-                                                <select id="Periodo" v-model="registro.maestro.periodo" class="form-control form-control">
-                                                    <option value="1">Periodo</option>
+                                                <label for="Proveedor">Proveedor</label>
+                                                <select id="Proveedor" v-model="registro.maestro.proveedor" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
                                                 </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="PH Entrada">PH Entrada</label>
-                                                <input type="number" v-model="registro.maestro.phEntrada" class="form-control" id="PH Entrada">
+                                                <label for="TipoComprobante">Tipo de comprobante</label>
+                                                <select id="TipoComprobante" v-model="registro.maestro.tipoComprobante" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
+                                                </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="PH Salida">PH Salida</label>
-                                                <input type="number" v-model="registro.maestro.phSalida" class="form-control" id="PH Salida">
+                                                <label for="Transaccion">Transacción</label>
+                                                <select id="Transaccion" v-model="registro.maestro.transaccion" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
+                                                </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="CE Entrada">CE Entrada</label>
-                                                <input type="number" v-model="registro.maestro.ceEntrada" class="form-control" id="CE Entrada">
+                                                <label for="NoComprobante">Numero de comprobante</label>
+                                                <input type="number" v-model="registro.maestro.noComprobante" class="form-control" id="NoComprobante">
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="CE Salida">CE Salida</label>
-                                                <input type="number" v-model="registro.maestro.ceSalida" class="form-control" id="CE Salida">
+                                                <label for="Comentario">Comentario</label>
+                                                <input type="Text" v-model="registro.maestro.comentario" class="form-control" id="Comentario">
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Agua Entrada">Agua Entrada</label>
-                                                <input type="number" v-model="registro.maestro.aguaEntrada" class="form-control" id="Agua Entrada">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Agua Salida">Agua Salida</label>
-                                                <input type="number" v-model="registro.maestro.aguaSalida" class="form-control" id="Agua Salida">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Riegos">Riegos</label>
-                                                <input type="number" v-model="registro.maestro.riegos" class="form-control" id="Riegos">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Minutos de riego">Minutos de riego</label>
-                                                <input type="number" v-model="registro.maestro.minutosRiego" class="form-control" id="Minutos de riego">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="M3 sin fertilizante">M3 sin fertilizante</label>
-                                                <input type="number" v-model="registro.maestro.m3SinFertilizante" class="form-control" id="M3 sin fertilizante">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="M3 con fertilizante">M3 con fertilizante</label>
-                                                <input type="number" v-model="registro.maestro.m3ConFertilizante" class="form-control" id="M3 sin fertilizante">
                                             </div>
 
                                         </form>
@@ -310,12 +283,12 @@
                             </div>
                         </div>
                     </section>
-                    <!-- Aqui termina el formulario de crear  -->
+                    <!-- Aqui termina el formulario de nuevo gasto  -->
 
 
 
-                    <!-- Esta seccion debe irse al aside de registros -->
-                    <section class="content" v-if="aside.registro">
+                    <!-- Esta seccion debe irse al aside de movimientos -->
+                    <section class="content" v-if="aside.movimientos">
                         <div class="card border border-success">
 
                             <div class="card-header">
@@ -328,19 +301,19 @@
                                     <div class="col-12">
                                         <form>
                                             <div class="form-group">
-                                                <label for="Rancho">Rancho</label>
-                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
-                                                    <option v-for="(item,index) in unidades" :key="index"
-                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
-                                                        ">
-                                                        {{ item.UP }}
-                                                    </option>
+                                                <label for="Caja">Caja</label>
+                                                <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
+                                                    <option value="">Opcion 1</option>
                                                 </select>
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="Fecha">Fecha</label>
-                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                                <label for="FechaInicio">Fecha inicio</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="FechaInicio">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="FechaFin">Fecha fin</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="FechaFin">
                                             </div>
                                         </form>
                                     </div>
@@ -383,7 +356,7 @@
                             </div>
                         </div>
                     </section>
-                    <!-- aqui termina el section de registros  -->
+                    <!-- aqui termina el section de movimientos  -->
 
 
 

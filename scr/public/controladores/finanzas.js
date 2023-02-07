@@ -23,29 +23,22 @@ createApp({
             aside: {
                 registros: true,
                 pendientes: false,
+                estatus: false,
 
             },
-
-            unidades: [],
-            lotes: [],
 
             registro: {
                 maestro: {
                     UUID: "",
                     fecha: "",
-                    rancho: "",
-                    lote: "",
-                    periodo: "",
-                    phEntrada: 0,
-                    phSalida: 0,
-                    ceEntrada: 0,
-                    ceSalida: 0,
-                    aguaEntrada: 0,
-                    aguaSalida: 0,
-                    riegos: 0,
-                    minutosRiego: 0,
-                    m3SinFertilizante: 0,
-                    m3ConFertilizante: 0,
+                    caja: "",
+                    importe: 0,
+                    movimiento: "",
+                    proveedor: "",
+                    tipoComprobante: "",
+                    transaccion: "",
+                    noComprobante: 0,
+                    comentario: "",
 
                 },
             },
@@ -100,8 +93,8 @@ createApp({
 
         },
         mountdata() {
-            this.unidades = JSON.parse(localStorage.getItem("cat_unidades"));
-            this.lotes = JSON.parse(localStorage.getItem("cat_lotes"));
+            // this.unidades = JSON.parse(localStorage.getItem("cat_unidades"));
+            // this.lotes = JSON.parse(localStorage.getItem("cat_lotes"));
 
             this.registro.maestro.UUID = generateUUID();
 
