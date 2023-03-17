@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Intelagro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <style type="text/css">
+        @font-face {
+            font-family: digital;
+            src: url("https://intelagro.net/intelagro/adminlite/dists/fonts/seven.ttf");
+        }
+        
+        .digital {
+            font-family: digital;
+            color: red;
+            font-size: 300%;
+        }
+        
+        .btn-warning {
+            color: white;
+        }
+        
+        .row {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+        
+        .card-body.card-mnu-2 {
+            padding-bottom: 6px;
+            padding-top: 6px;
+        }
+        
+        .card.card-mnu-1 {
+            margin-bottom: 32px;
+        }
+        
+        ul.pro {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        
+        ul.pre {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        
+        row.row-enviar {
+            margin-bottom: 32px;
+        }
+        
+        .btn-marg {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body class="layout-top-nav" style="background-color:white;">
+
+    <div id="app">
+        <div>
+            <div class="wrapper">
+
+
+
+                <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
+                        </li>
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="#" class="nav-link">Elite Produce</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right navbar links -->
+
+                    <ul class="navbar-nav ml-auto">
+
+
+                        <li class="nav-item dropdown" @click="logout()">
+                            <a class="nav-link" data-toggle="dropdown" href="#">
+                                <i class="fa fa-sign-out"> Salir</i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                <span class="dropdown-item dropdown-header">Cerrar sesion</span>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </nav>
+
+                <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                    <a href="#" class="brand-link">
+                        <img :src="logo" alt="intelagro" class="brand-image img-circle elevation-3 " data-widget="pushmenu" style="opacity: 0.8" />
+                        <span class="info-box-text text-success">Intelagro</span>
+                    </a>
+
+                    <div class="sidebar">
+                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                            <div class="info">
+                                <a href="#" class="d-block">{{ nombre }}</a>
+                            </div>
+                        </div>
+
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <li class="nav-header">{{modulo}}</li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="inicio()">
+                                        <i class="nav-icon fas fa-home text-success"></i>
+                                        <p class="text">Inicio</p>
+                                    </a>
+                                </li>
+
+
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('registros', 'Registros')">
+                                        <i class="nav-icon fas fa-box-open text-success"></i>
+                                        <p class="text">Registros</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('editar', 'Registros')">
+                                        <i class="nav-icon fas fa-edit text-success"></i>
+                                        <p class="text">Editar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('incidencias', 'Registros')">
+                                        <i class="nav-icon fas fa-box-open text-success"></i>
+                                        <p class="text">Incidencias</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+
+                <div class="content-wrapper">
+                    <section class="content-header">
+                        <div>
+                            <center>
+                                <h1>
+                                    ASISTENCIAS
+                                </h1>
+                            </center>
+                            <div class="card border border-success card-mnu-1">
+
+                                <div class="card-body card-mnu-2" v-if="menu_superior">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <center>
+                                                <div @click=" menu('registros', 'Registros');" :class="active_menu_registros">
+                                                    <i class="fas fa-plus-circle "></i>
+                                                    <div>Crear</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div class="col-3">
+                                            <center>
+                                                <div @click=" menu('regs', 'Registros');" :class="active_menu_regs">
+                                                    <i class="fas fa-book"></i>
+                                                    <div>Bitácora</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div class="col-3">
+                                            <center>
+                                                <div @click=" menu('horas', 'Registros');" :class="active_menu_horas">
+                                                    <i class="fas fa-user-clock"></i>
+                                                    <div>Horas</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div class="col-3">
+                                            <center>
+                                                <div @click="abrir_modal_pendientes()" :class="active_menu_pendientes">
+                                                    <i class="fas fa-arrow-circle-up"></i>
+                                                    <span class="badge">{{ num_pendientes }}</span>
+                                                    <div>Pendientes</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Aqui inicia todo el formulario -->
+
+                    <section class="content" v-if="aside.registros">
+                        <div class="card border border-success">
+
+                            <div class="card-header">
+                                <h5>
+                                    Asistencia
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Rancho">Rancho</label>
+                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
+                                                    <option v-for="(item,index) in unidades" :key="index"
+                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
+                                                        ">
+                                                        {{ item.UP }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Turno">Turno</label>
+                                                <select id="Turno" v-model="registro.maestro.turno" class="form-control form-control">
+                                                    <option v-for="(item,index) in turnos" :key="index"
+                                                        v-bind:value="item.cat_actividades_turnos_id
+                                                        ">
+                                                        {{ item.descripcion_turno }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="en_sa">Entrada / Salida</label>
+                                                <select id="en_sa" v-model="registro.maestro.cat_actIE" class="form-control form-control">
+                                                    <option v-for="(item,index) in cat_actIE" :key="index"
+                                                        v-bind:value="item.cat_actividades_ingreso_egreso_mu_id
+                                                        ">
+                                                        {{ item.descripcion_ingreso_egreso
+                                                        }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Hora">Hora</label>
+                                                <input type="time" v-model="registro.maestro.hora" class="form-control" id="Hora">
+
+                                            </div>
+
+                                        </form>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="card border border-success">
+
+                            <div class="card-header">
+                                <h5>
+                                    Trabajadores
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="card-body ">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <form onsubmit="event.preventDefault();" role="form">
+                                                            <label for="solicitante">Trabajador</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control form-control" placeholder="" v-model="nombre_trabajador2" id="n_t" autocomplete="off" />
+                                                            </div>
+                                                            <span style="display:none">
+                                                                <ul class="list-group">
+                                                                    <li v-for="(item, index) in list_trabajadores" :key="index"
+                                                                        class="list-group-item"
+                                                                        @click="seleccionar_trabajdor(item)">
+                                                                        {{ item.nombre}}
+                                                                    </li>
+                                                                </ul>
+                                                            </span>
+                                                            <script>
+                                                                document.addEventListener('DOMContentLoaded', () => {
+                                                                    document.querySelectorAll('input[type=text]').forEach(node => node.addEventListener('keypress', e => {
+                                                                        if (e.keyCode == 13) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }))
+                                                                });
+                                                            </script>
+                                                        </form>
+                                                        <ul class="list-group pro mt-3">
+                                                            <li class="list-group-item" v-for="(item, index) in registro.lista_trabajadores" :key="index">
+                                                                <div class="row">
+                                                                    <div class="col-12" @click="borrar_trabajador_registro(index)">
+                                                                        {{ item.nombre}}
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 justify-content-center">
+                                                <div class="col-3 text-center">
+                                                    <center>
+                                                        <button type="submit" v-on:click="menu('agregarTrabajador', 'Registros')" class="btn btn-block btn-success btn-lg">Agregar</button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" style="margin-top: 33px;">
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" v-on:click="" class="btn btn-block btn-outline-secondary btn-lg">Cancelar</button>
+                                </center>
+                            </div>
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" v-on:click="enviar" class="btn btn-block btn-success btn-lg">Enviar</button>
+                                </center>
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- Aqui termina el formulario de crear  -->
+
+
+
+                    <!-- Esta seccion debe irse al aside de Bitacora -->
+                    <section class="content" v-if="aside.regs">
+                        <div class="card border border-success mb-3">
+
+
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Rancho">Rancho</label>
+                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
+                                                    <option v-for="(item,index) in unidades" :key="index"
+                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
+                                                        ">
+                                                        {{ item.UP }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border border-success">
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <table class="justify-content-center">
+                                                <tr>
+                                                    <th>Trabajador</th>
+                                                    <th>Turno</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- aqui termina el section de Bitacora  -->
+
+                    <!-- aqui inicia el section de pendientes  -->
+                    <section class="content" v-if="aside.pendientes">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Pendientes</h5>
+
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in registros_pendientes" :key="index">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        Aplicacion: {{item.maestro.fecha}}
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="enviar_registros_server()" type="button" style="margin-top: 33px;" class="btn btn-success btn-sm btn-block ">
+                                           Enviar Registros
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
+                    <!-- aqui termina el section de pendientes -->
+
+                    <!-- inicio del section de Horas  -->
+                    <section class="content" v-if="aside.horas">
+                        <div class="card border border-success mb-3">
+
+
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Rancho">Rancho</label>
+                                                <select id="Rancho" v-model="registro.maestro.rancho" class="form-control form-control">
+                                                    <option v-for="(item,index) in unidades" :key="index"
+                                                        v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id
+                                                        ">
+                                                        {{ item.UP }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border border-success">
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <table class="justify-content-center">
+                                                <tr>
+                                                    <th>Trabajador</th>
+                                                    <th>Horas</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Texto</td>
+                                                    <td>Texto</td>
+
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- fin del section de Horas  -->
+
+                    <!-- Esta seccion debe irse al aside de editar -->
+                    <section class="content" v-if="aside.editar">
+                        <center>
+                            <h3>
+                                EDITAR
+                            </h3>
+                        </center>
+                        <div class="card border border-success mb-3">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Trabajador">Trabajador</label>
+                                                <select id="Trabajador" v-model="registro.maestro.trabajadoresEditar" class="form-control form-control">
+                                                    <option v-for="(item,index) in trabajadores" :key="index"
+                                                        v-bind:value="item.cat_trabajadores_altas_id
+                                                        ">
+                                                        {{ item.nombre }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border border-success mb-3">
+                            <div class="card-header">
+                                <h5>
+                                    Registro asistencias
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in unidades" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreRancho(item.cat_holding_03_empresas_unidades_productivas_id)}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="menu('editarAsistencia', 'Registros')" type="button" class="btn btn-warning btn-sm">
+                                                            <i class="fal fa-edit"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border border-success mb-3">
+                            <div class="card-header">
+                                <h5>
+                                    Registro incidencias
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in unidades" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreRancho(item.cat_holding_03_empresas_unidades_productivas_id)}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                                            <i class="fal fa-trash"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="menu('editarIncidencia', 'Registros')" type="button" class="btn btn-warning btn-sm">
+                                                            <i class="fal fa-edit"></i>
+                                                        </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- aqui termina el section de editar  -->
+
+
+                    <!-- aqui termina la section de incidencia -->
+                    <section class="content" v-if="aside.incidencias">
+                        <center>
+                            <h1>
+                                INCIDENCIA
+                            </h1>
+                        </center>
+                        <div class="card border border-success mb-3">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+
+                                            <div class="form-group">
+                                                <label for="Fecha">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="Incidencia">Incidencia</label>
+                                                <select id="Incidencia" v-model="registro.maestro.incidencia" class="form-control form-control">
+                                                    <option v-for="(item,index) in incidencia" :key="index"
+                                                        v-bind:value="item.cat_nominas_incidencias_mu_id
+                                                        ">
+                                                        {{ item.descripcion_incidencia }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="Observaciones">Observación</label>
+                                                <input type="text" v-model="registro.maestro.observaciones" class="form-control" id="Observaciones">
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border border-success">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <h5>Trabajadores</h5>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in registro.trabajadoresIncidencia" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{ item.nombre}}
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fal fa-trash"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                                                    <i class="fal fa-edit"></i>
+                                                                </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!--evento click menu('AgregarTrabajadores','Registros') -->
+                                        <button v-on:click="menu('agregarTrabajador','Registros')" type="button" class="btn btn-success btn-sm btn-block">
+                                            Agregar Trabajador
+                                            <i class="fal fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" style="margin-top: 33px;">
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" v-on:click="" class="btn btn-block btn-outline-secondary btn-lg">Cancelar</button>
+                                </center>
+                            </div>
+                            <div class="col-6">
+                                <center>
+                                    <button type="submit" v-on:click="enviar" class="btn btn-block btn-success btn-lg">Guardar</button>
+                                </center>
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- aqui termina la section de incidencia -->
+
+                    <!-- aqui inicia el modal de editar asistencia -->
+                    <section class="content" v-if="aside.editarAsistencia">
+                        <div class="card border border-success mb-3">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editar asistencia</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_editarAsistencia()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="TurnoEditar">Turno</label>
+                                                <select id="TurnoEditar" v-model="registro.maestro.turno" class="form-control form-control">
+                                                    <option v-for="(item,index) in turnos" :key="index"
+                                                        v-bind:value="item.cat_actividades_turnos_id
+                                                        ">
+                                                        {{ item.descripcion_turno }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="FechaEditar">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fechaEditar" class="form-control" id="FechaEditar">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="HoraEditar">Hora</label>
+                                                <input type="time" v-model="registro.maestro.horaEditar" class="form-control" id="HoraEditar">
+
+                                            </div>
+
+                                            <div class="row mb-3" style="margin-top: 33px;">
+                                                <div class="col-6">
+                                                    <center>
+                                                        <button type="submit" v-on:click="" class="btn btn-block btn-outline-secondary btn-lg">Cancelar</button>
+                                                    </center>
+                                                </div>
+                                                <div class="col-6">
+                                                    <center>
+                                                        <button type="submit" v-on:click="enviar" class="btn btn-block btn-success btn-lg">Guardar</button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- aqui inicia el section del modal buscar trabajador -->
+                    <section class="content" v-if="aside.agregarTrabajador">
+                        <div class="card border border-success mb-3">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Buscar trabajador</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_agregarTrabajador()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Trabajador</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control" placeholder="" v-model="nombre_trabajador" id="n_t" autocomplete="off" />
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-search"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span>
+                                                <ul class="list-group">
+                                                    <li v-for="(item, index) in list_trabajadores" :key="index"
+                                                        class="list-group-item"
+                                                        @click="seleccionar_trabajdor(item)">
+                                                        {{ item.nombre}}
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- aqui termina el section del modal buscar trabajador  -->
+
+                    <!-- aqui inicia el section del modal editar incidencia -->
+                    <section class="content" v-if="aside.editarIncidencia">
+                        <div class="card border border-success mb-3">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editar incidencia</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_editarIncidencia()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="Incidencia">Incidencia</label>
+                                                <select id="Incidencia" v-model="registro.maestro.incidencia" class="form-control form-control">
+                                                    <option v-for="(item,index) in incidencia" :key="index"
+                                                        v-bind:value="item.cat_nominas_incidencias_mu_id
+                                                        ">
+                                                        {{ item.descripcion_incidencia }}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="FechaEditar">Fecha</label>
+                                                <input type="date" v-model="registro.maestro.fechaEditar" class="form-control" id="FechaEditar">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="ObservacionEditarIncidencia">Observacion</label>
+                                                <input type="text" v-model="registro.maestro.ObservacionEditarIncidencia" class="form-control" id="ObservacionEditarIncidencia">
+
+                                            </div>
+
+                                            <div class="row mb-3" style="margin-top: 33px;">
+                                                <div class="col-6">
+                                                    <center>
+                                                        <button type="submit" v-on:click="" class="btn btn-block btn-outline-secondary btn-lg">Cancelar</button>
+                                                    </center>
+                                                </div>
+                                                <div class="col-6">
+                                                    <center>
+                                                        <button type="submit" v-on:click="enviar" class="btn btn-block btn-success btn-lg">Editar</button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- aqui termina el modal del section editar incidencia -->
+
+                </div>
+
+                <footer class="main-footer">
+                    <div class="float-right ">
+                        <b>Version</b> {{version}}
+                    </div>
+                    <strong>Copyright &copy; 2020-2022 </strong> All rights reserved.
+                </footer>
+
+
+
+                <aside class="control-sidebar control-sidebar-dark"></aside>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="./controladores/funciones.js"></script>
+    <script src="./controladores/session.js"></script>
+    <script src="./controladores/asistencia.js"></script>
+
+</body>
+
+</html>

@@ -19,6 +19,8 @@ createApp({
                 Plagas: true,
                 Phcena: true,
                 Finanzas: true,
+                Asistencia: true,
+                TrabajadoresModulo: true,
 
 
 
@@ -53,6 +55,13 @@ createApp({
         Finanzas() {
             location.href = host() + "/finanzas.html";
         },
+        Asistencia() {
+            location.href = host() + "/asistencia.html";
+        },
+        TrabajadoresModulo() {
+            location.href = host() + "/trabajadores_modulo.html";
+        },
+
         salir() {
             salir();
         }

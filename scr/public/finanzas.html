@@ -149,7 +149,7 @@
 
                 <div class="content-wrapper">
 
-                    <section class="content-header">
+                    <section class="">
                         <div class="container-fluid">
                             <center>
                                 <h5>
@@ -158,30 +158,30 @@
                             </center>
                             <div class="card border border-success card-mnu-1">
 
-                                <div class="card-body card-mnu-2">
+                                <div class="card-body card-mnu-2" v-if="menu_superior">
                                     <div class="row">
                                         <div class="col-4">
                                             <center>
-                                                <div @click=" menu('registros', 'Registros');">
-                                                    <i class="fas fa-plus-circle text-success"></i>
-                                                    <div class="text-success">Nuevo gasto</div>
+                                                <div @click=" menu('registros', 'Registros');" :class="active_menu_registros">
+                                                    <i class="fas fa-plus-circle "></i>
+                                                    <div>Nuevo Gasto</div>
                                                 </div>
                                             </center>
                                         </div>
                                         <div class="col-4">
                                             <center>
-                                                <div>
-                                                    <i class="fas fa-check-circle text-success" @click="menus('estatus')"></i>
-                                                    <div class="text-success">Movimientos</div>
+                                                <div @click=" menu('regs', 'Registros');" :class="active_menu_regs">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <div>Movimientos</div>
                                                 </div>
                                             </center>
                                         </div>
                                         <div class="col-4">
                                             <center>
-                                                <div>
-                                                    <i class="fas fa-arrow-circle-up text-success" @click="abrir_modal_pendientes()"></i>
-                                                    <span class="badge badge-success">{{ num_pendientes }}</span>
-                                                    <div class="text-success">Pendientes</div>
+                                                <div @click="abrir_modal_pendientes()" :class="active_menu_pendientes">
+                                                    <i class="fas fa-arrow-circle-up"></i>
+                                                    <span class="badge">{{ num_pendientes }}</span>
+                                                    <div>Pendientes</div>
                                                 </div>
                                             </center>
                                         </div>
@@ -212,7 +212,11 @@
                                             <div class="form-group">
                                                 <label for="Caja">Caja *</label>
                                                 <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
-                                                    <option value="">Opcion 1</option>
+                                                    <option v-for="(item,index) in cajas" :key="index"
+                                                        v-bind:value="item.cat_finanzas_cajas_chicas_id
+                                                        ">
+                                                        {{ item.descripcion_caja_chica }}
+                                                    </option>
                                                 </select>
 
                                             </div>
@@ -231,17 +235,27 @@
                                             <div class="form-group">
                                                 <label for="Proveedor">Proveedor</label>
                                                 <select id="Proveedor" v-model="registro.maestro.proveedor" class="form-control form-control">
-                                                    <option value="">Opcion 1</option>
+                                                    <option v-for="(item,index) in proveedores" :key="index"
+                                                        v-bind:value="item.cat_compras_proveedores_id
+                                                        ">
+                                                        {{ item.descripcion_proveedores }}
+                                                    </option>
                                                 </select>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="TipoComprobante">Tipo de comprobante</label>
                                                 <select id="TipoComprobante" v-model="registro.maestro.tipoComprobante" class="form-control form-control">
-                                                    <option value="">Opcion 1</option>
+                                                    <option v-for="(item,index) in documentos" :key="index"
+                                                        v-bind:value="item.cat_compras_documentos_mu_id
+                                                        ">
+                                                        {{ item.descripcion_compras_documentos_mu
+                                                        }}
+                                                    </option>
                                                 </select>
 
                                             </div>
+                                            <!-- Transaccion se usa para -->
                                             <div class="form-group">
                                                 <label for="Transaccion">Transacción</label>
                                                 <select id="Transaccion" v-model="registro.maestro.transaccion" class="form-control form-control">
@@ -288,7 +302,7 @@
 
 
                     <!-- Esta seccion debe irse al aside de movimientos -->
-                    <section class="content" v-if="aside.movimientos">
+                    <section class="content" v-if="aside.regs">
                         <div class="card border border-success">
 
                             <div class="card-header">
@@ -303,7 +317,11 @@
                                             <div class="form-group">
                                                 <label for="Caja">Caja</label>
                                                 <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
-                                                    <option value="">Opcion 1</option>
+                                                    <option v-for="(item,index) in cajas" :key="index"
+                                                        v-bind:value="item.cat_finanzas_cajas_chicas_id
+                                                        ">
+                                                        {{ item.descripcion_caja_chica }}
+                                                    </option>
                                                 </select>
 
                                             </div>
