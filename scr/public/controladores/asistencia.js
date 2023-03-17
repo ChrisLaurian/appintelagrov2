@@ -252,11 +252,12 @@ createApp({
 
                 let idtrabajador = trabajador.cat_trabajadores_altas_id;
                 if (
-                    idtrabajador == this.nombre_trabajador2 &&
-                    idtrabajador == "B" &&
-                    idtrabajador == "^"
+                    idtrabajador == this.nombre_trabajador2.slice(2)
+
                 ) {
-                    this.registro.lista_trabajadores.push(trabajador);
+                    if (this.registro.lista_trabajadores.indexOf(trabajador) == -1) {
+                        this.registro.lista_trabajadores.push(trabajador);
+                    }
                     this.nombre_trabajador2 = "";
                 }
             });
