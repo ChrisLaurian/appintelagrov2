@@ -21,6 +21,7 @@ createApp({
                 Finanzas: true,
                 Asistencia: true,
                 TrabajadoresModulo: true,
+                Estados: true,
 
 
 
@@ -60,6 +61,9 @@ createApp({
         },
         TrabajadoresModulo() {
             location.href = host() + "/trabajadores_modulo.html";
+        },
+        Estados() {
+            location.href = host() + "/estados.html";
         },
 
         salir() {
