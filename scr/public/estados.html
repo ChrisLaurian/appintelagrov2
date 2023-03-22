@@ -90,9 +90,9 @@
                         </li>
                     </ul>
 
-                    <!-- Right navbar links -->
 
-                    <ul class="navbar-nav ml-auto">
+
+                    <!-- <ul class="navbar-nav ml-auto">
 
 
                         <li class="nav-item dropdown" @click="logout()">
@@ -104,7 +104,7 @@
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
 
                 </nav>
 
@@ -150,7 +150,7 @@
 
                 <div class="content-wrapper">
 
-                    <section class="content-header">
+                    <!-- <section class="content-header">
                         <div class="container-fluid">
                             <center>
                                 <h5>
@@ -190,41 +190,32 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> -->
 
-                    <section class="content" v-if="aside.registros">
+                    <section class="content-header" v-if="aside.registros">
 
                         <div class="card border border-success">
 
-                            <div class="card-header">
-                                <h5>
-                                    titulo de tarjeta
-                                </h5>
-                            </div>
+                            <button type="button " style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
 
-                                        <form>
-
-                                            <div class="form-group">
-                                                <label for="text1">edad1</label>
-                                                <input type="number" v-model="edad1" class="form-control" id="text1" aria-describedby="emailHelp" placeholder="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="text1">edad2</label>
-                                                <input type="number" v-model="edad2" class="form-control" id="text1" aria-describedby="emailHelp" placeholder="">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="text1">total</label>
-                                                <input type="number" v-model="total" class="form-control" id="text1" aria-describedby="emailHelp" placeholder="">
-                                            </div>
-                                        </form>
-
-                                        {{total}}
+                                        <center>
+                                            <img src="img/Enviado.svg" alt="Imagen SVG de success">
+                                        </center>
 
 
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <center>
+                                            <h2>
+                                                ¡Registros enviados!
+                                            </h2>
+                                        </center>
                                     </div>
 
 
@@ -234,16 +225,179 @@
                         </div>
 
                         <div class="card border border-success">
+
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <button type="submit" class="btn btn-success">cancelar</button>
-                                    </div>
-                                    <div class="col-6">
+                                    <div class="col-12" style="margin-top: 33px;">
 
-                                        <button type="submit" class="btn btn-primary">enviar</button>
+                                        <center>
+                                            <img src="img/Error.svg" alt="Imagen SVG de Error">
+                                        </center>
+
+
                                     </div>
+                                    <div class="col-12 mt-4" style="margin-top: 33px;">
+                                        <center>
+                                            <h2>
+                                                Registros no enviados
+                                            </h2>
+                                            <span>
+                                                Por favor, comprueba tu conexion a internet y vuelvelo a intentar
+                                            </span>
+                                        </center>
+                                    </div>
+
+                                    <div class="col-12 " style="margin-top: 33px;">
+                                        <center>
+                                            <button type="button" class="btn btn-outline-dark btn-lg">Reintentar</button>
+                                        </center>
+                                    </div>
+
+
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <center>
+                                            <img src="img/Spin.svg" alt="Imagen SVG de success">
+                                        </center>
+
+
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <center>
+                                            <h2>
+                                                Vinculando...
+                                            </h2>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <center>
+                                            <img src="img/Success.svg" alt="Imagen SVG de success">
+                                        </center>
+
+
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <center>
+                                            <h2>
+                                                VInculado con exito
+                                            </h2>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <center>
+                                            <img src="img/Error.svg" alt="Imagen SVG de success">
+                                        </center>
+
+
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <center>
+                                            <h2>
+                                                No vinculado
+                                            </h2>
+                                            <span>
+                                                Por favor, compruebe que el aparato RFID este encendido
+                                            </span>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <center>
+                                            <img src="img/Folder.svg" alt="Imagen SVG de success">
+                                        </center>
+
+
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <center>
+                                            <h2>
+                                                Registors guardados en Pendientes
+                                            </h2>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <center>
+                                            <img src="img/Spin.svg" alt="Imagen SVG de success">
+                                        </center>
+
+
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <center>
+                                            <h2>
+                                                Enviando...
+                                            </h2>
+                                        </center>
+                                    </div>
+
+
+                                </div>
+
                             </div>
                         </div>
 
