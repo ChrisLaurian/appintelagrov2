@@ -1,0 +1,125 @@
+/* <link rel="stylesheet" type="text/css" href="estilos.css"> */
+
+.reintentar {
+    appearance: none;
+    background-color: transparent;
+    border: 0.125em solid #1A1A1A;
+    border-radius: 2em;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 3.75em;
+    min-width: 0;
+    outline: none;
+    padding: 1.0em 2.0em;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform;
+}
+
+.reintentar:disabled {
+    pointer-events: none;
+}
+
+.reintentar:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.reintentar:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.exit {
+    text-align: right;
+}
+
+.modal-header {
+    border: none;
+}
+
+.col-12 {
+    margin-top: 33px;
+    margin-bottom: 33px;
+}
+
+.mb-4 {
+    margin-bottom: 33px;
+}
+
+
+/* .fullcuadro {
+    background-color: red;
+    max-height: parent;
+    width: 100%;
+    height: (tarjetasinicial);
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+} */
+
+content-header {
+    display: flex;
+    height: 100%;
+    padding: 100px 0.5rem;
+}
+
+
+/* .tarjetasinicial {
+    background-color: red;
+    min-height: min-content;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+} */
+
+
+/* Circulo de cargando */
+
+svg {
+    width: 8.5em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+}
+
+circle {
+    fill: none;
+    stroke: hsl(214, 97%, 59%);
+    stroke-width: 3;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash4 {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dashoffset: -125px;
+    }
+}

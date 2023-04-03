@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="estilos/estilos.css">
     <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -194,12 +195,12 @@
 
                     <section class="content-header" v-if="aside.registros">
 
-                        <div class="card border border-success">
-
-                            <button type="button " style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                        <div class="card h-100 border border-success " style="height: 200rem;">
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -223,16 +224,19 @@
 
                             </div>
                         </div>
-
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
                         <div class="card border border-success">
 
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
+                            </div>
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12" style="margin-top: 33px;">
+                                    <div class="col-12">
 
                                         <center>
                                             <img src="img/Error.svg" alt="Imagen SVG de Error">
@@ -240,7 +244,7 @@
 
 
                                     </div>
-                                    <div class="col-12 mt-4" style="margin-top: 33px;">
+                                    <div class="col-12">
                                         <center>
                                             <h2>
                                                 Registros no enviados
@@ -251,9 +255,9 @@
                                         </center>
                                     </div>
 
-                                    <div class="col-12 " style="margin-top: 33px;">
+                                    <div class="col-12 ">
                                         <center>
-                                            <button type="button" class="btn btn-outline-dark btn-lg">Reintentar</button>
+                                            <button type="button" class="reintentar">Reintentar envío</button>
                                         </center>
                                     </div>
 
@@ -262,21 +266,27 @@
 
                             </div>
                         </div>
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
                         <div class="card border border-success">
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
 
                                         <center>
-                                            <img src="img/Spin.svg" alt="Imagen SVG de success">
+                                            <svg viewBox="25 25 50 50">
+                                                <circle r="20" cy="50" cx="50"></circle>
+                                              </svg>
                                         </center>
 
 
                                     </div>
-                                    <div class="col-12 mt-4">
+                                    <div class="col-12">
                                         <center>
                                             <h2>
                                                 Vinculando...
@@ -289,10 +299,14 @@
 
                             </div>
                         </div>
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
                         <div class="card border border-success">
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -306,7 +320,7 @@
                                     <div class="col-12 mt-4">
                                         <center>
                                             <h2>
-                                                VInculado con exito
+                                                Vinculado con exito
                                             </h2>
                                         </center>
                                     </div>
@@ -316,10 +330,14 @@
 
                             </div>
                         </div>
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
                         <div class="card border border-success">
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -346,10 +364,14 @@
 
                             </div>
                         </div>
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
                         <div class="card border border-success">
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -362,9 +384,9 @@
                                     </div>
                                     <div class="col-12 mt-4">
                                         <center>
-                                            <h2>
-                                                Registors guardados en Pendientes
-                                            </h2>
+                                            <p>Registros guardados en</p>
+                                            <h2>Pendientes (<i class="fas fa-arrow-circle-up"></i>)</h2>
+
                                         </center>
                                     </div>
 
@@ -373,16 +395,22 @@
 
                             </div>
                         </div>
-                        <div class="card border border-success">
-                            <button type="button" style="text-align: right;" class="close" v-on:click="" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    </section>
+                    <section class="content-header" v-if="aside.registros">
+                        <div class="card border border-success fullcuadro">
+                            <div class="modal-header">
+                                <button type="button " class="close exit" v-on:click="" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
 
                                         <center>
-                                            <img src="img/Spin.svg" alt="Imagen SVG de success">
+                                            <svg viewBox="25 25 50 50">
+                                                <circle r="20" cy="50" cx="50"></circle>
+                                              </svg>
                                         </center>
 
 
