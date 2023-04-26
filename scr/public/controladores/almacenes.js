@@ -24,6 +24,7 @@ createApp({
                 traspasos: false,
                 existencias: false,
                 agregarproductos: false,
+                agregarproductos2: false,
 
             },
 
@@ -50,6 +51,7 @@ createApp({
 
                 },
                 productos: [],
+                productosinventario: [],
             },
             producto: {
                 UUID: "",
@@ -117,6 +119,7 @@ createApp({
                 traspasos: false,
                 existencias: false,
                 agregarproductos: false,
+                agregarproductos2: false,
             };
             this.aside[puntero] = true;
 
@@ -190,6 +193,10 @@ createApp({
             this.$nextTick(() => {
                 this.$refs.btnagregarproductos.focus();
             });
+        },
+        cerrar_modal_productos2() {
+            this.menu('traspasos', 'Registros');
+
         },
         seleccionar_producto(item) {
             this.nombre_producto = item.producto;

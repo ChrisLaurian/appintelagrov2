@@ -394,26 +394,26 @@
                                     </div>
 
                                 </div>
-                                <div class="row ">
-                                    <div class="col-12 ">
-                                        <div class="col-12 ">
-                                            <ul class="list-group pro ">
-                                                <li class="list-group-item " v-for="(item, index) in registro.trabajadoresIncidencia " :key="index ">
-                                                    <div class="row ">
-                                                        <div class="col-8 ">
-                                                            {{ item.nombre}}
+                                <div class="row" style="margin-top: 33px;">
+                                    <div class="col-12">
+                                        <div class="col-12">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreProductos(item.cat_compras_productos_id)}}
                                                         </div>
-                                                        <div class="col-2 ">
+                                                        <div class="col-2">
                                                             <center>
-                                                                <button v-on:click=" " type="button " class="btn btn-danger btn-sm ">
-                                                                    <i class="fal fa-trash "></i>
+                                                                <button v-on:click="borrar_producto(item,index)" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fal fa-trash"></i>
                                                                 </button>
                                                             </center>
                                                         </div>
-                                                        <div class="col-2 ">
+                                                        <div class="col-2">
                                                             <center>
-                                                                <button v-on:click=" " type="button " class="btn btn-warning btn-sm ">
-                                                                    <i class="fal fa-edit "></i>
+                                                                <button v-on:click="editar_producto(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                    <i class="fal fa-edit"></i>
                                                                 </button>
                                                             </center>
                                                         </div>
@@ -426,12 +426,13 @@
                                 <div class="row ">
                                     <div class="col-12 ">
                                         <!--evento click menu('AgregarTrabajadores','Registros') -->
-                                        <button v-on:click=" " type="button " class="btn btn-success btn-sm btn-block ">
+                                        <button v-on:click="menu('agregarproductos','Registros')" type="button " class="btn btn-success btn-sm btn-block " ref="btnagregarproductos" id="btnagregarproductos">
                                             Agregar productos
                                             <i class="fal fa-plus "></i>
                                         </button>
                                     </div>
                                 </div>
+
 
 
 
@@ -544,7 +545,7 @@
                                 <div class="row ">
                                     <div class="col-12 ">
                                         <!--evento click menu('AgregarTrabajadores','Registros') -->
-                                        <button v-on:click=" " type="button " class="btn btn-success btn-sm btn-block ">
+                                        <button v-on:click="menu('agregarproductos2', 'registros')" type="button " class="btn btn-success btn-sm btn-block ">
                                             Agregar productos
                                             <i class="fal fa-plus "></i>
                                         </button>
@@ -684,16 +685,6 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <form>
-                                            <!-- <div class="form-group">
-                                                <label for="Producto1">Producto</label>
-                                                <select id="Producto1" v-model="" class=" form-control form-control ">
-                                                    <option v-for="(item,index) in productos " :key="index "
-                                                        v-bind:value="">
-                                                        {{ item.producto }}
-                                                    </option>
-                                                </select>
-
-                                            </div> -->
 
                                             <form onsubmit="event.preventDefault();" role="form">
                                                 <div class="form-group">
@@ -749,6 +740,61 @@
                             </div>
                         </div>
                     </section>
+
+                    <section class="content " v-if="aside.agregarproductos2 ">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Productos</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_productos2()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form>
+                                            <form onsubmit="event.preventDefault();" role="form">
+                                                <div class="form-group">
+                                                    <label for="Producto3">Producto</label>
+                                                    <input type="text" class="form-control form-control" placeholder="" v-model="nombre_producto" id="Producto3" autocomplete="off" />
+                                                    <span>
+                                                        <ul class="list-group">
+                                                            <li v-for="(item, index) in list_productos" :key="index"
+                                                                class="list-group-item" @click="seleccionar_producto(item)">
+                                                                {{ item.producto}}
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+                                                </div>
+                                            </form>
+
+                                            <div class="form-group ">
+                                                <label for="Cantidad2 ">Cantidad</label>
+                                                <input type="number" v-model="" class="form-control " id="Cantidad2 ">
+                                            </div>
+
+
+
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3 " style="margin-top: 33px; ">
+                            <div class="col-12 ">
+                                <center>
+                                    <button type="submit " v-on:click="" class="btn btn-block btn-success btn-lg ">Agregar Producto</button>
+                                </center>
+                            </div>
+                        </div>
+                    </section>
+
+
 
 
                 </div>
