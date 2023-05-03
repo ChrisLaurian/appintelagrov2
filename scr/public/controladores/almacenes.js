@@ -61,8 +61,8 @@ createApp({
                 ubicacion: "",
                 caducidad: "",
                 precio: "",
-
             },
+            productotraspaso: [],
             proveedor: {
                 nombre: "",
                 cat_compras_proveedores_id: "",
@@ -160,6 +160,7 @@ createApp({
             this.nombre_proveedor = item.descripcion_proveedores;
             this.proveedor.nombre = item.descripcion_proveedores;
             this.proveedor.cat_compras_proveedores_id = item.cat_compras_proveedores_id;
+            this.selecciondeinput2();
         },
         nombre_proveedor(id) {
             var n = "";
@@ -186,30 +187,54 @@ createApp({
             }
 
             this.menu('registros', 'Registros');
-            // document.getElementById("btnagregarproductos").focus();
-            // setTimeout(() => {
-            //     this.$refs.btnagregarproductos.$refs.input.focus();
-            // }, 50);
             this.$nextTick(() => {
                 this.$refs.btnagregarproductos.focus();
             });
         },
         cerrar_modal_productos2() {
-            this.menu('traspasos', 'Registros');
 
+            this.nombre_producto = "";
+            this.producto = {
+                UUID: this.registro.maestro.UUID,
+                cat_compras_productos_id: "",
+                cantidad: "",
+                producto: "",
+                ubicacion: "",
+                caducidad: "",
+                precio: "",
+            }
+
+            this.menu('traspasos', 'Registros');
+            // this.$nextTick(() => {
+            //     this.$refs.btnagregarproductos.focus();
+            // });
         },
-        seleccionar_producto(item) {
+        seleccionar_producto(item, numero) {
             this.nombre_producto = item.producto;
             this.producto.producto = this.nombre_producto;
             this.producto.cat_compras_productos_id = item.cat_compras_productos_id;
             this.producto.UUID = this.registro.maestro.UUID;
-
+            this.selecciondeinput(numero);
 
         },
         agregar_producto() {
             this.registro.productos.push(this.producto);
             console.log(this.registro.productos);
             this.cerrar_modal_productos();
+        },
+        agregar_producto2() {
+            input = document.getElementById("Producto3");
+            inputcantidad = document.getElementById("Cantidad2");
+            if (this.nombre_producto == this.producto.producto && this.producto.cantidad != "" && this.nombre_producto != "") {
+                this.registro.productos.push(this.producto);
+                console.log(this.registro.productos);
+                this.cerrar_modal_productos2();
+
+            } else {
+                alert("Falta ingresar datos");
+                return 0;
+            }
+
         },
         nombreProductos(id) {
             var nProductos = "";
@@ -230,10 +255,79 @@ createApp({
             this.nombre_producto = this.nombreProductos(item.cat_compras_productos_id);
             this.producto = item;
         },
+        editar_producto2(item, index) {
+            this.registro.productos.splice(index, 1);
+
+            this.menu('agregarproductos2', 'Registros');
+            this.nombre_producto = this.nombreProductos(item.cat_compras_productos_id);
+            this.producto = item;
+        },
+        selecciondeinput(item) {
+
+            var input = document.getElementById("Producto3");
+            var input2 = document.getElementById("Producto1");
+
+
+            switch (item) {
+                case 1:
+                    {
+                        if (this.nombre_producto != this.producto.producto) {
+
+                            input.className += "form-control is-invalid";
+                            document.getElementById("labelerror").style.display = "initial";
+                            document.getElementById("labelerror").style.color = "red";
+
+                        } else {
+
+                            input.className += "form-control is-valid";
+                            document.getElementById("labelerror").style.display = "none";
+                        }
+                    }
+                    break;
+                case 2:
+                    {
+                        if (this.nombre_producto != this.producto.producto) {
+
+                            input2.className += "form-control is-invalid";
+                            document.getElementById("labelerror3").style.display = "initial";
+                            document.getElementById("labelerror3").style.color = "red";
+
+                        } else {
+
+                            input2.className += "form-control is-valid";
+                            document.getElementById("labelerror3").style.display = "none";
+                        }
+                    }
+                    break;
+            }
+            console.log(this.nombre_producto);
+            console.log(this.producto.producto);
+
+        },
+        selecciondeinput2() {
+
+            var input = document.getElementById("nombre_proveedor");
+
+            if (this.nombre_proveedor != this.proveedor.nombre) {
+
+                input.className += "form-control is-invalid";
+                document.getElementById("labelerror2").style.display = "initial";
+                document.getElementById("labelerror2").style.color = "red";
+
+            } else {
+
+                input.className += "form-control is-valid";
+                document.getElementById("labelerror2").style.display = "none";
+            }
+            console.log(input.value + "este es el primer dato");
+            console.log(this.nombre_proveedor);
+            console.log(this.producto.producto);
+
+        },
+
 
     },
     computed: {
-
         list_proveedores() {
             var trb = [];
 

@@ -213,18 +213,11 @@
                                                     </option>
                                                 </select>
                                             </div>
-
-                                            <!-- TODO: Corregir el error del porque no funciona el codigo -->
-                                            <label for="Proveedores ">Proveedores</label>
+                                            <label for="nombre_proveedor ">Proveedores</label>
 
                                             <form role="form" onsubmit="event.preventDefault()">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" v-model="nombre_proveedor" id="nombre_proveedor" />
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-search"></span>
-                                                        </div>
-                                                    </div>
+                                                    <input @change="selecciondeinput2()" type="text" class="form-control form-control" v-model="nombre_proveedor" id="nombre_proveedor" />
                                                 </div>
                                             </form>
                                             <ul class="list-group">
@@ -234,7 +227,7 @@
                                                     </li>
                                                 </ul>
                                             </ul>
-
+                                            <label for="nombre_proveedor" style="display:none" id="labelerror2">Por favor, selecciona una opción de la lista</label>
 
                                             <div class="form-group ">
                                                 <label for="Tipo ">Tipo</label>
@@ -494,8 +487,6 @@
 
                                             </div>
 
-
-
                                         </form>
 
                                     </div>
@@ -517,22 +508,22 @@
                                     <div class="col-12 ">
                                         <div class="col-12 ">
                                             <ul class="list-group pro ">
-                                                <li class="list-group-item " v-for="(item, index) in registro.trabajadoresIncidencia " :key="index ">
-                                                    <div class="row ">
-                                                        <div class="col-8 ">
-                                                            {{ item.nombre}}
+                                                <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            {{nombreProductos(item.cat_compras_productos_id)}}
                                                         </div>
-                                                        <div class="col-2 ">
+                                                        <div class="col-2">
                                                             <center>
-                                                                <button v-on:click=" " type="button " class="btn btn-danger btn-sm ">
-                                                                    <i class="fal fa-trash "></i>
+                                                                <button v-on:click="borrar_producto(item,index)" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fal fa-trash"></i>
                                                                 </button>
                                                             </center>
                                                         </div>
-                                                        <div class="col-2 ">
+                                                        <div class="col-2">
                                                             <center>
-                                                                <button v-on:click=" " type="button " class="btn btn-warning btn-sm ">
-                                                                    <i class="fal fa-edit "></i>
+                                                                <button v-on:click="editar_producto2(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                    <i class="fal fa-edit"></i>
                                                                 </button>
                                                             </center>
                                                         </div>
@@ -689,15 +680,16 @@
                                             <form onsubmit="event.preventDefault();" role="form">
                                                 <div class="form-group">
                                                     <label for="Producto1">Producto</label>
-                                                    <input type="text" class="form-control form-control" placeholder="" v-model="nombre_producto" id="Producto1" autocomplete="off" />
+                                                    <input type="text" @change="selecciondeinput(2)" class="form-control form-control" placeholder="" v-model="nombre_producto" id="Producto1" autocomplete="off" />
                                                     <span>
                                                         <ul class="list-group">
                                                             <li v-for="(item, index) in list_productos" :key="index"
-                                                                class="list-group-item" @click="seleccionar_producto(item)">
+                                                                class="list-group-item" @click="seleccionar_producto(item, 2)">
                                                                 {{ item.producto}}
                                                             </li>
                                                         </ul>
                                                     </span>
+                                                    <label for="Producto1" style="display:none" id="labelerror3">Por favor, selecciona una opción de la lista</label>
                                                 </div>
                                             </form>
 
@@ -741,7 +733,7 @@
                         </div>
                     </section>
 
-                    <section class="content " v-if="aside.agregarproductos2 ">
+                    <section class="content " v-if="aside.agregarproductos2">
                         <div class="card border border-success">
                             <div class="modal-header">
                                 <h5 class="modal-title">Productos</h5>
@@ -754,29 +746,29 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <form>
+                                            <!-- @change="selecciondeinput()" -->
                                             <form onsubmit="event.preventDefault();" role="form">
                                                 <div class="form-group">
                                                     <label for="Producto3">Producto</label>
-                                                    <input type="text" class="form-control form-control" placeholder="" v-model="nombre_producto" id="Producto3" autocomplete="off" />
+                                                    <input type="text" @change="selecciondeinput(1)" class="form-control form-control" placeholder="" v-model="nombre_producto" id="Producto3" autocomplete="off" />
+
                                                     <span>
                                                         <ul class="list-group">
                                                             <li v-for="(item, index) in list_productos" :key="index"
-                                                                class="list-group-item" @click="seleccionar_producto(item)">
+                                                                class="list-group-item" @click="seleccionar_producto(item,1)">
                                                                 {{ item.producto}}
                                                             </li>
                                                         </ul>
                                                     </span>
+                                                    <label for="Producto3" style="display:none" id="labelerror">Por favor, selecciona una opción de la lista</label>
                                                 </div>
                                             </form>
 
+
                                             <div class="form-group ">
                                                 <label for="Cantidad2 ">Cantidad</label>
-                                                <input type="number" v-model="" class="form-control " id="Cantidad2 ">
+                                                <input type="number" v-model="this.producto.cantidad " class="form-control " id="Cantidad2 ">
                                             </div>
-
-
-
-
                                         </form>
 
                                     </div>
@@ -788,7 +780,7 @@
                         <div class="row mb-3 " style="margin-top: 33px; ">
                             <div class="col-12 ">
                                 <center>
-                                    <button type="submit " v-on:click="" class="btn btn-block btn-success btn-lg ">Agregar Producto</button>
+                                    <button type="submit " v-on:click="agregar_producto2()" class="btn btn-block btn-success btn-lg ">Agregar Producto</button>
                                 </center>
                             </div>
                         </div>
