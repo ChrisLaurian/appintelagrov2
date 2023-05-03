@@ -218,9 +218,15 @@ createApp({
 
         },
         agregar_producto() {
-            this.registro.productos.push(this.producto);
-            console.log(this.registro.productos);
-            this.cerrar_modal_productos();
+            if (this.nombre_producto == this.producto.producto && this.producto.cantidad != "" && this.nombre_producto != "") {
+                this.registro.productos.push(this.producto);
+                console.log(this.registro.productos);
+                this.cerrar_modal_productos();
+            } else {
+                alert("Falta ingresar datos");
+                return 0;
+            }
+
         },
         agregar_producto2() {
             input = document.getElementById("Producto3");
