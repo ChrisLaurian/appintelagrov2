@@ -23,6 +23,7 @@ createApp({
                 TrabajadoresModulo: true,
                 Estados: true,
                 Almacenes: true,
+                Dashboards: true,
 
 
 
@@ -68,6 +69,9 @@ createApp({
         },
         Almacenes() {
             location.href = host() + "/almacenes.html";
+        },
+        Dashboards() {
+            location.href = host() + "/dashboard.html";
         },
 
         salir() {
