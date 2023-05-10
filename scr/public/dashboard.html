@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="estilos/dashboard.css">
     <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -21,6 +21,7 @@
     <style type="text/css">
         @font-face {
             font-family: digital;
+            font-size: 16px;
             src: url("https://intelagro.net/intelagro/adminlite/dists/fonts/seven.ttf");
         }
         
@@ -93,7 +94,7 @@
 
 
 
-                    <!-- <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto">
 
 
                         <li class="nav-item dropdown" @click="logout()">
@@ -105,7 +106,7 @@
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
-                    </ul> -->
+                    </ul>
 
                 </nav>
 
@@ -193,7 +194,197 @@
                         </div>
                     </section> -->
 
+
                     <section class="content-header" v-if="aside.registros">
+                        <header class="header ">
+
+                            <div class="servicios">
+                                <section class="servicio entrada">
+                                    <div>
+                                        <h6 class="regular tamaño1">Dashboard</h6>
+                                        <h3 class="regular tamaño2">Nómina</h3>
+                                    </div>
+
+                                </section>
+                                <section class="servicio espaciadorderecha">
+                                    <div>
+                                        <h6 class="tamaño3 semibold">Inicio de semana</h6>
+                                        <h6 class="regular tamaño3">Jueves 20 de abril del 2023</h6>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div class="servicios separacioninferior">
+                                <section class="">
+                                    <div class="servicio separacionderecha">
+                                        <h6 class="regular tamaño3" for="rancho">Rancho</h6>
+                                        <select id="rancho" v-model="" class=" form-control form-control mr-2">
+                                            <option v-for="(item,index) in requisiciones " :key="index "
+                                                v-bind:value="">
+                                                {{  }}
+                                            </option>
+                                            <option value="1 ">SI</option>
+                                        </select>
+                                    </div>
+
+                                </section>
+                                <section class="">
+                                    <div class="servicio separacionderecha">
+                                        <h6 class="regular tamaño3" for="Fecha">Fecha</h6>
+                                        <input type="date" v-model="" class="form-control" id="Fecha">
+                                    </div>
+                            </div>
+                        </header>
+
+                        <body>
+                            <div class="servicio separacioninferior2">
+                                <p class="tamaño4 light">Jueves 20 de abril a martes 25 de abril del 2023</p>
+                            </div>
+
+                            <div class="contenedor sombra bordeazul">
+                                <div class="servicios">
+                                    <section class="servicio">
+                                        <div>
+                                            <h6 class="semibold tamaño5 asignarcolorletra">TOTAL</h6>
+                                            <h3 class="semibold tamaño6">$70,000</h3>
+                                        </div>
+
+                                    </section>
+                                    <section class="servicio iconos">
+                                        <div>
+
+                                            <i class="fas fa-dollar-sign" style="color: #ced4da;"></i>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div class="contenedor sombra bordeverde">
+                                <div class="servicios">
+                                    <section class="servicio">
+                                        <div>
+                                            <h6 class="semibold tamaño5 asignarcolorletra2">COSECHA</h6>
+                                            <h3 class="semibold tamaño6">$40,000</h3>
+                                        </div>
+
+                                    </section>
+                                    <section class="servicio iconos">
+                                        <div>
+
+                                            <i class="fas fa-seedling" style="color: #ced4da;"></i>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div class="contenedor sombra bordeazulverde">
+                                <div class="servicios">
+                                    <section class="servicio">
+                                        <div>
+                                            <h6 class="semibold tamaño5 asignarcolorletra3">LABORES</h6>
+                                            <h3 class="semibold tamaño6">$30,000</h3>
+                                        </div>
+
+                                    </section>
+                                    <section class="servicio iconos">
+                                        <div>
+
+                                            <i class="fas fa-hammer" style="color: #ced4da;"></i>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div class="servicios separacioninferior">
+                                <section class="contenedor2 bordeazularriba">
+                                    <div class="servicio">
+                                        <h6 class="semibold tamaño5 asignarcolorletra">DIA</h6>
+                                        <div class="servicios iconos2">
+
+                                            <img src="img/Dashboard/chart-column-solid 1.svg" alt="Imagen SVG de la tabla">
+                                            <!-- <circle cx="37" cy="37" r="35.5" stroke="" stroke-width="3"><i class="fal fa-greater-than"></i></circle> -->
+                                            <button class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
+
+                                        </div>
+                                    </div>
+
+                                </section>
+                                <section class="contenedor2 bordeazularriba">
+                                    <div class="servicio">
+
+                                        <h6 class="semibold tamaño5 asignarcolorletra">TRABAJADOR</h6>
+                                        <div class="servicios iconos2">
+
+                                            <img src="img/Dashboard/table-list-solid 1.svg" alt="Imagen SVG de la tabla">
+                                            <!-- <circle cx="37" cy="37" r="35.5" stroke="" stroke-width="3"><i class="fal fa-greater-than"></i></circle> -->
+                                            <button class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </section>
+                            </div>
+
+                        </body>
+                        </section>
+
+
+                        <section class="content-header" v-if="aside.registros">
+                            <header class="header ">
+
+                                <div class="servicios">
+                                    <section class="servicio entrada">
+                                        <div>
+                                            <h6 class="regular tamaño1">Dashboard</h6>
+                                            <h3 class="regular tamaño2">Nómina</h3>
+                                        </div>
+
+                                    </section>
+                                    <section class="servicio espaciadorderecha">
+                                        <div>
+                                            <h6 class="tamaño3 semibold">Inicio de semana</h6>
+                                            <h6 class="regular tamaño3">Jueves 20 de abril del 2023</h6>
+                                        </div>
+                                    </section>
+                                </div>
+
+                                <div class="servicios separacioninferior">
+                                    <section class="">
+                                        <div class="servicio separacionderecha">
+                                            <h6 class="regular tamaño3" for="rancho">Rancho</h6>
+                                            <select id="rancho" v-model="" class=" form-control form-control mr-2">
+                                                <option v-for="(item,index) in requisiciones " :key="index "
+                                                    v-bind:value="">
+                                                    {{  }}
+                                                </option>
+                                                <option value="1 ">SI</option>
+                                            </select>
+                                        </div>
+
+                                    </section>
+                                    <section class="">
+                                        <div class="servicio separacionderecha">
+                                            <h6 class="regular tamaño3" for="Fecha">Fecha</h6>
+                                            <input type="date" v-model="" class="form-control" id="Fecha">
+                                        </div>
+                                </div>
+                            </header>
+
+                            <body>
+                                <div class="servicio separacioninferior2">
+                                    <p class="tamaño4 light">Jueves 20 de abril a martes 25 de abril del 2023</p>
+                                </div>
+
+
+
+                            </body>
+                            </section>
+                            <!-- <section class="content-header" v-if="aside.registros">
 
                         <div class="card h-100 border border-success " style="height: 200rem;">
                             <div class="modal-header">
@@ -430,7 +621,7 @@
                         </div>
 
 
-                    </section>
+                    </section> -->
 
 
 

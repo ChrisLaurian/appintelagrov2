@@ -1,0 +1,228 @@
+:root {
+    --letraHeader: #5a5c69;
+    --blanco: #FFFFFF;
+    --azul: #4d73dc;
+    --verde: #1bc88e;
+    --azulverde: #35b9cc;
+}
+
+.barra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 3px solid #000000;
+    /* margin-right: 2rem;
+    margin-left: 2rem; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--letraHeader);
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.light {
+    font-weight: 300;
+}
+
+.header {
+    margin-top: 1rem;
+}
+
+.tamaño1 {
+    font-size: 1.25rem;
+}
+
+.tamaño2 {
+    font-size: 2.25rem;
+}
+
+.tamaño3 {
+    font-size: 1rem;
+}
+
+.tamaño4 {
+    font-size: 0.87rem;
+}
+
+.tamaño5 {
+    font-size: 0.81rem;
+}
+
+.tamaño6 {
+    font-size: 1.5rem;
+}
+
+.separacioninferior {
+    margin-top: 2.8rem;
+}
+
+.separacioninferior2 {
+    margin-top: 1rem;
+}
+
+.separacionderecha {
+    margin-right: 1rem;
+}
+
+.contenedor {
+    max-width: 80rem;
+    margin: 0 1rem 1.25rem 1rem;
+    float: inline-end;
+}
+
+.contenedor2 {
+    margin: 0 1rem 1.25rem 1rem;
+    float: inline-end;
+    -webkit-box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    -moz-box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    /*las tres lineas ayudan a ponerle sombra*/
+    /* background-color: var(--blanco); */
+    background-color: var(--blanco);
+    /* width: 9.56rem;
+    height: 8.38rem; */
+    padding: 2rem;
+    /*hace la separacion a los lados*/
+    border-radius: 0.25rem;
+    /*esquinas redondeadas*/
+}
+
+.asignarcolorletra {
+    color: var(--azul);
+}
+
+.asignarcolorletra2 {
+    color: var(--verde);
+}
+
+.asignarcolorletra3 {
+    color: var(--azulverde);
+}
+
+.iconos {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.iconos2 {
+    align-items: right;
+    text-align: right;
+    font-size: 1rem;
+}
+
+.botondashboard {
+    align-items: center;
+    border-radius: 1rem;
+    /* size: 2rem; */
+    /* padding: 1rem 1rem; */
+    width: 2.12rem;
+    height: 2.12rem;
+    /* position: relative; */
+    /* display: block; */
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 2px #fff;
+    border: 1px solid rgba(255, 255, 255, 0);
+    margin-left: 1rem;
+    color: #f0f0f0;
+}
+
+.acomodandoiconos {
+    width: 1rem;
+    height: 1rem;
+    color: #7f7f7f;
+}
+
+.sombra {
+    -webkit-box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    -moz-box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    box-shadow: 0px 4px 13px 5px rgba(0, 0, 0, 0.10);
+    /*las tres lineas ayudan a ponerle sombra*/
+    /* background-color: var(--blanco); */
+    background-color: var(--blanco);
+    padding: 1.1rem;
+    /*hace la separacion a los lados*/
+    border-radius: 0.25rem;
+    /*esquinas redondeadas*/
+}
+
+.bordeazul {
+    border-left: 0.31rem solid var(--azul);
+}
+
+.bordeverde {
+    border-left: 0.31rem solid var(--verde);
+}
+
+.bordeazulverde {
+    border-left: 0.31rem solid var(--azulverde);
+}
+
+.bordeazularriba {
+    border-top: 0.31rem solid var(--azul);
+}
+
+
+/* .contenedor {
+    max-width: 120rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.contenido-principal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+} */
+
+.entrada {
+    border-right: 1px solid #e8e8e8;
+    align-items: left;
+}
+
+.servicio {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.servicio2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.espaciadorderecha {
+    margin-left: 1rem;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.espaciadoizquierda {
+    margin-left: 1rem;
+    text-align: left;
+    margin-right: 1rem;
+}
+
+.servicios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* margin-right: 2rem;
+    margin-left: 2rem; */
+    /*dividio de manera horizontal en 3 fracciones*/
+    /* column-gap: 1rem; */
+    /* grid-template-columns: 300px 300px; para columnas */
+    /* grid-template-rows: 200px 800px;  filas */
+    /*el grid ayuda a seccionar el codigo como flexbox solo que a diferencia de flexbox este permite acomodarlo tanto en vertical como en horizontal*/
+}
