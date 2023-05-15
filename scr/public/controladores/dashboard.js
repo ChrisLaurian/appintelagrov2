@@ -22,7 +22,9 @@ createApp({
             nombre: "",
             aside: {
                 principal: false,
-                registros: true
+                registros: true,
+                graficas: false,
+                trabajadores: false,
 
             },
             registro: {},
@@ -75,7 +77,9 @@ createApp({
             if (isMobile.any()) $('[data-widget="pushmenu"]').PushMenu("toggle");
             this.aside = {
                 principal: false,
-                registros: false
+                registros: false,
+                graficas: false,
+                trabajadores: false,
             };
             this.aside[puntero] = true;
 
@@ -97,7 +101,9 @@ createApp({
 
 
 
-        }
+        },
+
+
 
     },
     computed: {

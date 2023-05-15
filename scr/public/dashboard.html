@@ -137,7 +137,7 @@
 
 
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link" @click="menu('principal', 'Registros')">
+                                    <a href="#" class="nav-link" @click="menu('registros', 'Registros')">
                                         <i class="nav-icon fas fa-box-open text-success"></i>
                                         <p class="text">Registros</p>
                                     </a>
@@ -306,7 +306,7 @@
 
                                             <img src="img/Dashboard/chart-column-solid 1.svg" alt="Imagen SVG de la tabla">
                                             <!-- <circle cx="37" cy="37" r="35.5" stroke="" stroke-width="3"><i class="fal fa-greater-than"></i></circle> -->
-                                            <button class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
+                                            <button v-on:click="menu('graficas','Registros')" class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
 
                                         </div>
                                     </div>
@@ -320,7 +320,7 @@
 
                                             <img src="img/Dashboard/table-list-solid 1.svg" alt="Imagen SVG de la tabla">
                                             <!-- <circle cx="37" cy="37" r="35.5" stroke="" stroke-width="3"><i class="fal fa-greater-than"></i></circle> -->
-                                            <button class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
+                                            <button v-on:click="menu('trabajadores','Registros')" class="botondashboard "><i class="fas fa-chevron-right acomodandoiconos"></i></button>
 
                                         </div>
 
@@ -334,7 +334,7 @@
                         </section>
 
 
-                        <section class="content-header" v-if="aside.registros">
+                        <section class="content-header" v-if="aside.graficas">
                             <header class="header ">
 
                                 <div class="servicios">
@@ -380,11 +380,138 @@
                                     <p class="tamaño4 light">Jueves 20 de abril a martes 25 de abril del 2023</p>
                                 </div>
 
+                                <!-- TODO: Ver el porque no arroja la grafica deseada con todas sus propiedades -->
+                                <div class="contenedor sombra">
+                                    <div class="servicio2">
 
+                                        <div>
+                                            <canvas id="myChart"></canvas>
+                                        </div>
+
+                                        <script>
+                                            let ctxchart = document.getElementById('myChart');
+
+                                            var chart = new Chart(ctxchart, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        backgroudnColor: "rgb(0,0,0)",
+                                                        data: [12, 19, 3, 5, 2, 3],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                // options: {
+                                                //     scales: {
+                                                //         y: {
+                                                //             beginAtZero: true
+                                                //         }
+                                                //     }
+                                                // }
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                <div class="contenedor sombra">
+                                    <div class="servicio2">
+
+                                        <div>
+                                            <canvas id="myChart2"></canvas>
+                                        </div>
+
+                                        <script>
+                                            let ctxchart2 = document.getElementById('myChart2');
+
+                                            var chart = new Chart(ctxchart2, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        backgroudnColor: "rgb(0,0,0)",
+                                                        data: [12, 19, 3, 5, 2, 3],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                // options: {
+                                                //     scales: {
+                                                //         y: {
+                                                //             beginAtZero: true
+                                                //         }
+                                                //     }
+                                                // }
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
 
                             </body>
+
                             </section>
-                            <!-- <section class="content-header" v-if="aside.registros">
+
+                            <section class="content-header" v-if="aside.trabajadores">
+                                <header class="header ">
+
+                                    <div class="servicios">
+                                        <section class="servicio entrada">
+                                            <div>
+                                                <h6 class="regular tamaño1">Dashboard</h6>
+                                                <h3 class="regular tamaño2">Nómina</h3>
+                                            </div>
+
+                                        </section>
+                                        <section class="servicio espaciadorderecha">
+                                            <div>
+                                                <h6 class="tamaño3 semibold">Inicio de semana</h6>
+                                                <h6 class="regular tamaño3">Jueves 20 de abril del 2023</h6>
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                    <div class="servicios separacioninferior">
+                                        <section class="">
+                                            <div class="servicio separacionderecha">
+                                                <h6 class="regular tamaño3" for="rancho">Rancho</h6>
+                                                <select id="rancho" v-model="" class=" form-control form-control mr-2">
+                                                    <option v-for="(item,index) in requisiciones " :key="index "
+                                                        v-bind:value="">
+                                                        {{  }}
+                                                    </option>
+                                                    <option value="1 ">SI</option>
+                                                </select>
+                                            </div>
+
+                                        </section>
+                                        <section class="">
+                                            <div class="servicio separacionderecha">
+                                                <h6 class="regular tamaño3" for="Fecha">Fecha</h6>
+                                                <input type="date" v-model="" class="form-control" id="Fecha">
+                                            </div>
+                                    </div>
+                                </header>
+
+                                <body>
+                                    <div class="servicio separacioninferior2">
+                                        <p class="tamaño4 light">Jueves 20 de abril a martes 25 de abril del 2023</p>
+                                    </div>
+
+                                    <div class="contenedor sombra">
+                                        <div class="servicio2">
+
+
+
+                                        </div>
+                                    </div>
+
+                                </body>
+                                </section>
+
+
+                                <!-- <section class="content-header" v-if="aside.registros">
 
                         <div class="card h-100 border border-success " style="height: 200rem;">
                             <div class="modal-header">
@@ -655,6 +782,9 @@
     <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="path/to/chartjs/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Chart.js"></script>
     <script src="./controladores/funciones.js"></script>
     <script src="./controladores/session.js"></script>
     <script src="./controladores/dashboard.js"></script>
