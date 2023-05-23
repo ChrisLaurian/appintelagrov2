@@ -11,6 +11,7 @@ const Toast = Swal.mixin({
 const { createApp } = Vue;
 
 
+
 createApp({
     name: "cosecha",
     data() {
@@ -27,10 +28,24 @@ createApp({
                 trabajadores: false,
 
             },
-            registro: {},
-            message: "",
-            edad1: 0,
-            edad2: 0
+            unidades: [],
+            registro: {
+                maestro: {
+                    UUID: "",
+                    fecha: "",
+                    rancho: "",
+                    actividad: "",
+                    metodoAplicacion: "",
+                    boquilla: "",
+                    gasto: "",
+                    tipo_control: [],
+                    unidadMedidaCantidad: "",
+                    parihuelasGrupal: "",
+                },
+                lista_trabajadores: [],
+                trabajadores: [],
+                productos: [],
+            },
 
 
         };
