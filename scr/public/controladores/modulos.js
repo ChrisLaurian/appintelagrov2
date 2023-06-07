@@ -24,6 +24,7 @@ createApp({
                 Estados: true,
                 Almacenes: true,
                 Dashboards: true,
+                Riego: true,
 
 
 
@@ -73,6 +74,10 @@ createApp({
         Dashboards() {
             location.href = host() + "/dashboard.html";
         },
+        Riego() {
+            location.href = host() + "/riego.html";
+        },
+
 
         salir() {
             salir();
