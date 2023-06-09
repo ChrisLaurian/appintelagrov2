@@ -41,8 +41,12 @@ createApp({
             registro: {
                 maestro: {
                     UUID: "",
-                    fecha: "",
-                    caja: "",
+                    fecha_de_captura: "",
+                    descripcion_unidades_productivas: "",
+                    descripcioncabezal: "",
+                    descripcion_programa: "",
+                    numero_de_pulso: "",
+
                     importe: 0,
                     movimiento: "",
                     proveedor: "",

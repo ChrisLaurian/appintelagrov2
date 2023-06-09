@@ -207,12 +207,12 @@
                                         <form>
                                             <div class="form-group">
                                                 <label for="Fecha">Fecha</label>
-                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                                <input type="date" v-model="registro.maestro.fecha_de_captura" class="form-control" id="Fecha">
                                             </div>
                                             <div class="form-group">
                                                 <label for="Rancho" class="form-label">Rancho</label>
 
-                                                <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                <select id="caja-caja" v-model="registro.maestro.descripcion_unidades_productivas" class="form-control form-control-sm mb-3" style="width: 100%">
                                                     <option v-for="(item,index) in unidades" :key="index"
                                                         v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id">
                                                         {{ item.UP }}
@@ -237,8 +237,8 @@
                                     <div class="col-12">
                                         <form>
                                             <div class="form-group">
-                                                <label for="Caja">Cabezal</label>
-                                                <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
+                                                <label for="descripcioncabezal">Cabezal</label>
+                                                <select id="descripcioncabezal" v-model="registro.maestro.descripcioncabezal" class="form-control form-control">
                                                     <option v-for="(item,index) in cajas" :key="index"
                                                         v-bind:value="item.cat_finanzas_cajas_chicas_id
                                                         ">
@@ -249,7 +249,7 @@
                                             <div class="form-group">
                                                 <label for="Rancho" class="form-label">Programa</label>
 
-                                                <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                <select id="caja-caja" v-model="registro.maestro.descripcion_programa" class="form-control form-control-sm mb-3" style="width: 100%">
                                                     <option v-for="(item,index) in unidades" :key="index"
                                                         v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id">
                                                         {{ item.UP }}
@@ -257,8 +257,8 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="Caja">Pulso</label>
-                                                <select id="Caja" v-model="registro.maestro.caja" class="form-control form-control">
+                                                <label for="numero_de_pulso">Pulso</label>
+                                                <select id="numero_de_pulso" v-model="registro.maestro.numero_de_pulso" class="form-control form-control">
                                                     <option v-for="(item,index) in cajas" :key="index"
                                                         v-bind:value="item.cat_finanzas_cajas_chicas_id
                                                         ">
@@ -456,12 +456,12 @@
                                         <form>
                                             <div class="form-group">
                                                 <label for="Fecha">Fecha</label>
-                                                <input type="date" v-model="registro.maestro.fecha" class="form-control" id="Fecha">
+                                                <input type="date" v-model="registro.maestro.fecha_de_captura" class="form-control" id="Fecha">
                                             </div>
                                             <div class="form-group">
                                                 <label for="Rancho" class="form-label">Rancho</label>
 
-                                                <select id="caja-caja" v-model="registro.maestro.rancho" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                <select id="caja-caja" v-model="registro.maestro.descripcion_unidades_productivas" class="form-control form-control-sm mb-3" style="width: 100%">
                                                     <option v-for="(item,index) in unidades" :key="index"
                                                         v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id">
                                                         {{ item.UP }}
