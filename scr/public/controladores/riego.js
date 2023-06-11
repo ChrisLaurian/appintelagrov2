@@ -47,14 +47,6 @@ createApp({
                     descripcion_programa: "",
                     numero_de_pulso: "",
 
-                    importe: 0,
-                    movimiento: "",
-                    proveedor: "",
-                    tipoComprobante: "",
-                    transaccion: "",
-                    noComprobante: 0,
-                    comentario: "",
-
                 },
                 lista_trabajadores: [],
                 trabajadores: [],
