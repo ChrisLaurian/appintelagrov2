@@ -31,6 +31,7 @@ createApp({
                 estatus: false,
                 registros2: true,
                 AgregarProductos: false,
+                NuevaReceta: false,
 
             },
             cajas: [],
@@ -63,6 +64,9 @@ createApp({
             nombre_lote: "",
             nombre_producto: "",
             receta: "",
+            registro_receta: {
+                nombre: "",
+            }
 
         };
     },
@@ -111,6 +115,7 @@ createApp({
                 registros: false,
                 registros2: false,
                 AgregarProductos: false,
+                NuevaReceta: false,
             };
 
             this.aside[puntero] = true;
@@ -180,6 +185,9 @@ createApp({
         abrir_modal_movimientos() {
             this.menu('movimientos', 'Registros');
 
+        },
+        nueva_receta() {
+            this.menu('NuevaReceta', 'Registros');
         },
 
         ocultarcards(mostrar) {

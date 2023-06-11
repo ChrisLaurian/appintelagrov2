@@ -439,6 +439,132 @@
                     </section>
                     <!-- Aqui termina el formulario de nuevo gasto  -->
 
+                    <section class="content" v-if="aside.NuevaReceta">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nueva Receta</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_receta()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="" v-model="registro_receta.nombre" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="basic-url">Medida</label>
+
+                                            <select id="sel_ranch" v-model="registro_receta.cat_control_aplicaciones_alcance_mu_id" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                    item, index
+                                                  ) in alcances" :key="index" v-bind:value="item.cat_control_aplicaciones_alcance_mu_id
+                                                  ">
+                                                    {{ item.descripcion_alcance}}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-10">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="solicitante">Producto</label>
+                                                <input type="text" class="form-control form-control-sm" placeholder="" v-model="nombre_producto" id="n_t" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_productos" :key="index"
+                                                            class="list-group-item"
+                                                            @click="seleccionar_producto_receta(item)">
+                                                            {{ item.producto}}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="agregar_producto_receta()" type="button" style="margin-top: 33px;" class="btn btn-success btn-sm ">
+                                                <i class="fal fa-plus"></i>
+                                            </button>
+                                        </center>
+
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Cantidad</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="producto.cantidad" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="basic-url">Medida</label>
+
+                                            <select id="sel_ranch" v-model="producto.cat_compras_productos_unidad_de_medida_mu_id" class="form-control form-control-sm" style="width: 100%">
+                                                <option v-for="(
+                                                        item, index
+                                                      ) in medidas" :key="index" v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id
+                                                      ">
+                                                    {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in registro_receta.productos" :key="index">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        {{nombreProductos(item.cat_compras_productos_id)}}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="borrar_producto_receta(item,index)" type="button" class="btn btn-danger btn-sm">
+                                                                <i class="fal fa-trash"></i>
+                                                            </button>
+                                                        </center>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="editar_producto_receta(item,index)" type="button" class="btn btn-warning btn-sm">
+                                                                <i class="fal fa-edit"></i>
+                                                            </button>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="enviar_receta()" type="button" class="btn btn-success btn-sm btn-block">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
 
 
                     <!-- Esta seccion debe irse al aside de movimientos -->
