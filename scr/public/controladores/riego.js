@@ -65,8 +65,13 @@ createApp({
             nombre_producto: "",
             receta: "",
             registro_receta: {
+                UUID: "",
                 nombre: "",
-            }
+                cat_control_aplicaciones_alcance_mu_id: "",
+                capturista: localStorage.getItem("ses_usuario"),
+                cat_usuarios_licencias_id: localStorage.getItem("cat_usuarios_licencias_id"),
+                productos: []
+            },
 
         };
     },
@@ -189,7 +194,38 @@ createApp({
         nueva_receta() {
             this.menu('NuevaReceta', 'Registros');
         },
+        borrar_producto_receta(item, index) {
+            this.registro_receta.productos.splice(index, 1);
 
+        },
+        editar_producto_receta(item, index) {
+            this.registro_receta.productos.splice(index, 1);
+            this.nombre_producto = this.nombreProductos(item.cat_compras_productos_id);
+            this.producto = item;
+        },
+        seleccionar_producto_receta(item) {
+            this.nombre_producto = item.producto;
+            this.producto.cat_compras_productos_id = item.cat_compras_productos_id;
+            this.producto.UUID = this.registro_receta.UUID;
+
+        },
+
+        enviar_receta() {
+            console.log(this.registro_receta);
+        },
+        agregar_producto_receta() {
+            this.registro_receta.productos.push(this.producto);
+            this.nombre_producto = "";
+
+            this.producto = {
+                UUID: this.registro_receta.UUID,
+                cat_compras_productos_id: "",
+                cantidad: "",
+                cat_compras_productos_unidad_de_medida_mu_id: "",
+                capturista: localStorage.getItem("ses_usuario")
+            }
+
+        },
         ocultarcards(mostrar) {
 
             this.aside.registros2 = mostrar;

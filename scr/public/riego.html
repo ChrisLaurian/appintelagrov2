@@ -460,7 +460,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <form onsubmit="event.preventDefault();" role="form">
-                                            <label for="basic-url">Medida</label>
+                                            <label for="basic-url">Alcance</label>
 
                                             <select id="sel_ranch" v-model="registro_receta.cat_control_aplicaciones_alcance_mu_id" class="form-control form-control-sm" style="width: 100%">
                                                 <option v-for="(
@@ -503,29 +503,7 @@
 
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <form onsubmit="event.preventDefault();" role="form">
-                                            <label for="solicitante">Cantidad</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="producto.cantidad" id="n_t" autocomplete="off" />
-                                        </form>
-                                    </div>
 
-                                    <div class="col-6">
-                                        <form onsubmit="event.preventDefault();" role="form">
-                                            <label for="basic-url">Medida</label>
-
-                                            <select id="sel_ranch" v-model="producto.cat_compras_productos_unidad_de_medida_mu_id" class="form-control form-control-sm" style="width: 100%">
-                                                <option v-for="(
-                                                        item, index
-                                                      ) in medidas" :key="index" v-bind:value="item.cat_compras_productos_unidad_de_medida_mu_id
-                                                      ">
-                                                    {{ item.descripcion_cat_compras_productos_unidad_de_medida }}
-                                                </option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <ul class="list-group pro">
