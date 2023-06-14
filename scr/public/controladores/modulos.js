@@ -25,6 +25,7 @@ createApp({
                 Almacenes: true,
                 Dashboards: true,
                 Riego: true,
+                Planeacion: true,
 
 
 
@@ -76,6 +77,9 @@ createApp({
         },
         Riego() {
             location.href = host() + "/riego.html";
+        },
+        Planeacion() {
+            location.href = host() + "/planeacion.html";
         },
 
 
