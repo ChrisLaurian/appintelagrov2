@@ -14,6 +14,22 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+    <link rel="stylesheet" href="estilos/planeacion.css">
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
 
 
 
@@ -141,6 +157,14 @@
                                 </li>
 
 
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" @click="menu('bitacora', 'Registros')">
+                                        <i class="nav-icon fas fa-book text-success"></i>
+                                        <p class="text">Bitacora</p>
+                                    </a>
+                                </li>
+
+
 
                             </ul>
                         </nav>
@@ -149,7 +173,7 @@
 
                 <div class="content-wrapper">
 
-                    <section class="">
+                    <section class="content-header">
                         <div class="container-fluid">
                             <center>
                                 <h5>
@@ -196,7 +220,7 @@
                     <section class="content" v-if="aside.registros">
                         <div class="card border border-success">
 
-                            <div class="card-header">
+                            <div class="card-header" style="background-color: #FFFFFF;">
                                 <h5>
                                     Información general
                                 </h5>
@@ -240,10 +264,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="supervisor">Supervisor</label>
-                                                <input type="text" @change="selecciondeinput(3)" class="form-control form-control" placeholder="" v-model="nombre_supervisor" id="supervisor" autocomplete="off" />
+                                                <input type="text" @change="selecciondeinput(3)" class="form-control form-control" placeholder="" v-model="cat_trabajadores_altas_id_supervisor" id="supervisor" autocomplete="off" />
                                                 <span>
                                                     <ul class="list-group">
-                                                        <li v-for="(item, index) in list_trabajadores" :key="index"
+                                                        <li v-for="(item, index) in list_supervisores" :key="index"
                                                             class="list-group-item" @click="seleccionar_supervisor(item, 3)">
                                                             {{ item.nombre}}
                                                         </li>
@@ -255,7 +279,7 @@
 
                                             <div class="form-group">
                                                 <label for="Fecha">Fecha programada</label>
-                                                <input type="date" v-model="registro.maestro.fecha_de_captura" class="form-control" id="Fecha">
+                                                <input type="date" v-model="registro.maestro.fecha_progamada_maestro" class="form-control" id="Fecha">
                                             </div>
 
                                             <div class="form-group">
@@ -279,50 +303,35 @@
 
                         <div class="card border border-success">
                             <div class="card-body">
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-12">
-                                        <h5>Lote</h5>
+                                        <h5>Área a trabajar</h5>
+                                        TODO: HACER EL MULTISELECT CON BUSCADOR
                                     </div>
 
-                                </div>
+                                </div> -->
 
-                                <div class="row" style="margin-top: 33px;">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <ul class="list-group pro">
-                                                <li class="list-group-item" v-for="(item, index) in registro.productos" :key="index">
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            {{nombreProductos(item.cat_compras_productos_id)}}
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <center>
-                                                                <button v-on:click="borrar_producto(item,index)" type="button" class="btn btn-danger btn-sm">
-                                                                <i class="fal fa-trash"></i>
-                                                            </button>
-                                                            </center>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <center>
-                                                                <button v-on:click="editar_producto(item,index)" type="button" class="btn btn-warning btn-sm">
-                                                                <i class="fal fa-edit"></i>
-                                                            </button>
-                                                            </center>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top: 33px;">
-                                    <div class="col-12">
-                                        <button v-on:click="menu('AgregarProductos','Registros')" type="button" class="btn btn-success btn-sm btn-block">
-                                        Agregar lote
-                                        <i class="fal fa-plus"></i>
-                                    </button>
-                                    </div>
-                                </div>
+                                <!-- <div class="servicio separacionderecha">
+                                    <h6 class="semibold tamaño3" for="Lote">Lote</h6>
+
+                                    id = multiple-checkboxes
+                                    <select class="multi_select" v-model="registro.maestro.lote" name="lote" id="multiple-checkboxes" multiple="multiple">
+                                        <option v-for="(item,index) in lotes" :key="index"
+                                                            v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id">
+                                                            {{ item.lote }}
+                                                        </option>
+                                    </select>
+                                </div> -->
+                                <select name="countries" id="countries" multiple>
+                                    <option value="1">Afghanistan</option>
+                                    <option value="2">Australia</option>
+                                    <option value="3">Germany</option>
+                                    <option value="4">Canada</option>
+                                    <option value="5">Russia</option>
+                                </select>
+                                <script>
+                                    new MultiSelectTag('countries') // id
+                                </script>
 
                             </div>
                         </div>
@@ -337,15 +346,96 @@
                             </div>
                             <div class="col-6 ">
                                 <center>
+                                    <!-- @click=" menu('regs', 'planeaciondetalle');" -->
                                     <button type="submit " v-on:click="enviar()" class="btn btn-block btn-success btn-lg ">Guardar</button>
                                 </center>
                             </div>
                         </div>
-
-
-
                     </section>
                     <!-- Aqui termina el formulario de nuevo gasto  -->
+
+
+
+                    <!-- aqui inicia la seccion de bitacora -->
+
+                    <section class="content" v-if="aside.bitacora">
+                        <div class="content-wrapper">
+                            <section class="content-header">
+                                <div class="container-fluid">
+                                    <center>
+                                        <h3>BITÁCORA</h3>
+                                    </center>
+                                </div>
+                            </section>
+                            <div class="card border border-success">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="Rancho" class="form-label">Rancho</label>
+
+                                                    <select id="caja-caja" v-model="registro.maestro.descripcion_unidades_productivas" class="form-control form-control-sm mb-3" style="width: 100%">
+                                                        <option v-for="(item,index) in unidades" :key="index"
+                                                            v-bind:value="item.cat_holding_03_empresas_unidades_productivas_id">
+                                                            {{ item.UP }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="Fecha">Fecha</label>
+                                                    <input type="date" v-model="registro.maestro.fecha_de_captura" class="form-control" id="Fecha">
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border border-success">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table id="tablaresumen" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Actividad</th>
+                                                        <th>Fecha</th>
+                                                        <th>Realizada</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(item, index) in registro.actividadesregistradas" :key="index">
+                                                        <td @click=" menu('planeaciondetalle', 'Registros');" style="color: cornflowerblue;"> {{ item.descripcion_actividad}}</a>
+                                                        </td>
+                                                        <td>{{ item.fecha_progamada_maestro}}</td>
+                                                        <td>
+                                                            <center>
+                                                                <div class="cntr">
+                                                                    <input checked="" type="checkbox" id="cbx" class="hidden-xs-up">
+                                                                    <label for="cbx" class="cbx"></label>
+                                                                </div>
+                                                            </center>
+
+                                                        </td>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+
+
+
+                    <!-- aqui termina la seccion de bitacora -->
 
 
                     <!-- Esta seccion debe irse al aside de movimientos -->
@@ -357,7 +447,484 @@
                                 <div class="row" style="margin-top: 33px;">
                                     <div class="col-12">
                                         <div class="col-12">
-
+                                            <div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap">
+                                                <div class="fc-header-toolbar fc-toolbar fc-toolbar-ltr">
+                                                    <div class="fc-toolbar-chunk">
+                                                        <div class="btn-group"><button type="button" title="Previous month" aria-pressed="false" class="fc-prev-button btn btn-primary"><span class="fa fa-chevron-left"></span></button><button type="button" title="Next month"
+                                                                aria-pressed="false" class="fc-next-button btn btn-primary"><span class="fa fa-chevron-right"></span></button></div><button type="button" title="This month" aria-pressed="false" class="fc-today-button btn btn-primary">today</button></div>
+                                                    <div class="fc-toolbar-chunk">
+                                                        <h2 class="fc-toolbar-title" id="fc-dom-1">May 2023</h2>
+                                                    </div>
+                                                    <div class="fc-toolbar-chunk">
+                                                        <div class="btn-group"><button type="button" title="month view" aria-pressed="true" class="fc-dayGridMonth-button btn btn-primary active">month</button><button type="button" title="week view" aria-pressed="false" class="fc-timeGridWeek-button btn btn-primary">week</button>
+                                                            <button type="button" title="day view" aria-pressed="false" class="fc-timeGridDay-button btn btn-primary">day</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div aria-labelledby="fc-dom-1" class="fc-view-harness fc-view-harness-active" style="height: 320.741px;">
+                                                    <div class="fc-daygrid fc-dayGridMonth-view fc-view">
+                                                        <table role="grid" class="fc-scrollgrid table-bordered fc-scrollgrid-liquid">
+                                                            <thead role="rowgroup">
+                                                                <tr role="presentation" class="fc-scrollgrid-section fc-scrollgrid-section-header ">
+                                                                    <th role="presentation">
+                                                                        <div class="fc-scroller-harness">
+                                                                            <div class="fc-scroller" style="overflow: hidden scroll;">
+                                                                                <table role="presentation" class="fc-col-header " style="width: 416px;">
+                                                                                    <colgroup></colgroup>
+                                                                                    <thead role="presentation">
+                                                                                        <tr role="row">
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-sun">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Sunday" class="fc-col-header-cell-cushion ">Sun</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-mon">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Monday" class="fc-col-header-cell-cushion ">Mon</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-tue">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Tuesday" class="fc-col-header-cell-cushion ">Tue</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-wed">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Wednesday" class="fc-col-header-cell-cushion ">Wed</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-thu">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Thursday" class="fc-col-header-cell-cushion ">Thu</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-fri">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Friday" class="fc-col-header-cell-cushion ">Fri</a></div>
+                                                                                            </th>
+                                                                                            <th role="columnheader" class="fc-col-header-cell fc-day fc-day-sat">
+                                                                                                <div class="fc-scrollgrid-sync-inner"><a aria-label="Saturday" class="fc-col-header-cell-cushion ">Sat</a></div>
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody role="rowgroup">
+                                                                <tr role="presentation" class="fc-scrollgrid-section fc-scrollgrid-section-body  fc-scrollgrid-section-liquid">
+                                                                    <td role="presentation">
+                                                                        <div class="fc-scroller-harness fc-scroller-harness-liquid">
+                                                                            <div class="fc-scroller fc-scroller-liquid-absolute" style="overflow: hidden scroll;">
+                                                                                <div class="fc-daygrid-body fc-daygrid-body-unbalanced " style="width: 416px;">
+                                                                                    <table role="presentation" class="fc-scrollgrid-sync-table" style="width: 416px; height: 288px;">
+                                                                                        <colgroup></colgroup>
+                                                                                        <tbody role="presentation">
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past fc-day-other" data-date="2023-04-30" aria-labelledby="fc-dom-2072">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2072" class="fc-daygrid-day-number" aria-label="April 30, 2023">30</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past" data-date="2023-05-01" aria-labelledby="fc-dom-2074">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2074" class="fc-daygrid-day-number" aria-label="May 1, 2023">1</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past" data-date="2023-05-02" aria-labelledby="fc-dom-2076">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2076" class="fc-daygrid-day-number" aria-label="May 2, 2023">2</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past" data-date="2023-05-03" aria-labelledby="fc-dom-2078">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2078" class="fc-daygrid-day-number" aria-label="May 3, 2023">3</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past" data-date="2023-05-04" aria-labelledby="fc-dom-2080">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2080" class="fc-daygrid-day-number" aria-label="May 4, 2023">4</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past" data-date="2023-05-05" aria-labelledby="fc-dom-2082">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2082" class="fc-daygrid-day-number" aria-label="May 5, 2023">5</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past" data-date="2023-05-06" aria-labelledby="fc-dom-2084">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2084" class="fc-daygrid-day-number" aria-label="May 6, 2023">6</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past" data-date="2023-05-07" aria-labelledby="fc-dom-2086">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2086" class="fc-daygrid-day-number" aria-label="May 7, 2023">7</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past" data-date="2023-05-08" aria-labelledby="fc-dom-2088">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2088" class="fc-daygrid-day-number" aria-label="May 8, 2023">8</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past" data-date="2023-05-09" aria-labelledby="fc-dom-2090">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2090" class="fc-daygrid-day-number" aria-label="May 9, 2023">9</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past" data-date="2023-05-10" aria-labelledby="fc-dom-2092">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2092" class="fc-daygrid-day-number" aria-label="May 10, 2023">10</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past" data-date="2023-05-11" aria-labelledby="fc-dom-2094">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2094" class="fc-daygrid-day-number" aria-label="May 11, 2023">11</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past" data-date="2023-05-12" aria-labelledby="fc-dom-2096">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2096" class="fc-daygrid-day-number" aria-label="May 12, 2023">12</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past" data-date="2023-05-13" aria-labelledby="fc-dom-2098">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2098" class="fc-daygrid-day-number" aria-label="May 13, 2023">13</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past" data-date="2023-05-14" aria-labelledby="fc-dom-2100">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2100" class="fc-daygrid-day-number" aria-label="May 14, 2023">14</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past" data-date="2023-05-15" aria-labelledby="fc-dom-2102">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2102" class="fc-daygrid-day-number" aria-label="May 15, 2023">15</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past" data-date="2023-05-16" aria-labelledby="fc-dom-2104">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2104" class="fc-daygrid-day-number" aria-label="May 16, 2023">16</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past" data-date="2023-05-17" aria-labelledby="fc-dom-2106">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2106" class="fc-daygrid-day-number" aria-label="May 17, 2023">17</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past" data-date="2023-05-18" aria-labelledby="fc-dom-2108">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2108" class="fc-daygrid-day-number" aria-label="May 18, 2023">18</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past" data-date="2023-05-19" aria-labelledby="fc-dom-2110">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2110" class="fc-daygrid-day-number" aria-label="May 19, 2023">19</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past" data-date="2023-05-20" aria-labelledby="fc-dom-2112">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2112" class="fc-daygrid-day-number" aria-label="May 20, 2023">20</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past" data-date="2023-05-21" aria-labelledby="fc-dom-2114">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2114" class="fc-daygrid-day-number" aria-label="May 21, 2023">21</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past" data-date="2023-05-22" aria-labelledby="fc-dom-2116">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2116" class="fc-daygrid-day-number" aria-label="May 22, 2023">22</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past" data-date="2023-05-23" aria-labelledby="fc-dom-2118">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2118" class="fc-daygrid-day-number" aria-label="May 23, 2023">23</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past" data-date="2023-05-24" aria-labelledby="fc-dom-2120">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2120" class="fc-daygrid-day-number" aria-label="May 24, 2023">24</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past" data-date="2023-05-25" aria-labelledby="fc-dom-2122">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2122" class="fc-daygrid-day-number" aria-label="May 25, 2023">25</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past" data-date="2023-05-26" aria-labelledby="fc-dom-2124">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2124" class="fc-daygrid-day-number" aria-label="May 26, 2023">26</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past" data-date="2023-05-27" aria-labelledby="fc-dom-2126">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2126" class="fc-daygrid-day-number" aria-label="May 27, 2023">27</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past" data-date="2023-05-28" aria-labelledby="fc-dom-2128">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2128" class="fc-daygrid-day-number" aria-label="May 28, 2023">28</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past" data-date="2023-05-29" aria-labelledby="fc-dom-2130">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2130" class="fc-daygrid-day-number" aria-label="May 29, 2023">29</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past" data-date="2023-05-30" aria-labelledby="fc-dom-2132">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2132" class="fc-daygrid-day-number" aria-label="May 30, 2023">30</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past" data-date="2023-05-31" aria-labelledby="fc-dom-2134">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2134" class="fc-daygrid-day-number" aria-label="May 31, 2023">31</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past fc-day-other" data-date="2023-06-01" aria-labelledby="fc-dom-2136">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2136" class="fc-daygrid-day-number" aria-label="June 1, 2023">1</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-event-harness" style="margin-top: 0px;">
+                                                                                                                <a class="fc-daygrid-event fc-daygrid-block-event fc-h-event fc-event fc-event-draggable fc-event-resizable fc-event-start fc-event-end fc-event-past" style="border-color: rgb(245, 105, 84); background-color: rgb(245, 105, 84);">
+                                                                                                                    <div class="fc-event-main">
+                                                                                                                        <div class="fc-event-main-frame">
+                                                                                                                            <div class="fc-event-title-container">
+                                                                                                                                <div class="fc-event-title fc-sticky">All Day Event</div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="fc-event-resizer fc-event-resizer-end"></div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past fc-day-other" data-date="2023-06-02" aria-labelledby="fc-dom-2138">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2138" class="fc-daygrid-day-number" aria-label="June 2, 2023">2</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past fc-day-other" data-date="2023-06-03" aria-labelledby="fc-dom-2140">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2140" class="fc-daygrid-day-number" aria-label="June 3, 2023">3</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr role="row">
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sun fc-day-past fc-day-other" data-date="2023-06-04" aria-labelledby="fc-dom-2142">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2142" class="fc-daygrid-day-number" aria-label="June 4, 2023">4</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-mon fc-day-past fc-day-other" data-date="2023-06-05" aria-labelledby="fc-dom-2144">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2144" class="fc-daygrid-day-number" aria-label="June 5, 2023">5</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-tue fc-day-past fc-day-other" data-date="2023-06-06" aria-labelledby="fc-dom-2146">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2146" class="fc-daygrid-day-number" aria-label="June 6, 2023">6</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-wed fc-day-past fc-day-other" data-date="2023-06-07" aria-labelledby="fc-dom-2148">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2148" class="fc-daygrid-day-number" aria-label="June 7, 2023">7</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-thu fc-day-past fc-day-other" data-date="2023-06-08" aria-labelledby="fc-dom-2150">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2150" class="fc-daygrid-day-number" aria-label="June 8, 2023">8</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-fri fc-day-past fc-day-other" data-date="2023-06-09" aria-labelledby="fc-dom-2152">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2152" class="fc-daygrid-day-number" aria-label="June 9, 2023">9</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td role="gridcell" class="fc-daygrid-day fc-day fc-day-sat fc-day-past fc-day-other" data-date="2023-06-10" aria-labelledby="fc-dom-2154">
+                                                                                                    <div class="fc-daygrid-day-frame fc-scrollgrid-sync-inner">
+                                                                                                        <div class="fc-daygrid-day-top"><a id="fc-dom-2154" class="fc-daygrid-day-number" aria-label="June 10, 2023">10</a></div>
+                                                                                                        <div class="fc-daygrid-day-events">
+                                                                                                            <div class="fc-daygrid-day-bottom" style="margin-top: 0px;"></div>
+                                                                                                        </div>
+                                                                                                        <div class="fc-daygrid-day-bg"></div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -365,6 +932,7 @@
                         </div>
                     </section>
                     <!-- aqui termina el section de movimientos  -->
+
 
 
 
@@ -420,41 +988,328 @@
                     </section> -->
                     <!-- fin del section de pendientes  -->
 
+                    <!-- aqui inicia la seccion de planeacion detalle -->
 
+                    <section class="content" v-if="aside.planeaciondetalle">
+                        <div class="card border border-success">
+
+                            <div class="card-header">
+                                <label class="cl-checkbox">
+                                    <input checked="" type="checkbox">
+                                    <span>
+                                        {{registro.actividadesregistradas.descripcion_actividad}}
+                                    </span>
+                                  </label>
+
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <label for="">Rancho:</label>
+                                            <h6>{{nombreRancho(registro.actividadesregistradas.descripcion_unidades_productivas)}}</h6>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="" type="button" class="btn btn-outline-warning btn">
+                                        <i class="far fa-edit "></i>
+                                    </button>
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Actividades:</label>
+                                            <h6>{{registro.actividadesregistradas.descripcion_actividad}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Unidades de costo:</label>
+                                            <h6>{{registro.actividadesregistradas.descripcion_unidades_de_costos}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Supervisor:</label>
+                                            <h6>{{registro.actividadesregistradas.descripcion_supervisor}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Fecha:</label>
+                                            <h6>{{registro.actividadesregistradas.fecha_progamada_maestro}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Hora:</label>
+                                            <h6>{{registro.actividadesregistradas.hora_de_captura}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Cantidad de trabajadores:</label>
+                                            <h6>{{registro.actividadesregistradas.cantidad_trabajadores}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Lote:</label>
+                                            <h6>{{registro.actividadesregistradas.lote}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Observaciones:</label>
+                                            <h6>{{registro.actividadesregistradas.observaciones}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border border-success">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <ul class="list-group pro">
+                                                <li class="list-group-item" v-for="(item, index) in registro.lista_trabajadores" :key="index">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            {{nombreTrabajador(item.cat_trabajadores_altas_id)}}
+                                                        </div>
+
+                                                        <div class="col-4">
+                                                            <center>
+                                                                <!--{{registro.maestro.lote}} -->
+                                                                <!-- TODO: -->
+                                                                {{item.cantidad}} {{item.unidad_de_medida}}
+                                                            </center>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <center>
+                                                                <button v-on:click="borrar_trabajador_lista(index)" type="button" class="btn btn-danger btn-sm">
+                                        <i class="fal fa-trash"></i>
+                                    </button>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div class="row mb-3 " style="margin-top: 33px; ">
+                                                <div class="col-12 ">
+                                                    <center>
+                                                        <button type="submit " @click=" menu('agregartrabajador', 'Registros');" class="btn btn-block btn-success btn-lg ">Agregar Trabajador</button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TODO:tabla para colocar los iconos -->
+
+                        <!-- <ul class="list-group pro">
+                            <li class="list-group-item" v-for="(item, index) in unidades" :key="index">
+                                <div class="row">
+                                    <div class="col-8">
+                                        {{nombreRancho(item.cat_holding_03_empresas_unidades_productivas_id)}}
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="" type="button" class="btn btn-danger btn-sm">
+                                        <i class="fal fa-trash"></i>
+                                    </button>
+                                        </center>
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="" type="button" class="btn btn-warning btn-sm">
+                                        <i class="fal fa-edit"></i>
+                                    </button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul> -->
+
+                        <div class="row mb-3 " style="margin-top: 33px; ">
+                            <div class="col-6 ">
+                                <center>
+                                    <button type="submit " class="btn btn-block btn-outline-secondary btn-lg ">Cancelar</button>
+                                </center>
+                            </div>
+                            <div class="col-6 ">
+                                <center>
+                                    <button type="submit " v-on:click="enviar()" class="btn btn-block btn-success btn-lg ">Guardar Cambios</button>
+                                </center>
+                            </div>
+                        </div>
+
+                        <div class="mt-10">
+                            <a href="#">Eliminar Actividad</a>
+                        </div>
+                    </section>
+
+                    <section class="content" v-if="aside.agregartrabajador">
+                        <div class="card border border-success">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Trabajadores</h5>
+                                <button type="button" class="close" v-on:click="cerrar_modal_trabajadores()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <div class="form-group">
+                                                <label for="trabajador">Nombre</label>
+                                                <input type="text" @change="selecciondeinput(4)" class="form-control form-control" placeholder="" v-model="nombre_trabajador" id="trabajadores" autocomplete="off" />
+                                                <span>
+                                                    <ul class="list-group">
+                                                        <li v-for="(item, index) in list_trabajadores" :key="index"
+                                                            class="list-group-item" @click="seleccionar_trabajador(item, 4)">
+                                                            {{ item.nombre}}
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                                <label for="trabajadores" style="display:none" id="labelerror5">Por favor, selecciona una opción de la lista</label>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-5">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Cantidad</label>
+                                            <input type="number" class="form-control form-control-sm" placeholder="" v-model="trabajador.cantidad" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+                                    <div class="col-5">
+                                        <form onsubmit="event.preventDefault();" role="form">
+                                            <label for="solicitante">Unidad de medida</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="" v-model="trabajador.unidad_de_medida" id="n_t" autocomplete="off" />
+                                        </form>
+                                    </div>
+                                    <div class="col-2">
+                                        <center>
+                                            <button v-on:click="agregar_trabajador_lista()" type="button" class="btn btn-success btn-sm btn-marg">
+
+                                                <i class="fal fa-plus"></i>
+                                            </button>
+                                        </center>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="list-group pro">
+                                            <li class="list-group-item" v-for="(item, index) in this.registro.trabajadores" :key="index">
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        {{item.nombre}}
+                                                    </div>
+                                                    <div class="col-5">
+                                                        {{item.cantidad}} {{item.unidad_de_medida}}
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <center>
+                                                            <button v-on:click="borrar_trabajador_lista(index)" type="button" class="btn btn-danger btn-sm">
+                                                                <i class="fal fa-trash"></i>
+                                                            </button>
+                                                        </center>
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button v-on:click="guardar_trabajadores()" type="button" class="btn btn-success btn-sm btn-block">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </section>
+
+
+
+                    </div>
+
+                    <footer class="main-footer">
+                        <div class="float-right ">
+                            <b>Version</b> {{version}}
+                        </div>
+                        <strong>Copyright &copy; 2020-2022 </strong> All rights reserved.
+                    </footer>
+
+
+
+                    <aside class="control-sidebar control-sidebar-dark"></aside>
 
                 </div>
 
-                <footer class="main-footer">
-                    <div class="float-right ">
-                        <b>Version</b> {{version}}
-                    </div>
-                    <strong>Copyright &copy; 2020-2022 </strong> All rights reserved.
-                </footer>
 
-
-
-                <aside class="control-sidebar control-sidebar-dark"></aside>
 
             </div>
 
-
-
         </div>
 
-    </div>
 
 
 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="./controladores/funciones.js"></script>
-    <script src="./controladores/session.js"></script>
-    <script src="./controladores/planeacion.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+        <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="./dashboardsJS/bootstrap-multiselect.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="./dashboardsJS/popper.js"></script>
+        <script src="./dashboardsJS/bootstrap.min.js"></script>
+        <script src="./dashboardsJS/bootstrap-multiselect.js"></script>
+        <script src="./controladores/funciones.js"></script>
+        <script src="./controladores/session.js"></script>
+        <script src="./controladores/planeacion.js"></script>
+        <script src="./dashboardsJS/main.js"></script>
 
 </body>
 

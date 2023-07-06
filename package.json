@@ -14,7 +14,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.2.8",
     "@floating-ui/vue": "^1.0.0",
-    "@popperjs/core": "^2.11.7",
+    "@popperjs/core": "^2.11.8",
     "bootstrap-select": "^1.13.18",
     "chart.js": "^4.3.0",
     "cors": "^2.8.5",

@@ -32,6 +32,9 @@ createApp({
                 registros2: true,
                 AgregarProductos: false,
                 NuevaReceta: false,
+                bitacora: false,
+                planeaciondetalle: false,
+                agregartrabajador: false,
 
             },
             cajas: [],
@@ -39,11 +42,13 @@ createApp({
             documentos: [],
             unidades: [],
             actividades: [],
+            lotes: [],
+            trabajadores: [],
 
             registro: {
                 maestro: {
                     UUID: "",
-                    fecha_de_captura: "",
+                    fecha_progamada_maestro: "",
                     descripcion_unidades_productivas: "",
                     descripcion_unidades_de_costos: "",
                     descripcion_actividad: "",
@@ -51,12 +56,16 @@ createApp({
                     hora_de_captura: "",
                     cantidad_trabajadores: "",
                     observaciones: "",
+                    lote: "",
+
 
                 },
+                actividadesregistradas: [],
                 lista_trabajadores: [],
                 trabajadores: [],
                 productos: [],
                 actividades: [],
+                supervisores: [],
             },
             producto: {
                 UUID: "",
@@ -65,8 +74,15 @@ createApp({
                 cat_compras_productos_unidad_de_medida_mu_id: "",
                 capturista: localStorage.getItem("ses_usuario")
             },
-            //TODO
             trabajador: {
+                UUID: "",
+                nombre: "",
+                cat_trabajadores_altas_id: "",
+                cat_holding_04_unidades_productivas_lotes_id: "",
+                cantidad: "",
+                unidad_de_medida: "",
+            },
+            supervisor: {
                 UUID: "",
                 nombre: "",
                 cat_trabajadores_altas_id: "",
@@ -79,8 +95,10 @@ createApp({
                 UUID: "",
                 cat_actividades_id: "",
             },
-            nombre_supervisor: "",
+            cat_trabajadores_altas_id_supervisor: "",
+            cat_trabajadores_altas_id: "",
             nombre_trabajador: "",
+            nombre_supervisor: "",
             nombre_lote: "",
             nombre_producto: "",
             nombre_actividad: "",
@@ -142,6 +160,9 @@ createApp({
                 registros2: false,
                 AgregarProductos: false,
                 NuevaReceta: false,
+                bitacora: false,
+                planeaciondetalle: false,
+                agregartrabajador: false,
             };
 
             this.aside[puntero] = true;
@@ -166,6 +187,7 @@ createApp({
                 this.active_menu_pendientes = "text-secondary";
                 this.active_menu_regs = "text-success";
                 this.menu_superior = true;
+
             }
 
         },
@@ -198,6 +220,19 @@ createApp({
 
         enviar() {
             console.log(this.registro.maestro);
+            this.registro.actividadesregistradas.push(this.registro.maestro);
+            this.registro.maestro = {
+                UUID: "",
+                fecha_progamada_maestro: "",
+                descripcion_unidades_productivas: "",
+                descripcion_unidades_de_costos: "",
+                descripcion_actividad: "",
+                descripcion_supervisor: "",
+                hora_de_captura: "",
+                cantidad_trabajadores: "",
+                observaciones: "",
+                lote: "",
+            }
         },
 
         abrir_modal_pendientes() {
@@ -235,6 +270,9 @@ createApp({
             this.actividad.UUID = this.registro.maestro.UUID;
 
         },
+        ejemplo() {
+            console.log("Este es un texto de ejemplo");
+        },
         // seleccionar_producto_receta(item) {
         //     this.nombre_producto = item.producto;
         //     this.producto.cat_compras_productos_id = item.cat_compras_productos_id;
@@ -265,7 +303,12 @@ createApp({
                 this.aside.registros2 = mostrar;
             });
         },
+        borrar_trabajador_lista(index) {
 
+            this.registro.trabajadores.splice(index, 1);
+            this.registro.lista_trabajadores = this.registro.trabajadores.filter((item, index, self) => self.findIndex((i) => i.cat_trabajadores_altas_id === item.cat_trabajadores_altas_id) === index);
+
+        },
         nombreRancho(nombre) {
             var nRancho = "";
             this.unidades.forEach((element) => {
@@ -275,6 +318,15 @@ createApp({
             });
             return nRancho;
         },
+        nombreTrabajador(nombre) {
+            var nTrabajador = "";
+            this.trabajadores.forEach((element) => {
+                if (nombre == element.cat_trabajadores_altas_id) {
+                    nTrabajador = element.nombre;
+                }
+            });
+            return nTrabajador;
+        },
         seleccionar_actividad(item) {
             this.nombre_actividad = item.actividad;
             this.actividad.cat_actividades_id = item.cat_actividades_id;
@@ -282,9 +334,68 @@ createApp({
 
         },
         seleccionar_supervisor(item) { // TODO
-            this.nombre_supervisor = item.nombre;
+            this.cat_trabajadores_altas_id_supervisor = item.nombre;
+            this.supervisor.cat_trabajadores_altas_id = item.cat_trabajadores_altas_id;
+            this.supervisor.UUID = this.registro.maestro.UUID;
+
+        },
+        seleccionar_trabajador(item) { // TODO
+            this.nombre_trabajador = item.nombre;
+            this.trabajador.nombre = item.nombre_trabajador;
             this.trabajador.cat_trabajadores_altas_id = item.cat_trabajadores_altas_id;
             this.trabajador.UUID = this.registro.maestro.UUID;
+
+        },
+        agregar_trabajador_lista() {
+
+            console.log(this.trabajador);
+            if (
+                this.trabajador.cantidad != "" &&
+                this.trabajador.nombre != "" &&
+                this.trabajador.unidad_de_medida != ""
+
+
+            ) {
+
+
+                this.trabajador.UUID = this.registro.maestro.UUID;
+                this.registro.trabajadores.push(this.trabajador);
+                this.nombre_trabajador = "";
+
+                this.trabajador = {
+                    UUID: this.registro.maestro.UUID,
+                    nombre: "",
+                    cat_trabajadores_altas_id: "",
+                    cat_holding_04_unidades_productivas_lotes_id: "",
+                    cantidad: "",
+                    unidad_de_medida: "",
+                }
+
+                this.registro.lista_trabajadores = this.registro.trabajadores.filter((item, index, self) => self.findIndex((i) => i.cat_trabajadores_altas_id === item.cat_trabajadores_altas_id) === index);
+                console.log("Accedio al agregar trabajador lista");
+            } else {
+
+                Toast.fire({
+                    icon: "error",
+                    title: "faltan datos",
+                });
+            }
+        },
+        // TODO:
+        guardar_trabajadores() {
+
+            this.registro.lista_trabajadores = this.registro.trabajadores.filter((item, index, self) => self.findIndex((i) => i.cat_trabajadores_altas_id === item.cat_trabajadores_altas_id) === index);
+            this.nombre_trabajador = "";
+            this.trabajador = {
+                UUID: this.registro.maestro.UUID,
+                nombre: "",
+                cat_trabajadores_altas_id: "",
+                cat_holding_04_unidades_productivas_lotes_id: "",
+                cantidad: "",
+                unidad_de_medida: "",
+            }
+            console.log("Accedio al guardar trabajadores");
+            this.menu('planeaciondetalle', 'Registros');
 
         },
         // seleccionar_producto(item) {
@@ -335,6 +446,7 @@ createApp({
         selecciondeinput(item) {
             var input2 = document.getElementById("actividades");
             var input3 = document.getElementById("supervisor");
+            var input4 = document.getElementById("trabajadores");
 
             switch (item) {
                 case 2:
@@ -354,7 +466,7 @@ createApp({
                     break;
                 case 3: //TODO
                     {
-                        if (this.nombre_supervisor != this.trabajador.nombre) {
+                        if (this.cat_trabajadores_altas_id_supervisor != this.supervisor.nombre) {
 
                             input3.className += "form-control is-invalid";
                             document.getElementById("labelerror4").style.display = "initial";
@@ -364,6 +476,21 @@ createApp({
 
                             input3.className += "form-control is-valid";
                             document.getElementById("labelerror4").style.display = "none";
+                        }
+                    }
+                    break;
+                case 4: //TODO
+                    {
+                        if (this.nombre_trabajador != this.trabajador.nombre) {
+
+                            input4.className += "form-control is-invalid";
+                            document.getElementById("labelerror5").style.display = "initial";
+                            document.getElementById("labelerror5").style.color = "red";
+
+                        } else {
+
+                            input4.className += "form-control is-valid";
+                            document.getElementById("labelerror5").style.display = "none";
                         }
                     }
                     break;
@@ -406,11 +533,19 @@ createApp({
 
         }, //TODO
         seleccionar_supervisor(item, numero) {
-            this.nombre_supervisor = item.nombre;
-            this.trabajador.nombre = this.nombre_supervisor;
+            this.cat_trabajadores_altas_id_supervisor = item.nombre;
+            this.supervisor.nombre = this.cat_trabajadores_altas_id_supervisor;
+            this.supervisor.cat_trabajadores_altas_id = item.cat_trabajadores_altas_id;
+            this.supervisor.UUID = this.registro.maestro.UUID;
+            this.registro.maestro.descripcion_supervisor = item.nombre;
+            this.selecciondeinput(numero);
+
+        },
+        seleccionar_trabajador(item, numero) {
+            this.nombre_trabajador = item.nombre;
+            this.trabajador.nombre = this.nombre_trabajador;
             this.trabajador.cat_trabajadores_altas_id = item.cat_trabajadores_altas_id;
             this.trabajador.UUID = this.registro.maestro.UUID;
-            this.registro.maestro.descripcion_supervisor = item.nombre;
             this.selecciondeinput(numero);
 
         },
@@ -437,6 +572,29 @@ createApp({
             // this.refresch_table();
 
         },
+        cerrar_modal_trabajadores() {
+            this.menu('registros', 'Registros');
+            this.nombre_trabajador = "";
+            this.trabajador = {
+                UUID: this.registro.maestro.UUID,
+                nombre: "",
+                cat_trabajadores_altas_id: "",
+                cat_holding_04_unidades_productivas_lotes_id: "",
+                cantidad: "",
+                unidad_de_medida: "",
+            }
+
+            this.registros_trabajadores = [];
+        },
+        nombreRancho(nombre) {
+            var nRancho = "";
+            this.unidades.forEach((element) => {
+                if (nombre == element.cat_holding_03_empresas_unidades_productivas_id) {
+                    nRancho = element.UP;
+                }
+            });
+            return nRancho;
+        },
     },
     computed: {
         list_actividad() {
@@ -454,15 +612,30 @@ createApp({
             });
             return prod;
         },
+        list_supervisores() {
+            var trb = [];
+
+            this.trabajadores.forEach((trabajador) => {
+                let t = trabajador.nombre.toUpperCase();
+                if (
+                    t.includes(this.cat_trabajadores_altas_id_supervisor.toUpperCase()) &&
+                    this.cat_trabajadores_altas_id_supervisor != "" &&
+                    this.cat_trabajadores_altas_id_supervisor.toUpperCase() != t
+                ) {
+                    trb.push(trabajador);
+                }
+            });
+            return trb;
+        },
         list_trabajadores() {
             var trb = [];
 
             this.trabajadores.forEach((trabajador) => {
                 let t = trabajador.nombre.toUpperCase();
                 if (
-                    t.includes(this.nombre_supervisor.toUpperCase()) &&
-                    this.nombre_supervisor != "" &&
-                    this.nombre_supervisor.toUpperCase() != t
+                    t.includes(this.nombre_trabajador.toUpperCase()) &&
+                    this.nombre_trabajador != "" &&
+                    this.nombre_trabajador.toUpperCase() != t
                 ) {
                     trb.push(trabajador);
                 }
