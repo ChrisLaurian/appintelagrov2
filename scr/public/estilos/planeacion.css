@@ -78,6 +78,9 @@
     /*el grid ayuda a seccionar el codigo como flexbox solo que a diferencia de flexbox este permite acomodarlo tanto en vertical como en horizontal*/
 }
 
+
+/* multiselecto */
+
 .multiselect-container {
     position: absolute;
     list-style-type: none;
@@ -389,3 +392,29 @@
 
 
 /* aqui termina la seccion del radio check */
+
+
+/* aqui inicia el multiselect */
+
+
+/* 
+    .multiselect-container {
+      border: 1px solid #ced4da;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .multiselect-container li a label {
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+
+    .multiselect-container li a:hover label {
+      color: #007bff;
+    }
+
+    .multiselect-container li.multiselect-group label {
+      margin-bottom: 0;
+      font-weight: bold;
+      color: #212529;
+    } */

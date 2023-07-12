@@ -26,7 +26,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
@@ -303,18 +303,16 @@
 
                         <div class="card border border-success">
                             <div class="card-body">
-                                <!-- <div class="row">
+                                <div class="row">
                                     <div class="col-12">
                                         <h5>Área a trabajar</h5>
-                                        TODO: HACER EL MULTISELECT CON BUSCADOR
+                                        <!-- TODO: HACER EL MULTISELECT CON BUSCADOR -->
                                     </div>
 
-                                </div> -->
+                                </div>
 
                                 <!-- <div class="servicio separacionderecha">
                                     <h6 class="semibold tamaño3" for="Lote">Lote</h6>
-
-                                    id = multiple-checkboxes
                                     <select class="multi_select" v-model="registro.maestro.lote" name="lote" id="multiple-checkboxes" multiple="multiple">
                                         <option v-for="(item,index) in lotes" :key="index"
                                                             v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id">
@@ -322,7 +320,31 @@
                                                         </option>
                                     </select>
                                 </div> -->
-                                <select name="countries" id="countries" multiple>
+                                <h6 class="semibold tamaño3" for="Lote">Lote</h6>
+                                <div class="container mt-4">
+                                    <select v-on:change="textoejemplo()" id="multiselect" v-model="registro.lotes" multiple="multiple" class="form-control">
+                                        <option v-on:click="textoejemplo()" v-for="(item,index) in lotes" :key="index"
+                                        v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id">
+                                        {{ item.lote }}
+                                    </option>
+                                    </select>
+                                    <p>Seleccionado(s): {{ registro.lotes }}</p>
+                                </div>
+
+                                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/js/bootstrap-multiselect.min.js"></script>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#multiselect').multiselect({
+                                            enableFiltering: true,
+                                            enableCaseInsensitiveFiltering: true,
+                                            buttonWidth: '100%',
+                                            maxHeight: 200
+                                        });
+                                    });
+                                </script>
+                                <!-- <select name="countries" id="countries" multiple>
                                     <option value="1">Afghanistan</option>
                                     <option value="2">Australia</option>
                                     <option value="3">Germany</option>
@@ -331,7 +353,7 @@
                                 </select>
                                 <script>
                                     new MultiSelectTag('countries') // id
-                                </script>
+                                </script> -->
 
                             </div>
                         </div>
@@ -412,7 +434,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr v-for="(item, index) in registro.actividadesregistradas" :key="index">
-                                                        <td @click=" menu('planeaciondetalle', 'Registros');" style="color: cornflowerblue;"> {{ item.descripcion_actividad}}</a>
+                                                        <td v-on:click="verdetalle(item, index, false)"> <u style="color: blue;"> {{ item.descripcion_actividad}}</u>
                                                         </td>
                                                         <td>{{ item.fecha_progamada_maestro}}</td>
                                                         <td>
@@ -429,6 +451,13 @@
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button @click="menu('registros', 'Registros')" type="button" class="btn btn-success btn-sm btn-block">
+                                        Agregar nueva planeacion
+                                    </button>
                                 </div>
                             </div>
                     </section>
@@ -997,7 +1026,7 @@
                                 <label class="cl-checkbox">
                                     <input checked="" type="checkbox">
                                     <span>
-                                        {{registro.actividadesregistradas.descripcion_actividad}}
+                                        {{registro.maestro.descripcion_actividad}}
                                     </span>
                                   </label>
 
@@ -1008,13 +1037,13 @@
                                     <div class="col-10">
                                         <div class="form-group">
                                             <label for="">Rancho:</label>
-                                            <h6>{{nombreRancho(registro.actividadesregistradas.descripcion_unidades_productivas)}}</h6>
+                                            <h6>{{nombreRancho(registro.maestro.descripcion_unidades_productivas)}}</h6>
                                         </div>
 
                                     </div>
                                     <div class="col-2">
                                         <center>
-                                            <button v-on:click="" type="button" class="btn btn-outline-warning btn">
+                                            <button @click="menu('registros', 'Registros')" type="button" class="btn btn-outline-warning btn">
                                         <i class="far fa-edit "></i>
                                     </button>
                                         </center>
@@ -1024,7 +1053,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Actividades:</label>
-                                            <h6>{{registro.actividadesregistradas.descripcion_actividad}}</h6>
+                                            <h6>{{this.registro.maestro.descripcion_actividad}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1032,7 +1061,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Unidades de costo:</label>
-                                            <h6>{{registro.actividadesregistradas.descripcion_unidades_de_costos}}</h6>
+                                            <h6>{{registro.maestro.descripcion_unidades_de_costos}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1040,7 +1069,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Supervisor:</label>
-                                            <h6>{{registro.actividadesregistradas.descripcion_supervisor}}</h6>
+                                            <h6>{{registro.maestro.descripcion_supervisor}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1048,7 +1077,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Fecha:</label>
-                                            <h6>{{registro.actividadesregistradas.fecha_progamada_maestro}}</h6>
+                                            <h6>{{registro.maestro.fecha_progamada_maestro}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1056,7 +1085,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Hora:</label>
-                                            <h6>{{registro.actividadesregistradas.hora_de_captura}}</h6>
+                                            <h6>{{registro.maestro.hora_de_captura}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1064,7 +1093,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Cantidad de trabajadores:</label>
-                                            <h6>{{registro.actividadesregistradas.cantidad_trabajadores}}</h6>
+                                            <h6>{{registro.maestro.cantidad_trabajadores}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1072,7 +1101,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Lote:</label>
-                                            <h6>{{registro.actividadesregistradas.lote}}</h6>
+                                            <h6>{{registro.maestro.lote}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1080,7 +1109,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="">Observaciones:</label>
-                                            <h6>{{registro.actividadesregistradas.observaciones}}</h6>
+                                            <h6>{{registro.maestro.observaciones}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1163,13 +1192,14 @@
                             </div>
                             <div class="col-6 ">
                                 <center>
-                                    <button type="submit " v-on:click="enviar()" class="btn btn-block btn-success btn-lg ">Guardar Cambios</button>
+                                    <!-- TODO: -->
+                                    <button type="submit " v-on:click="guardarcambiosplaneacion()" class="btn btn-block btn-success btn-lg ">Guardar Cambios</button>
                                 </center>
                             </div>
                         </div>
 
                         <div class="mt-10">
-                            <a href="#">Eliminar Actividad</a>
+                            <u v-on:click="verdetalle(item, index, true)" style="color: blue;"> Eliminar actividad</u>
                         </div>
                     </section>
 
