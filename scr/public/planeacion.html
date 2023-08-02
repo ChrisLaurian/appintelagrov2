@@ -23,12 +23,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/js/bootstrap-multiselect.min.js"></script>
 
 
 
@@ -323,7 +325,7 @@
                                 <h6 class="semibold tamaño3" for="Lote">Lote</h6>
                                 <div class="container mt-4">
                                     <select v-on:change="textoejemplo()" id="multiselect" v-model="registro.lotes" multiple="multiple" class="form-control">
-                                        <option v-on:click="textoejemplo()" v-for="(item,index) in lotes" :key="index"
+                                        <option v-for="(item,index) in lotes" :key="index"
                                         v-bind:value="item.cat_holding_04_unidades_productivas_lotes_id">
                                         {{ item.lote }}
                                     </option>
@@ -331,10 +333,8 @@
                                     <p>Seleccionado(s): {{ registro.lotes }}</p>
                                 </div>
 
-                                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/js/bootstrap-multiselect.min.js"></script>
-                                <script>
+
+                                <!-- <script>
                                     $(document).ready(function() {
                                         $('#multiselect').multiselect({
                                             enableFiltering: true,
@@ -343,7 +343,23 @@
                                             maxHeight: 200
                                         });
                                     });
-                                </script>
+                                </script> -->
+                                <!-- <script>
+                                    new Vue({
+                                        el: '#app',
+                                        data: {
+                                            selectedOptions: [] // Array para almacenar las opciones seleccionadas
+                                        },
+                                        mounted() {
+                                            $('#multiselect').multiselect({
+                                                enableFiltering: true,
+                                                enableCaseInsensitiveFiltering: true,
+                                                buttonWidth: '100%',
+                                                maxHeight: 200
+                                            });
+                                        }
+                                    });
+                                </script> -->
                                 <!-- <select name="countries" id="countries" multiple>
                                     <option value="1">Afghanistan</option>
                                     <option value="2">Australia</option>
@@ -1333,7 +1349,6 @@
         <script src="https://intelagro.net/intelagro/adminlite/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
         <script src="./dashboardsJS/bootstrap-multiselect.js"></script>
         <script src="js/jquery.min.js"></script>
-        <script src="./dashboardsJS/popper.js"></script>
         <script src="./dashboardsJS/bootstrap.min.js"></script>
         <script src="./dashboardsJS/bootstrap-multiselect.js"></script>
         <script src="./controladores/funciones.js"></script>

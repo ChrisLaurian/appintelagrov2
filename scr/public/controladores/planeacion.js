@@ -310,6 +310,7 @@ createApp({
 
         },
 
+
         abrir_modal_pendientes() {
 
 
@@ -365,6 +366,7 @@ createApp({
             }
 
         },
+
         // TODO:
         textoejemplo() {
             console.log("este es un texto de ejemplo");
@@ -732,6 +734,14 @@ createApp({
             });
             return prod;
         },
+        // function() {
+        //     $('#multiselect').multiselect({
+        //         enableFiltering: true,
+        //         enableCaseInsensitiveFiltering: true,
+        //         buttonWidth: '100%',
+        //         maxHeight: 200
+        //     });
+        // },
         list_supervisores() {
             var trb = [];
 
@@ -783,6 +793,15 @@ createApp({
         this.version = version();
         this.mountdata();
 
+        $('#multiselect').multiselect({
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '100%',
+            maxHeight: 200,
+            onChange: (option, checked) => {
+                this.registro.lotes = $('#multiselect').val();
+            }
+        });
 
     },
     created() {},
