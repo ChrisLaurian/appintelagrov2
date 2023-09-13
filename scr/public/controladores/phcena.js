@@ -17,6 +17,7 @@ createApp({
             modulo: "Registros",
             titulo: "Registros",
             nombre: "",
+            cantidad: 0,
             aside: {
                 registros: true,
                 pendientes: false,
